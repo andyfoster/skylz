@@ -57,6 +57,16 @@ class DomainsController < ApplicationController
     end
   end
 
+  def set_current
+    c = current_user
+    # c.current_domain = 1
+    c.update_attribute(:current_domain, params[:id])
+    # c.update_attribute :current_domain, 1
+    c.save
+
+    redirect_to root_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_domain
@@ -65,6 +75,6 @@ class DomainsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def domain_params
-      params.require(:domain).permit(:user_id)
+      params.require(:domain).permit(:user_id, :name)
     end
 end

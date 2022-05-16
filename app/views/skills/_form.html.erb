@@ -18,10 +18,16 @@
   <%= form.text_area :notes %><br />
   <br />
   <%= form.label :tags %><br />
-  <%= form.text_field :tags %><br />
+  <%= form.text_field :tags, placeholder: "separate, tags with, commas" %>
+  <br />
+  <br />
+  <%= form.label :domain_id %><br />
+  <%= form.select :domain_id, Domain.all.collect {|d| [ d.name, d.id ] }, :selected => @domain.id %>
+  <br>
+
 
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-lg mt-5 py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

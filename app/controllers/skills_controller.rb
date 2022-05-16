@@ -4,18 +4,18 @@ class SkillsController < ApplicationController
 
   # GET /skills or /skills.json
   def index
-    # @skills = Skill.find_by(user_id: current_user.id)
-    @skills = current_user.skills
+    @domain = Domain.find(current_user.current_domain)
+    @skills = current_user.skills.where(domain_id: @domain.id)
   end
 
   # GET /skills/1 or /skills/1.json
   def show
     @skill = current_user.skills.find(params[:id])
-    
   end
 
   # GET /skills/new
   def new
+    @domain = Domain.find(current_user.current_domain)
     @skill = Skill.new
     # @skill = current_user.skills.build
   end
@@ -72,6 +72,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :category, :user_id)
+      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :category, :user_id, :domain_id)
     end
 end

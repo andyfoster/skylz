@@ -1,12 +1,15 @@
 <div id="<%= dom_id domain %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= domain.user_id %>
+
+  <p class="my-5 inline-block">
+    <%= domain.name %>
   </p>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this domain", domain, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this domain', edit_domain_path(domain), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this domain', edit_domain_path(domain), class: "rounded-lg py-3 ml-2 px-5 text-blue-600 inline-block font-medium float-right" %>
+    <% if current_user.current_domain != domain.id %>
+      <%= link_to 'Set current domain', set_domain_path(domain.id), class: "rounded-lg py-3 ml-2 px-5 bg-indigo-900 text-white inline-block font-medium float-right" %>
+    <% end %>
+
     <hr class="mt-6">
   <% end %>
 </div>
