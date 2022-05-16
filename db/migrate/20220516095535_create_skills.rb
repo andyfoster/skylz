@@ -6,6 +6,7 @@ class CreateSkills < ActiveRecord::Migration[7.0]
       t.string :media
       t.string :tags
       t.string :category
+      t.references :user, foreign_key: true, null: false
 
       t.timestamps
     end

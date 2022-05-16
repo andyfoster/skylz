@@ -1,27 +1,34 @@
 class SkillsController < ApplicationController
   before_action :set_skill, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /skills or /skills.json
   def index
-    @skills = Skill.all
+    # @skills = Skill.find_by(user_id: current_user.id)
+    @skills = current_user.skills
   end
 
   # GET /skills/1 or /skills/1.json
   def show
+    @skill = current_user.skills.find(params[:id])
+    
   end
 
   # GET /skills/new
   def new
     @skill = Skill.new
+    # @skill = current_user.skills.build
   end
 
   # GET /skills/1/edit
   def edit
+    @skill = current_user.skills.find(params[:id])
   end
 
   # POST /skills or /skills.json
   def create
-    @skill = Skill.new(skill_params)
+    # @skill = Skill.new(skill_params)
+    @skill = @skill = current_user.skills.build(skill_params)
 
     respond_to do |format|
       if @skill.save
@@ -65,6 +72,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :category)
+      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :category, :user_id)
     end
 end
