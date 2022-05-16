@@ -1,0 +1,63 @@
+<div id="<%= dom_id skill %>">
+  <% if action_name != "show" %>
+  <%= link_to skill.name, skill, class: "text-xl py-3 inline-block" %>
+  <span class="inline-block text-neutral-700"><%=  rand(2..30) %> days ago</span>
+  <div>
+    <span class="inline-block text-neutral-700">Current Skill Level:</span>
+    <span>
+      <% 
+        randomNum = rand(1..10)  
+        if randomNum <= 5
+          %>
+          <span class="bg-red-200 rounded p-2"><%= randomNum %></span>
+          <%
+        else
+          %>
+          <span class=""><%= randomNum %></span>
+          <%
+        end
+  
+      %>
+    </span>
+  </div>
+  <div class="">
+    <% skill.tags.split(", ").each do |tag| %>
+      <span class="bg-blue-100 text-blue-800 text-xs font-semibold 
+      mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 
+      dark:text-blue-800 ml-3"><%= tag %></span>    
+    <% end %>
+  </div>
+  <hr class="mt-6">
+  <% else %>
+  <h1 class="text-6xl font-bold py-3 text-center"><%= skill.name %></h1>
+  <div>Last practiced: <%=  rand(2..30) %> days ago</div>
+  <div><strong>Stats:</strong> Rolls 20x, Competition: 3x, Drills: 54x</div>
+
+  <a href="#" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Marked as practiced today</a>
+
+  <div>
+    <h2 class="font-bold text-xl">Log A Session</h2>
+    <a href="#">hide</a><br><br>
+    <input type="datetime-local" id="meeting-time" name="meeting-time" value="2022-05-11T15:30">
+    <br>
+    <textarea name="" id="" cols="30" rows="10" placeholder="Type some notes here"></textarea><br>
+
+    <select name="" id="">
+      <option value="">Solo Training</option>
+      <option value="">Drills</option>
+      <option value="">Competition</option>
+    </select>
+    <br>
+    My Skill Rating:
+    <div class="slidecontainer">
+
+      <input type="range" min="1" max="10" value="50" class="slider" id="myRange">
+      <span id="sliderValue"></span>
+
+    </div>
+    <br>
+    <button>Save</button>
+  </div>
+
+  <% end %>
+</div>
