@@ -32,7 +32,7 @@ class SkillsController < ApplicationController
 
     respond_to do |format|
       if @skill.save
-        format.html { redirect_to skill_url(@skill), notice: "Skill was successfully created." }
+        format.html { redirect_to skill_url(@skill)}
         format.json { render :show, status: :created, location: @skill }
       else
         format.html { render :new, status: :unprocessable_entity }
