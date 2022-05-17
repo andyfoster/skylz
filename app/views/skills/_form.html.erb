@@ -11,18 +11,18 @@
     </div>
   <% end %>
 
-  <%= form.label :name %><br />
-  <%= form.text_field :name %><br />
+  <%= form.label :name, class: "dark:text-slate-400"%><br />
+  <%= form.text_field :name, class: "dark:bg-slate-800 dark:text-slate-400 dark:focus:ring-stone-50" %><br />
   <br />
-  <%= form.label :notes %><br />
-  <%= form.text_area :notes %><br />
+  <%= form.label :notes, class: "dark:text-slate-400" %><br />
+  <%= form.text_area :notes, class: "dark:bg-slate-800 dark:text-slate-400" %><br />
   <br />
-  <%= form.label :tags %><br />
-  <%= form.text_field :tags, placeholder: "separate, tags with, commas" %>
+  <%= form.label :tags, class: "dark:text-slate-400" %><br />
+  <%= form.text_field :tags, placeholder: "separate, tags with, commas", class: "dark:bg-slate-800 dark:text-slate-400" %>
   <br />
   <br />
-  <%= form.label :domain_id %><br />
-  <%= form.select :domain_id, Domain.all.collect {|d| [ d.name, d.id ] }, :selected => @domain.id %>
+  <%= form.label :domain_id, class: "dark:text-slate-400" %><br />
+  <%= form.select :domain_id, Domain.all.collect {|d| [ d.name, d.id ] }, :selected => @domain.id, class: "dark:bg-slate-800 dark:text-slate-400" %>
   <br>
 
 

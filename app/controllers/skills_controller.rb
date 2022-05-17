@@ -64,6 +64,10 @@ class SkillsController < ApplicationController
     end
   end
 
+  # get /s/medical
+  def tag_search
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_skill
