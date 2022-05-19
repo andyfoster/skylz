@@ -14,9 +14,10 @@
                 </div>
 
                 <div class="flex items-center justify-between mt-4">
-                    <%# <a href="#" class="text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500">Forget Password?</a> %>
+                  <%= link_to 'Forget Password?', new_user_password_path, class: "text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500" %>
 
-                    <%= f.submit "Log in", class: "px-4 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none" %>
+                  <%= f.submit "Log in", class: "px-4 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none" %>
+                    
                 </div>
             </form>
         </div>
@@ -24,10 +25,9 @@
         <div class="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700">
             <span class="text-sm text-gray-600 dark:text-gray-200">Don't have an account? </span>
 
-            <a href="#" class="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline">Register</a>
+            <%= link_to 'Register', new_user_registration_path, class: "mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline" %>
         </div>
     </div>
-
 
     <% if devise_mapping.rememberable? %>
       <div class="hidden">
@@ -37,5 +37,3 @@
     <% end %>
 
 <% end %>
-
-<%= render "devise/shared/links" %>
