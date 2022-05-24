@@ -25,7 +25,7 @@ class DomainsController < ApplicationController
 
     respond_to do |format|
       if @domain.save
-        format.html { redirect_to domain_url(@domain), notice: "Domain was successfully created." }
+        format.html { redirect_to domains_path, notice: "Domain was successfully created." }
         format.json { render :show, status: :created, location: @domain }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class DomainsController < ApplicationController
   def update
     respond_to do |format|
       if @domain.update(domain_params)
-        format.html { redirect_to domain_url(@domain), notice: "Domain was successfully updated." }
+        format.html { redirect_to domains_path, notice: "Domain was successfully updated." }
         format.json { render :show, status: :ok, location: @domain }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -75,6 +75,6 @@ class DomainsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def domain_params
-      params.require(:domain).permit(:user_id, :name)
+      params.require(:domain).permit(:name).merge({user_id: current_user.id})
     end
 end

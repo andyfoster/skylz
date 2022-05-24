@@ -11,6 +11,7 @@ class SkillsController < ApplicationController
   # GET /skills/1 or /skills/1.json
   def show
     @skill = current_user.skills.find(params[:id])
+    # TODO: where(is_deleted: false)
   end
 
   # GET /skills/new
@@ -57,6 +58,7 @@ class SkillsController < ApplicationController
   # DELETE /skills/1 or /skills/1.json
   def destroy
     @skill.destroy
+    # TODO - update is_deleted to true
 
     respond_to do |format|
       format.html { redirect_to skills_url, notice: "Skill was successfully destroyed." }
@@ -76,6 +78,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :category, :user_id, :domain_id)
+      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :category, :domain_id).merge(user_id: current_user.id)
     end
 end
