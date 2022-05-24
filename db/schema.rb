@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_16_125927) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_23_045928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.bigint "skill_id", null: false
+    t.string "activity_type"
+    t.date "date"
+    t.integer "rating"
+    t.string "tags"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skill_id"], name: "index_activities_on_skill_id"
+    t.index ["user_id"], name: "index_activities_on_user_id"
+  end
 
   create_table "domains", force: :cascade do |t|
     t.string "name"
@@ -51,6 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_16_125927) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "activities", "skills"
+  add_foreign_key "activities", "users"
   add_foreign_key "domains", "users"
   add_foreign_key "skills", "domains"
   add_foreign_key "skills", "users"

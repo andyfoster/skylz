@@ -1,7 +1,7 @@
 <div id="<%= dom_id skill%>" class="">
 <% if action_name != "show" %>
-    <div class="lg:flex items-center justify-center w-full">
-    <div class="w-full h-2 md:hidden bg-green-700"></div>
+    <div class="flex items-center justify-center w-full">
+      <div class="w-full h-2 md:hidden bg-green-700"></div>
 
       <div tabindex="0" aria-label="card 1"
         class="focus:outline-none mb-7 bg-white p-6 shadow rounded">
@@ -10,10 +10,10 @@
           <div class="flex items-start justify-between w-full">
             <div class="pl-3 w-full">
               <%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800" %>
-              <p tabindex="0" class="focus:outline-none text-sm leading-normal pt-2 text-gray-500"><%=  rand(2..30) %>
-                days ago</p>
-              <p tabindex="0" class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">Current Skill Level
-                <%= rand(1..10)%></p>
+              <p tabindex="0" class="focus:outline-none text-sm leading-normal pt-2 text-gray-500"><%=  skill.activities.last.date.strftime("%a") unless skill.activities.empty? %></p>
+              <p tabindex="0" class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
+                <%= "Last rated: #{skill.activities.last.rating}" unless skill.activities.empty? %>
+              </p>
             </div>
             <div role="img" aria-label="bookmark">
               <svg class="focus:outline-none" width="28" height="28" viewBox="0 0 28 28" fill="none"
@@ -43,6 +43,18 @@
 
 <% else %>
 <h1 class="text-6xl font-bold py-3 text-center"><%= skill.name %></h1>
+
+<h2 class="font-bold text-xl mb-3">Activity Log (<%= skill.activities.count %>)</h2>
+<ul>
+    <% skill.activities.reverse.each do |activity| %>
+        <li class="mb-3"><span class="text-xl"><%= activity.description %></span> 
+        <br><div class="text-xs"><em><%= activity.date.strftime("%a, %e %b %Y") %> - <span class="text-md leading-3 text-orange-900 inline"><%= activity.activity_type %></span> </em> <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "float-right hover:font-bold" %></div></li>
+    <% end %>
+    <%= link_to 'Log A Session', new_skill_activity_path(skill), class: "inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
+</ul>
+<br>
+
+
 <div>Last practiced: <%=  rand(2..30) %> days ago</div>
 <div><strong>Stats:</strong> Rolls 20x, Competition: 3x, Drills: 54x</div>
 <br class="mb-10">
@@ -84,8 +96,11 @@
     dark:focus:ring-blue-800">Marked as practiced today</a>
 <hr>
 <br>
+
 <br>
-<br>
+<%#= render "activities/form", :activity => @activity, :skill => @skill %>
+
+
 <div class="text-center border border-sky-500 py-3">
   <h2 class="font-bold text-xl">Log A Session</h2>
   <a href="#">hide</a><br><br>

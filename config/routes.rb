@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :domains
   devise_for :users
-  resources :skills
+  resources :skills do
+    resources :activities
+  end
 
   get '/set_current_domain/:id', to: 'domains#set_current', :as => 'set_domain'
 
