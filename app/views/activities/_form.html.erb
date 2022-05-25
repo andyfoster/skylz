@@ -17,15 +17,18 @@
   </div>
   <div class="my-5">
     <%= form.label :activity_type %>
-    <%= form.select :activity_type, options_for_select(['Partner Drill', 'Competition', 'Solo Drills', 'Vizualization']), class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :activity_type, options_for_select(['Solo Drills', 'Partner Drills', 'Competition', 'Mental Visualization', 'Class', 'Rolls'], @last_activity_type), class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   <div class="my-5">
     <%= form.label :date %>
     <%= form.date_field :date, :value => Time.now.strftime('%Y-%m-%d'), class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   <div class="my-5">
-    <%= form.label :rating %>
-    <%= form.range_field :rating, :min=>0, :max=>10, :id=>"slider1", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :rating, class: 'block' %>
+    <div>
+      <%= form.range_field :rating, :min=>0, :max=>10, :id=>"slider1", class: "block shadow rounded-md border border-gray-200 outline-none inline-block w-4/5" %>
+      <span class="inline-block">10</span>    
+    </div>
   </div>
 
 
