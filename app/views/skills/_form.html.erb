@@ -22,7 +22,7 @@
   <br />
   <br />
   <%= form.label :domain_id, class: "dark:text-slate-400" %><br />
-  <%= form.select :domain_id, Domain.all.collect {|d| [ d.name, d.id ] }, :selected => @domain.id, class: "dark:bg-slate-800 dark:text-slate-400" %>
+  <%= form.select :domain_id, current_user.domains.all.collect {|d| [ d.name, d.id ] }, :selected => @domain.id, class: "dark:bg-slate-800 dark:text-slate-400" %>
   <br>
 
 
