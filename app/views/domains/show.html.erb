@@ -6,9 +6,9 @@
 
     <%= render @domain %>
 
-    <%= link_to 'Edit this domain', edit_domain_path(@domain), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Rename #{domain.name}", edit_domain_path(@domain), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to 'Destroy this domain', domain_path(@domain), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to "Delete #{domain.name} and all my skills and logs", domain_path(@domain), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
     <%= link_to 'Back to domains', domains_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
