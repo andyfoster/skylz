@@ -58,9 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_23_045928) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "domain_id"
     t.integer "current_domain"
-    t.index ["domain_id"], name: "index_users_on_domain_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -70,5 +68,4 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_23_045928) do
   add_foreign_key "domains", "users"
   add_foreign_key "skills", "domains"
   add_foreign_key "skills", "users"
-  add_foreign_key "users", "domains"
 end
