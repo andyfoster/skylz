@@ -5,10 +5,13 @@
   <% end %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl dark:text-violet-600">Your Skills
-      <% if !@domain.name.empty? %>for <%= @domain.name %><% end %>
-      </h1>
+    <h1 class="font-bold text-4xl dark:text-violet-600">
+      Skills for <%= @domain.name %>
+    </h1>
     <%= link_to 'New skill', new_skill_path, class: "btn-create" %>
+  </div>
+  <div>
+  <input type="text" class="w-1/2 my-5 py-3 px-3" placeholder="Filter skills">
   </div>
 
   <% Skill.where(user_id: current_user.id, domain_id: @domain.id).pluck(:tags).join(",").split(",").uniq.each do |tag| %>
