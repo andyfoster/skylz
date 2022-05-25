@@ -12,10 +12,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   # def create
   #   super
-    # TODO: Create a new domain for the user and assign it to them
-    # d = Domain.new
-    # d.user_id = {this_user}
-    # {this_user.current_domain} = d.id
   # end
 
   # GET /resource/edit

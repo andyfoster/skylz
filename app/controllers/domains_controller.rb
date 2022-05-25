@@ -1,9 +1,11 @@
 class DomainsController < ApplicationController
   before_action :set_domain, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+
 
   # GET /domains or /domains.json
   def index
-    @domains = Domain.all
+    @domains = current_user.domains
   end
 
   # GET /domains/1 or /domains/1.json
@@ -23,9 +25,13 @@ class DomainsController < ApplicationController
   def create
     @domain = Domain.new(domain_params)
 
+    c = current_user
+
     respond_to do |format|
       if @domain.save
-        format.html { redirect_to domains_path, notice: "Domain was successfully created." }
+        c.update_attribute(:current_domain, @domain.id)
+
+        format.html { redirect_to root_path, notice: "Domain was successfully created." }
         format.json { render :show, status: :created, location: @domain }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,10 +65,8 @@ class DomainsController < ApplicationController
 
   def set_current
     c = current_user
-    # c.current_domain = 1
     c.update_attribute(:current_domain, params[:id])
-    # c.update_attribute :current_domain, 1
-    c.save
+    c.save!
 
     redirect_to root_path
   end
