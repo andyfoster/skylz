@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :domains
-  devise_for :users
+  # devise_for :users
+  devise_for :users do
+    get "/login" => "devise/sessions#new"
+    get "/register" => "devise/registrations#new"
+  end
   resources :skills do
     resources :activities
   end
