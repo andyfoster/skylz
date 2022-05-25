@@ -26,6 +26,9 @@
           <li>
             <a href="/domains" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Domains<a>
           </li>
+          <li>
+            <%# <a href="/activities/all" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">All Activities<a> %>
+          </li>
         <% end %>
           <li>
             <%= link_to "Sign out", destroy_user_session_path, class: "block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700", data: { turbo_method: :delete } if user_signed_in? %>
