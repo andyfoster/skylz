@@ -26,9 +26,9 @@
           </div>
         </div>
         <div class="px-2">
-          <p tabindex="0" class="focus:outline-none text-sm leading-5 py-4 text-gray-600">A group of people interested
-            in dogecoin, the currency and a bit of side for the meme and dof that we all know and love. These cases are
-            perfectly simple and easy to distinguish.</p>
+          <p tabindex="0" class="focus:outline-none text-sm leading-5 py-4 text-gray-600">
+            <%= skill.notes %>
+          </p>
           <div tabindex="0" class="focus:outline-none">
             <% if !skill.tags.empty? 
                           skill.tags.split(", ").each do |tag|%>
@@ -43,21 +43,43 @@
 
 <% else %>
 <h1 class="text-6xl font-bold py-3 text-center"><%= skill.name %></h1>
+<div class="bg-gray-700 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
+Last practiced: 16 days ago
+Stats: Rolls 20x, Competition: 3x, Drills: 54x
+</div>
+<div class="bg-gray-500 w-full py-2 shadow-sm mx-auto mb-4 text-white text-center text-sm">
+  <a href="#steps">Steps</a> |
+  <a href="#media">Media</a> |
+  <a href="#activity-log">Activity Log</a>
+</div>
 
-<h2 class="font-bold text-xl mb-3">Activity Log (<%= skill.activities.count %>)</h2>
-<ul>
-    <% skill.activities.reverse.each do |activity| %>
-        <li class="mb-3"><span class="text-xl"><%= activity.description %></span> 
-        <br><div class="text-xs"><em><%= activity.date.strftime("%a, %e %b %Y") %> - <span class="text-md leading-3 text-orange-900 inline"><%= activity.activity_type %></span> </em> <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "float-right hover:font-bold" %></div></li>
-    <% end %>
-    <%= link_to 'Log A Session', new_skill_activity_path(skill), class: "inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" %>
-</ul>
+<h2 class="font-bold text-xl">Notes</h2>
+<p><%= skill.notes %></p>
 <br>
 
+<div class="mb-3">
+  <h2 class="font-bold text-xl mb-3 inline-block" id="activity-log">Activity Log (<%= skill.activities.count %>)</h2>
+    <%= link_to 'Log A Session', new_skill_activity_path(skill), 
+      class: "inline-flex items-center btn-create float-right" %>
+</div>
 
-<div>Last practiced: <%=  rand(2..30) %> days ago</div>
-<div><strong>Stats:</strong> Rolls 20x, Competition: 3x, Drills: 54x</div>
-<br class="mb-10">
+<div>
+    <% skill.activities.reverse.each do |activity| %>
+        <div class="bg-slate-200 border border-2 border-solid mb-3 shadow-md p-5">
+          <span class="text-xl mb-3"><%= activity.description %></span> 
+        
+          <div class="text-xs mt-3">
+            <em><%= activity.date.strftime("%a, %e %b %Y") %> - 
+              <span class="text-md leading-3 text-orange-900 inline">
+              <%= activity.activity_type %></span> </em> 
+              <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "float-right hover:font-bold" %>
+          </div>
+        </div>
+    <% end %>
+</div>
+<br>
+
+<h2 class="font-bold text-xl mb-3" id="steps">Steps</h2>
 <div id="steps divide-y divide-solid">
   <div class="step mb-3 pb-2 border-b-1 border-black flex">
     <span class="h-full bg-gray-800 text-xl text-center text-white font-extrabold rounded-r-lg p-2 mr-5 cursor-move leading-none w-1/6">1</span>
@@ -71,12 +93,12 @@
 
 </div>
 
-<br>
-<p><strong>Remember:</strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda odit, veniam autem eligendi repellat recusandae, est perspiciatis ullam, eius veritatis eos officia nihil rem vero ducimus? Distinctio magni aperiam beatae.</p>
-<br>
-<br>
 
-<h2 class="font-bold text-xl">Media</h2>
+
+<h2 class="font-bold text-xl" id="media">Media</h2>
+<iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe>
 <ul>
   <li class="p-3"><a href="" class="text-blue-500 underline hover:text-black text-lg">Roger Gracie demonstrates move (youtube.com)</a></li>
   <li class="p-3"><a href="" class="text-blue-500 underline hover:text-black text-lg">Simple demo (youtube.com)</a></li>
