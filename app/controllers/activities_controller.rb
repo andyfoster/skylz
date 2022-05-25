@@ -14,7 +14,17 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/new
   def new
+    if !@skill.activities.empty?
+          @last_activity_type = @skill.activities.last.activity_type
+    else
+        @last_activity_type = 'Solo Practice'
+    end
     @activity = @skill.activities.build
+  end
+
+  def show_all
+    # @activities = current_user.activities.where(condition) current_user.current_domain
+
   end
 
   # GET /activities/1/edit
