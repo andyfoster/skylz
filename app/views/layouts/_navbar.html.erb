@@ -1,4 +1,4 @@
-<nav class="border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-gray-800">
+<nav class="border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-gradient-to-r from-indigo-500 to-indigo-900 ">
     <div class="container flex flex-wrap justify-between items-center mx-auto">
       <a href="/" class="flex items-center">
           <%# <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> %>
@@ -17,15 +17,14 @@
               <li class="flex items-center px-2 py-1 text-white font-extrabold">
                   <span><%= link_to domain.name, root_path %></span>
               <% else %>
-              <li class="flex items-center px-2 py-1 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-700 dark:focus:ring-2 focus:ring-gray-200 focus:ring-blue-500">
-                  <%= link_to domain.name, set_domain_path(domain.id), class: "block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" %>
+                <li class="flex items-center px-2 py-1 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-700 dark:focus:ring-2 focus:ring-gray-200 focus:ring-blue-500">
+                    <%= link_to domain.name, set_domain_path(domain.id), class: "block py-2 pr-4 pl-3 text-white " %>
+              </li>
             <% end %>
-              </a>
-            </li>
           <% end %>
-          <li>
-            <a href="/domains" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Domains<a>
-          </li>
+          <li class="flex items-center px-2 py-1 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-700 dark:focus:ring-2 focus:ring-gray-200 focus:ring-blue-500">
+              <%= link_to 'Domains', domains_path, class: "block py-2 pr-4 pl-3 text-white " %>
+        </li>
           <li>
             <%# <a href="/activities/all" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">All Activities<a> %>
           </li>
