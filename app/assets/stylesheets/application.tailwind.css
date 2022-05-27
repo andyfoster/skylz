@@ -14,3 +14,4 @@
     @apply font-bold text-4xl text-indigo-900 first-letter:underline;
   }
 }
+@import 'actiontext.css';

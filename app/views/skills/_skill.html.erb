@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="px-2">
-          <p class="focus:outline-none text-sm py-4 text-gray-600 whitespace-pre-wrap"><%= truncate(skill.notes, :length => 250) %>
+          <p class="focus:outline-none text-sm py-4 text-gray-600 whitespace-pre-wrap"><%= skill.notes %>
           </p>
           <div class="focus:outline-none">
             <% if !skill.tags.empty? 
@@ -80,7 +80,7 @@ Stats: Rolls 20x, Competition: 3x, Drills: 54x
 </div>
 
 <h2 class="font-bold text-xl">Notes</h2>
-  <%= content_tag :p, skill.notes, class: 'whitespace-pre-wrap' %>
+  <%= content_tag :p, skill.notes, class: 'trix-content whitespace-pre-wrap' %>
 <br>
 
 
