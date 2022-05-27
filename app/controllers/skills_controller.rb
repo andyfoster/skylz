@@ -23,6 +23,7 @@ class SkillsController < ApplicationController
 
   # GET /skills/1/edit
   def edit
+    @domain = Domain.find(current_user.current_domain)
     @skill = current_user.skills.find(params[:id])
   end
 
@@ -78,6 +79,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :category, :domain_id).merge(user_id: current_user.id)
+      params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :steps, :category, :domain_id).merge(user_id: current_user.id)
     end
 end

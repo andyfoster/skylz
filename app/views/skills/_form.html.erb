@@ -11,23 +11,39 @@
     </div>
   <% end %>
 
-  <%= form.label :name, class: "dark:text-slate-400"%><br />
-  <%= form.text_field :name, class: "dark:bg-slate-800 dark:text-slate-400 dark:focus:ring-stone-50" %><br />
-  <br />
-  <%= form.label :notes, class: "dark:text-slate-400" %><br />
-  <%= form.text_area :notes, class: "dark:bg-slate-800 dark:text-slate-400" %><br />
-  <br />
-  <%= form.label :tags, class: "dark:text-slate-400" %><br />
-  <%= form.text_field :tags, placeholder: "separate, tags with, commas", class: "dark:bg-slate-800 dark:text-slate-400" %>
-  <br />
-  <br />
-  <%= form.label :domain_id, class: "dark:text-slate-400" %><br />
-  <%= form.select :domain_id, current_user.domains.all.collect {|d| [ d.name, d.id ] }, :selected => @domain.id, class: "dark:bg-slate-800 dark:text-slate-400" %>
-  <br>
-
+  <div class="mb-5">
+    <%= form.label :name, class: ""%><br />
+    <%= form.text_field :name, class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %><br />
+    <br />
+    <%= form.label :notes, class: "" %><br />
+    <%= form.text_area :notes, id: "notesTextarea", class: "w-full" %><br />
+    <br />
+    <%= form.label :steps, class: "" %><br />
+    <%= form.text_area :steps, id: "stepsTextarea", class: "w-full", placeholder: "Put each step\nOn a separate line" %><br />
+    <br />
+    <%= form.label :tags, class: "" %><br />
+    <%= form.text_field :tags, placeholder: "separate, tags with, commas", class: "w-full" %>
+    <br />
+    <br />
+    
+    <% if current_user.domains.count > 1 %>
+      <%= form.label :domain_id, class: "" %><br />
+      <%= form.select :domain_id, current_user.domains.collect {|d| [ d.name, d.id ] }, :selected => @domain.id, class: "w-full" %>
+    <% else %>
+      <%= form.hidden_field :domain_id, value: @domain.id %>
+    <% end %>
+    
+  </div>
 
 
   <div class="inline">
-    <%= form.submit class: "btn-create" %>
+    <%= form.submit class: "btn-primary" %>
   </div>
+  
+
+  <% if true == false #if action_name == "edit" %>
+    <% button_to skill_path(@skill), method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} do %>
+      <span class="btn-primary bg-red-500 hover:bg-red-900"><%= fa_icon "trash", class: "mr-2" %> Delete this skill</span>
+    <% end %> 
+  <% end %>  
 <% end %>
