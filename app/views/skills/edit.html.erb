@@ -1,8 +1,10 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing skill</h1>
+<div class="mx-auto w-full">
+
+<div>
+  <h1 class="font-bold text-4xl inline-block">Editing skill</h1>
+  <%= link_to "Back", @skill, class: "ml-2 rounded-lg py-3 px-5 inline-block font-medium float-right" %>
+</div>
 
   <%= render "form", skill: @skill %>
 
-  <%= link_to "Show this skill", @skill, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to skills", skills_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
