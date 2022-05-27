@@ -19,4 +19,16 @@
       <%= yield %>
     </main>
   </body>
+  <script>
+  // let stepsBox = document.querySelector('#stepsTextarea');
+
+  function setHeight(fieldId){
+    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+ 3 + 'px';
+  }
+
+  setHeight("stepsTextarea");
+  setHeight("notesTextarea");
+  
+
+  </script>
 </html>
