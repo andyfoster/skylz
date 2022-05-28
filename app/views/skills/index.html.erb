@@ -12,9 +12,27 @@
       <span class="btn-primary"><%= fa_icon "plus", class: "mr-2" %> New</span>
     <% end %> 
   </div>
-  <div>
-  <input type="text" class="w-full my-5 py-3 px-3" placeholder="Filter skills">
+
+  <div id="search-filter-bar" class="mt-5 flex justify-between items-center">
+    <div class="inline w-[60%]">
+      <input type="text" class="w-full my-5 py-3 px-3" placeholder="Filter skills">
+    </div>
+    <div id="sort-by" class="inline-block w-[40%] flex align-middle ml-5">
+        <div class="">
+          <span class="text-gray-900">sort by:</span>
+          <select name="" id="" class="bg-transparent">
+            <option value="">frequency</option>
+            <option value="">recent</option>
+            <option value=""># of reps</option>
+            <option value="">rating</option>
+            <option value="">age</option>
+          </select>
+          <%= fa_icon "arrow-up", class: "mr-2 cursor-pointer" %>
+        </div>
+    </div>
+  
   </div>
+
 
 <div id="all-tags" class="w-full inline-block">
 <%# TODO sort by most used, have tags flow off the screen and overflow:scroll %>
@@ -30,20 +48,7 @@
   <% end %>
 </div>
 
-<div id="sort-by" class="mt-5">
-      <span class="text-gray-900">Sort By:</span>
-    <div class="">
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">least used</span>
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">most used</span>
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">most recently used</span>
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">least recently used</span>
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">highest rating</span>
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">lowest rating</span>
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">newest</span>
-      <span class="underline hover:no-underline hover:text-indigo-900 text-gray-500 mr-5 cursor-pointer">oldest</span>
-    
-    </div>
-</div>
+
 
 <div>
     <div aria-label="group of cards" tabindex="0" 
