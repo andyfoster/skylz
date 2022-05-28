@@ -2,42 +2,54 @@
 <% if action_name != "show" %>
     <div class="flex items-center flex-row flex-wrap justify-center w-full">
       <div 
-        class="focus:outline-none mb-7 bg-white p-6 shadow rounded 
-        border border-2 border-white hover:border-slate-200 hover:shadow-lg
-        w-full">
-        <div class="flex items-center border-b border-gray-200">
-          <%# <img src="https://cdn.tuk.dev/assets/components/misc/doge-coin.png" alt="coin avatar" class="w-12 h-12 rounded-full" /> %>
-          <div class="flex items-start justify-between w-full">
-            <div class="pl-3 w-full">
-              <%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800 hover:underline" %>
-              <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
-                <%=  !skill.activities.empty? ? "Last done: #{skill.activities.last.date.strftime("%a, %e %b %Y")}" : 'New Skill' %>
-              </p>
-              <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
-                <%= "Last rated: #{skill.activities.last.rating}" unless skill.activities.empty? %>
-              </p>
+        class="focus:outline-none bg-white shadow rounded-t hover:border-slate-200 hover:shadow-lg w-full mb-3">
+        <div id="card-content" class=" p-6">
+          <div class="flex items-center">
+            <%# <img src="https://cdn.tuk.dev/assets/components/misc/doge-coin.png" alt="coin avatar" class="w-12 h-12 rounded-full" /> %>
+            <div class="flex items-start justify-between w-full">
+              <div class="w-full">
+                <%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800 hover:underline" %>
+                <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
+                  <%=  !skill.activities.empty? ? "Last done: #{skill.activities.last.date.strftime("%a, %e %b %Y")}" : 'New Skill' %>
+                </p>
+                <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
+                  <%= "Last rated: #{skill.activities.last.rating}" unless skill.activities.empty? %>
+                </p>
+              </div>
+
             </div>
-            <div role="img" aria-label="bookmark" class="">
-              <svg class="focus:outline-none hover:fill-indigo-800 cursor-pointer" width="28" height="28" viewBox="0 0 28 28" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M10.5001 4.66667H17.5001C18.1189 4.66667 18.7124 4.9125 19.15 5.35009C19.5876 5.78767 19.8334 6.38117 19.8334 7V23.3333L14.0001 19.8333L8.16675 23.3333V7C8.16675 6.38117 8.41258 5.78767 8.85017 5.35009C9.28775 4.9125 9.88124 4.66667 10.5001 4.66667Z"
-                  stroke="#2C3E50" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+          </div>
+          <div class="" id="notes">
+            <p class="focus:outline-none text-sm pt-2 text-gray-600 whitespace-pre-wrap"><%= skill.notes %>
+            </p>
+            <div class="focus:outline-none" id="tags">
+              <% if !skill.tags.empty? 
+                            skill.tags.split(", ").each do |tag|%>
+                <div class="py-2 px-4 text-xs leading-3 
+                              text-indigo-700 rounded-full bg-indigo-100 mb-3 inline">
+                              #<%= tag %></div>
+              <% end %>
+              <% end %>
             </div>
           </div>
         </div>
-        <div class="px-2">
-          <p class="focus:outline-none text-sm py-4 text-gray-600 whitespace-pre-wrap"><%= skill.notes %>
-          </p>
-          <div class="focus:outline-none">
-            <% if !skill.tags.empty? 
-                          skill.tags.split(", ").each do |tag|%>
-              <div class="py-2 px-4 text-xs leading-3 
-                            text-indigo-700 rounded-full bg-indigo-100 mb-3 inline">
-                            #<%= tag %></div>
-            <% end %>
-            <% end %>
+
+        <div id="buttons" class="w-full text-xs border border-t border-t-slate-200 
+        rounded-b px-6 py-2 border-b border-gray-200 flex justify-between">
+          <div class="inline-block">
+            <%= link_to edit_skill_path(skill) do %>
+              <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "pencil" %> edit</span>
+          <% end %>           
+          </div>
+          <div class="inline-block">
+            <%= link_to edit_skill_path(skill) do %>
+              <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "plus" %> add to list</span>
+          <% end %>           
+          </div>
+          <div class="inline-block">
+            <%= link_to new_skill_activity_path(skill) do %>
+              <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "book" %> log</span>
+          <% end %>           
           </div>
         </div>
       </div>
@@ -60,18 +72,18 @@
 <%= content_tag :h1, skill.name, class: "text-6xl font-bold py-3 text-center" %>
 
 
-<div class="bg-gray-800 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
-  <% if !skill.tags.empty? 
-        skill.tags.split(", ").each do |tag|%>
+  <% if !skill.tags.empty? %>
+    <div class="bg-gray-800 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
+      <% skill.tags.split(", ").each do |tag|%>
           <%= content_tag :div, tag, class: "py-2 px-4 text-xs leading-3 inline" %>
-        <% end %>
+      <% end %>
+    </div>
   <% end %>
-</div>
 <div class="bg-gray-700 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
 
 <%=  !skill.activities.empty? ? "Last practiced: #{(Date.today - @skill.activities.last.date).to_i} days ago" : '' %>
 
-Stats: Rolls 20x, Competition: 3x, Drills: 54x
+  Stats: Rolls 20x, Competition: 3x, Drills: 54x
 </div>
 <div class="bg-gray-500 w-full py-2 shadow-sm mx-auto mb-4 text-white text-center text-sm">
   <a href="#steps">Steps</a> |
@@ -84,9 +96,8 @@ Stats: Rolls 20x, Competition: 3x, Drills: 54x
 <br>
 
 
-<h2 class="font-bold text-xl mb-3" id="steps">Steps</h2>
-
 <% if !skill.steps.blank? %>
+<h2 class="font-bold text-xl mb-3" id="steps">Steps</h2>
   <div id="steps" class="divide-y divide-solid bg-white p-2 pl-0 pt-0
   border border-2 border-slate-200 shadow-lg">
     <% skill.steps.split("\n").reject(&:blank?).each_with_index do |step, index| %>
