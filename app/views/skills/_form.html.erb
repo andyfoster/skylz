@@ -19,7 +19,8 @@
     <%= form.rich_text_area :notes, id: "notesTextarea", class: "w-full" %><br />
     <br />
     <%= form.label :steps, class: "" %><br />
-    <%= form.text_area :steps, id: "stepsTextarea", class: "w-full", placeholder: "Put each step\nOn a separate line" %><br />
+    <%= form.text_area :steps, id: "stepsTextarea", class: "w-full", 
+    placeholder: "Put each step\nOn a separate line", onkeyup: 'setHeight("stepsTextarea")' %><br />
     <br />
     <%= form.label :tags, class: "" %><br />
     <%= form.text_field :tags, placeholder: "separate, tags with, commas", class: "w-full" %>
@@ -47,3 +48,9 @@
     <% end %> 
   <% end %>  
 <% end %>
+
+<script>
+
+
+  setHeight("stepsTextarea");
+</script>
