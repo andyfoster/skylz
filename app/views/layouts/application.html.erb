@@ -9,7 +9,12 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <%= favicon_link_tag asset_path('favicon.ico') %>    
+    <%= favicon_link_tag asset_path('favicon.ico') %> 
+    <script>
+      function setHeight(fieldId){
+        document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+ 'px';
+      }  
+  </script>   
   </head>
 
   <body class="dark:bg-slate-300">
@@ -19,16 +24,5 @@
       <%= yield %>
     </main>
   </body>
-  <script>
-  // let stepsBox = document.querySelector('#stepsTextarea');
 
-  function setHeight(fieldId){
-    document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+ 3 + 'px';
-  }
-
-  // setHeight("stepsTextarea");
-  // setHeight("notesTextarea");
-  
-
-  </script>
 </html>
