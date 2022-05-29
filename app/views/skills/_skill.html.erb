@@ -1,173 +1,181 @@
 <div id="<%= dom_id skill%>" class="<%= action_name != "show" ? "w-full md:w-[48%] lg:w-[30%]" : "" %>">
-<% if action_name != "show" %>
-    <div class="flex items-center flex-row flex-wrap justify-center w-full">
-      <div 
-        class="focus:outline-none bg-white shadow rounded-t hover:border-slate-200 hover:shadow-lg w-full mb-3">
-        <div id="card-content" class=" p-6">
-          <div class="flex items-center">
-            <%# <img src="https://cdn.tuk.dev/assets/components/misc/doge-coin.png" alt="coin avatar" class="w-12 h-12 rounded-full" /> %>
-            <div class="flex items-start justify-between w-full">
-              <div class="w-full">
-                <%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800 hover:underline" %>
-                <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
-                  <%=  !skill.activities.empty? ? "Last done: #{skill.activities.last.date.strftime("%a, %e %b %Y")}" : 'New Skill' %>
-                </p>
-                <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
-                  <%= "Last rated: #{skill.activities.last.rating}" unless skill.activities.empty? %>
-                </p>
-              </div>
+  <% if action_name != "show" %>
+  <div class="flex items-center flex-row flex-wrap justify-center w-full">
+    <div class="focus:outline-none bg-white shadow rounded-t hover:border-slate-200 hover:shadow-lg w-full mb-3">
+      <div id="card-content" class=" p-6">
+        <div class="flex items-center">
+          <%# <img src="https://cdn.tuk.dev/assets/components/misc/doge-coin.png" alt="coin avatar" class="w-12 h-12 rounded-full" /> %>
+          <div class="flex items-start justify-between w-full">
+            <div class="w-full">
+              <%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800 hover:underline" %>
 
+
+              <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
+                <%=  !skill.activities.empty? ? "Last done: #{skill.activities.last.date.strftime("%a, %e %b %Y")}" : 'New Skill' %>
+              </p>
+              <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
+                <%= "Last rated: #{skill.activities.last.rating}" unless skill.activities.empty? %>
+              </p>
             </div>
-          </div>
-          <div class="" id="notes">
-            <p class="focus:outline-none text-sm pt-2 text-gray-600 whitespace-pre-wrap"><%= skill.notes %>
-            </p>
-            <div class="focus:outline-none" id="tags">
-              <% if !skill.tags.empty? 
-                            skill.tags.split(", ").each do |tag|%>
-                <div class="py-2 px-4 text-xs leading-3 
-                              text-indigo-700 rounded-full bg-indigo-100 mb-3 inline">
-                              #<%= tag %></div>
-              <% end %>
-              <% end %>
-            </div>
+
+            <%= content_tag :span, "#{skill.activities.count}x", class: "text-white rounded-full bg-indigo-900
+          flex items-center justify-center h-10 w-10 p-3 ml-5" %>
+
+
           </div>
         </div>
-
-        <div id="buttons" class="w-full text-xs border border-t border-t-slate-200 
-        rounded-b px-6 py-2 border-b border-gray-200 flex justify-between">
-          <div class="inline-block">
-            <%= link_to edit_skill_path(skill) do %>
-              <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "pencil" %> edit</span>
-          <% end %>           
-          </div>
-          <div class="inline-block">
-            <%= link_to edit_skill_path(skill) do %>
-              <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "plus" %> add to list</span>
-          <% end %>           
-          </div>
-          <div class="inline-block">
-            <%= link_to new_skill_activity_path(skill) do %>
-              <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "book" %> log</span>
-          <% end %>           
+        <div class="h-[150px] overflow-hidden" id="notes">
+          <p class="focus:outline-none text-sm pt-2 text-gray-600 whitespace-pre-wrap">
+            <%= skill.notes %>
+          </p>
+          <div class="focus:outline-none" id="tags">
+            <% if !skill.tags.empty? 
+                            skill.tags.split(", ").each do |tag|%>
+            <div class="py-2 px-4 text-xs leading-3 
+                              text-indigo-700 rounded-full bg-indigo-100 mb-3 inline">
+              #<%= tag %></div>
+            <% end %>
+            <% end %>
           </div>
         </div>
       </div>
+
+      <div id="buttons" class="w-full text-xs border border-t border-t-slate-200 
+        rounded-b px-6 py-2 border-b border-gray-200 flex justify-between">
+        <div class="inline-block">
+          <%= link_to edit_skill_path(skill) do %>
+          <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "pencil" %> edit</span>
+          <% end %>
+        </div>
+        <div class="inline-block">
+          <%= link_to edit_skill_path(skill) do %>
+          <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "plus" %> add to list</span>
+          <% end %>
+        </div>
+        <div class="inline-block">
+          <%= link_to new_skill_activity_path(skill) do %>
+          <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "book" %> log</span>
+          <% end %>
+        </div>
+      </div>
     </div>
+  </div>
 
-<% else %>
+  <% else %>
 
-<%#
+  <%#
 ### ############################################################################
 ### INDIVIDUAL SKILL PAGE
 ### ############################################################################
 #%>
 
-<div>
-      <%= link_to edit_skill_path(@skill) do %>
-        <span class="text-gray-500 hover:text-gray-900 inline-block float-right"><%= fa_icon "pencil" %> Edit</span>
-    <% end %> 
-</div>
+  <div>
+    <%= link_to edit_skill_path(@skill) do %>
+    <span class="text-gray-500 hover:text-gray-900 inline-block float-right"><%= fa_icon "pencil" %> Edit</span>
+    <% end %>
+  </div>
 
-<%= content_tag :h1, skill.name, class: "text-6xl font-bold py-3 text-center" %>
-
+  <%= content_tag :h1, skill.name, class: "text-6xl font-bold py-3 text-center" %>
 
   <% if !skill.tags.empty? %>
-    <div class="bg-gray-800 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
+  <div class="bg-gray-800 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
       <% skill.tags.split(", ").each do |tag|%>
           <%= content_tag :div, tag, class: "py-2 px-4 text-xs leading-3 inline" %>
       <% end %>
     </div>
   <% end %>
-<div class="bg-gray-700 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
+<div class=" bg-gray-700 w-full py-2 shadow-sm mx-auto text-white text-center text-sm"">
 
-<%=  !skill.activities.empty? ? "Last practiced: #{(Date.today - @skill.activities.last.date).to_i} days ago" : '' %>
+    <%=  !skill.activities.empty? ? "Last practiced: #{(Date.today - @skill.activities.last.date).to_i} days ago" : '' %>
 
-  Stats: Rolls 20x, Competition: 3x, Drills: 54x
-</div>
-<div class="bg-gray-500 w-full py-2 shadow-sm mx-auto mb-4 text-white text-center text-sm">
-  <a href="#steps">Steps</a> |
-  <a href="#media">Media</a> |
-  <a href="#activity-log">Activity Log</a>
-</div>
+    Stats: Rolls 20x, Competition: 3x, Drills: 54x
+  </div>
+  <div class="bg-gray-500 w-full py-2 shadow-sm mx-auto mb-4 text-white text-center text-sm">
+    <a href="#steps">Steps</a> |
+    <a href="#media">Media</a> |
+    <a href="#activity-log">Activity Log</a>
+  </div>
 
-<h2 class="font-bold text-xl">Notes</h2>
+  <h2 class="font-bold text-xl">Notes</h2>
   <%= content_tag :p, skill.notes, class: 'trix-content whitespace-pre-wrap' %>
-<br>
+  <br>
 
 
-<% if !skill.steps.blank? %>
-<h2 class="font-bold text-xl mb-3" id="steps">Steps</h2>
+  <% if !skill.steps.blank? %>
+  <h2 class="font-bold text-xl mb-3" id="steps">Steps</h2>
   <div id="steps" class="divide-y divide-solid bg-white p-2 pl-0 pt-0
   border border-2 border-slate-200 shadow-lg">
     <% skill.steps.split("\n").reject(&:blank?).each_with_index do |step, index| %>
-        <div class="step mb-3 pb-2 border-b-1 border-black flex">
-        <span class="font-bold text-white rounded-full bg-indigo-900
+    <div class="step mb-3 pb-2 border-b-1 border-black flex">
+      <span class="font-bold text-white rounded-full bg-indigo-900
         font-extrabold flex items-center justify-center h-10 w-10 mt-4 ml-4">
-          <%= index +1 %>
-        </span>
-          <span class="text-2xl p-1 pt-3 ml-4 w-5/6 leading-relaxed"><%= step %></span>
-        </div>
+        <%= index +1 %>
+      </span>
+      <span class="text-2xl p-1 pt-3 ml-4 w-5/6 leading-relaxed"><%= step %></span>
+    </div>
     <% end %>
   </div>
-<% else %>
+  <% else %>
   <%= link_to 'No steps for this skill yet.', edit_skill_path(@skill), class: "text-center" %>
-<% end %>
+  <% end %>
 
 
 
 
 
-<div class="mb-3 mt-5">
-  <h2 class="font-bold text-xl mb-3 inline-block" id="activity-log">Activity Log (<%= skill.activities.count %>)</h2>
+  <div class="mb-3 mt-5">
+    <h2 class="font-bold text-xl mb-3 inline-block" id="activity-log">Activity Log (<%= skill.activities.count %>)</h2>
     <%= link_to 'Log A Session', new_skill_activity_path(skill), 
       class: "inline-flex items-center btn-primary float-right" %>
-</div>
+  </div>
 
-<div>
+  <div>
     <% skill.activities.reverse.each do |activity| %>
-        <div class="bg-slate-200 border border-2 border-solid mb-3 shadow-md p-5">
-          <span class="text-xl mb-3"><%= activity.description %></span> 
-        
-          <div class="text-xs mt-3">
-            <em><%= activity.date.strftime("%a, %e %b %Y") %> - 
-              <span class="text-md leading-3 text-orange-900 inline">
-              <%= activity.activity_type %></span> </em> 
-              <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "float-right hover:font-bold" %>
-          </div>
-        </div>
+    <div class="bg-slate-200 border border-2 border-solid mb-3 shadow-md p-5">
+      <span class="text-xl mb-3"><%= activity.description %></span>
+
+      <div class="text-xs mt-3">
+        <em><%= activity.date.strftime("%a, %e %b %Y") %> -
+          <span class="text-md leading-3 text-orange-900 inline">
+            <%= activity.activity_type %></span> </em>
+        <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "float-right hover:font-bold" %>
+      </div>
+    </div>
     <% end %>
-</div>
-<br>
+  </div>
+  <br>
 
 
 
 
-<h2 class="font-bold text-xl" id="media">Media</h2>
-<iframe width="420" height="315"
-<%# src="https://www.youtube.com/embed/tgbNymZ7vqY"> %>
-</iframe>
-<ul>
-  <li class="p-3"><a href="" class="text-blue-500 underline hover:text-black text-lg">Roger Gracie demonstrates move (youtube.com)</a></li>
-  <li class="p-3"><a href="" class="text-blue-500 underline hover:text-black text-lg">Simple demo (youtube.com)</a></li>
-</ul>
-<br>
-<br>
+  <h2 class="font-bold text-xl" id="media">Media</h2>
+  <iframe width="420" height="315" <%# src="https://www.youtube.com/embed/tgbNymZ7vqY"> %> </iframe> <ul>
+    <li class="p-3"><a href="" class="text-blue-500 underline hover:text-black text-lg">Roger Gracie demonstrates move
+        (youtube.com)</a></li>
+    <li class="p-3"><a href="" class="text-blue-500 underline hover:text-black text-lg">Simple demo (youtube.com)</a>
+    </li>
+    </ul>
+    <br>
+    <br>
 
-<h2 class="font-bold text-xl mb-3">Related Skills</h2>
-  <span class="p-3"><a href="" class="text-indigo-700 bg-indigo-100 hover:text-indigo-100 hover:bg-indigo-700 rounded-full mb-3 py-2 px-4 text-lg whitespace-nowrap">Kimura from Mount</a></span>
-  <span class="p-3"><a href="" class="text-indigo-700 bg-indigo-100 hover:text-indigo-100 hover:bg-indigo-700 rounded-full mb-3 py-2 px-4 text-lg whitespace-nowrap">Triangle from Mount</a></span>
-<br>
-<br>
+    <h2 class="font-bold text-xl mb-3">Related Skills</h2>
+    <span class="p-3"><a href=""
+        class="text-indigo-700 bg-indigo-100 hover:text-indigo-100 hover:bg-indigo-700 rounded-full mb-3 py-2 px-4 text-lg whitespace-nowrap">Kimura
+        from Mount</a></span>
+    <span class="p-3"><a href=""
+        class="text-indigo-700 bg-indigo-100 hover:text-indigo-100 hover:bg-indigo-700 rounded-full mb-3 py-2 px-4 text-lg whitespace-nowrap">Triangle
+        from Mount</a></span>
+    <br>
+    <br>
 
-<a href="#" class="btn-primary">Marked as practiced today</a>
+    <a href="#" class="btn-primary">Marked as practiced today</a>
 
-<br>
-<br>
-<br>
-<br>
-<%#= TODO: render "activities/form", :activity => @activity, :skill => @skill %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <%#= TODO: render "activities/form", :activity => @activity, :skill => @skill %>
 
 
-<% end %>
+    <% end %>
 </div>
