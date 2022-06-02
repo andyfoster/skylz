@@ -5,13 +5,18 @@
   <% end %>
 
   <div class="flex justify-between items-center">
-    <h1>
-      Skills for <%= @domain.name %>
+    <h1 class="font-semibold text-black">
+      skylz for <%= @domain.name %>
     </h1>
     <%= link_to new_skill_path do %>
       <span class="btn-primary"><%= fa_icon "plus", class: "mr-2" %> New</span>
     <% end %> 
+    <%= link_to new_multi_path do %>
+      <span class="btn-primary"><%= fa_icon "plus", class: "mr-2" %> Add Multiple</span>
+    <% end %> 
   </div>
+
+  
 
   <div id="search-filter-bar" class="mt-5 flex justify-between items-center">
     <div class="inline w-[60%]">
@@ -27,26 +32,49 @@
             <option value="">rating</option>
             <option value="">age</option>
           </select>
-          <%= fa_icon "arrow-up", class: "mr-2 cursor-pointer" %>
+          <%= fa_icon "arrow-up", class: "mr-2 cursor-pointer", base: "circle" %>
+          <%= fa_icon "arrow-down", class: "mr-2"%>
+          <%= fa_icon "filter", class: "mr-2" %>
+          <span class="border border-black p-2 rounded-md text-center inline-block">
+            <%= fa_icon "bars", class: "mr-2 cursor-pointer" %>
+            <%= fa_icon "th", base: "square", class: "text-indigo-900 cursor-pointer" %>
+          
+          </span>
+          <%= fa_icon "sliders", class: "mr-2" %>
         </div>
     </div>
   </div>
 
 
+
 <div id="all-tags" class="w-full inline-block">
+<span class="border border-indigo-900 mr-5 ml-3 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-900">
+    <span class="text-sm 
+        px-5 py-0.5
+        text-white cursor-pointer">
+        selected tag 
+        </span>
+        <span class="bg-white text-black rounded-full h-3 w-3 px-1 cursor-pointer hover:bg-indigo-900 hover:text-white">x</span>
+</span>
 <%# TODO sort by most used, have tags flow off the screen and overflow:scroll %>
   <% Skill.where(user_id: current_user.id, domain_id: @domain.id)
     .pluck(:tags).join(",").split(",").collect(&:strip).uniq.reject(&:blank?).each do |tag| %>
-    <span class="text-xs font-semibold 
-        mr-5 px-5 py-0.5 rounded ml-3
-        hover:cursor-pointer
-        text-white bg-indigo-500
-        hover:bg-indigo-900 cursor-pointer">
+    <span class="text-sm 
+        mr-5 px-5 py-0.5 rounded-lg ml-3
+        text-indigo-900 border border-indigo-900
+        hover:text-white cursor-pointer
+        hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-900        
+        ">
         <%= tag.strip %>
         </span>
   <% end %>
 </div>
 
+<!-- <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Default tooltip</button>
+<div id="tooltip-default" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+    Tooltip content
+    <div class="tooltip-arrow" data-popper-arrow></div>
+</div> -->
 
 <div>
     <div aria-label="group of cards" tabindex="0" 
