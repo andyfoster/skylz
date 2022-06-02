@@ -1,0 +1,12 @@
+<div class="mx-auto w-full">
+
+<div>
+  <h1 class="font-bold text-4xl inline-block">Add Multiple New Skill</h1>
+  <%= link_to "Back", @skill, class: "ml-2 rounded-lg py-3 px-5 inline-block font-medium float-right" %>
+</div>
+
+<p>Add a new skill on each line</p>
+
+  <%= render "form_multi", skill: @skill %>
+
+</div>

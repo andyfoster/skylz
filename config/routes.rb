@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     resources :activities
   end
 
+  get '/new_multi' => 'skills#new_multi', as: :new_multi
+
+  post '/new_multi' => 'skills#create_multi', as: :create_multi
+
   get '/set_current_domain/:id', to: 'domains#set_current', :as => 'set_domain'
 
   get '/s/', to: 'skills#tag_search', :as => 'tag_search'

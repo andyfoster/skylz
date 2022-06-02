@@ -5,7 +5,7 @@ class SkillsController < ApplicationController
   # GET /skills or /skills.json
   def index
     @domain = Domain.find(current_user.current_domain)
-    @skills = current_user.skills.where(domain_id: @domain.id)
+    @skills = current_user.skills.where(domain_id: @domain.id).order("created_at DESC")
   end
 
   # GET /skills/1 or /skills/1.json
@@ -27,6 +27,38 @@ class SkillsController < ApplicationController
     @skill = current_user.skills.find(params[:id])
   end
 
+  def new_multi
+    @domain = Domain.find(current_user.current_domain)
+    @skill = Skill.new
+  end
+
+def create_multi
+    # @skill = @skill = current_user.skills.build(skill_params)
+
+    skill_array = Array.new
+    params[:skill][:name].split("\n").reject(&:blank?).each do |skill_name|
+      skill_array.push({ name: skill_name, user_id: current_user.id, 
+        domain_id: current_user.current_domain, tags: params[:skill][:tags] })
+    end
+
+    if Skill.insert_all(skill_array)
+        redirect_to root_url
+      else
+        render :new, status: :unprocessable_entity
+      end
+    
+
+    # redirect_to skills_url, notice: "#{params[:skill][:name].count + 1} skills were successfully created."
+
+    # respond_to do |format|
+    #   if @skill.save
+    #     format.html redirect_to root_url
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #   end
+    # end
+end
+  
   # POST /skills or /skills.json
   def create
     # @skill = Skill.new(skill_params)
