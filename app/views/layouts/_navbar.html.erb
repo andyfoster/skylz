@@ -1,42 +1,84 @@
-<nav class="border-gray-200 px-2 sm:px-4 py-2.5 rounded bg-gradient-to-r from-indigo-500 to-indigo-900 ">
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <a href="/" class="flex items-center">
-          <%# <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> %>
-          <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Skylz</span>
-      </a>
-      <button data-collapse-toggle="mobile-menu" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-        <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-      </button>
-      <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
-        <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-            <li class="flex items-center px-2 py-1 text-white">
-              <%= content_tag :a, 'Activities', class: "hover:underline" %>
-            </li>
-
-        <% if current_user && !current_user.domains.empty? %>
-          <% current_user.domains.each do | domain | %>
-            <% if current_user.current_domain == domain.id %>
-              <li class="flex items-center px-2 py-1 text-white font-extrabold">
-                  <span><%= link_to domain.name, root_path %></span>
-              <% else %>
-                <li class="flex items-center px-2 py-1 text-gray-500 hover:text-gray-900 dark:text-gray-400 focus:ring-gray-200 focus:ring-blue-500">
-                    <%= link_to domain.name, set_domain_path(domain.id), class: "block py-2 pr-4 pl-3 text-white hover:underline" %>
-              </li>
-            <% end %>
-          <% end %>
-          <li class="flex items-center px-2 py-1 text-gray-500 hover:text-gray-900 dark:text-gray-400 focus:ring-gray-200 focus:ring-blue-500">
-              <%= link_to 'Domains', domains_path, class: "block py-2 pr-4 pl-3 text-white hover:underline" %>
+<nav class="border-gray-200 px-2 sm:px-4 py-2.5 bg-white">
+  <div class="container flex flex-wrap justify-between items-center mx-auto">
+    <a href="/" class="flex items-center">
+      <%# <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> %>
+      <span class="self-center text-xl font-semibold whitespace-nowrap text-gradient-to-r from-indigo-500 to-indigo-900">skylz</span>
+    </a>
+    <button data-collapse-toggle="mobile-menu" type="button"
+      class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      aria-controls="mobile-menu" aria-expanded="false">
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"></path>
+      </svg>
+      <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+          clip-rule="evenodd"></path>
+      </svg>
+    </button>
+    <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
+      <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+        <li class="">
+          <%= content_tag :a, 'Sessions', class: "block px-4 py-2 hover:bg-gray-100" %>
         </li>
-          <li>
-            <%# <a href="/activities/all" class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">All Activities<a> %>
-          </li>
-        <% end %>
-          <li>
-            <%= link_to "Sign out", destroy_user_session_path, class: "block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700", data: { turbo_method: :delete } if user_signed_in? %>
-          </li>
-        </ul>
-      </div>
+        <li class="">
+          <%= content_tag :a, 'Training List', class: "block px-4 py-2 hover:bg-gray-100" %>
+        </li>
+        <li class="">
+          <%= content_tag :a, 'Activities', class: "block px-4 py-2 hover:bg-gray-100" %>
+        </li>
+        <li>
+          <%= link_to "Manage Domains", domains_path, class: "block px-4 py-2 hover:bg-gray-100" if user_signed_in? %>
+        </li>
+
+
+        <li>
+          <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+            class="flex items-center px-2 py-1">
+              <%= fa_icon "bars 2x", class: "mr-2" %>
+              <%= fa_icon "chevron-down" %> 
+          </button>
+          <!-- Dropdown menu -->
+          <div id="dropdownNavbar"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+            <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+              <% if current_user && !current_user.domains.empty? %>
+              <li class="bg-gray-200 block px-4 py-2 font-bold">Switch to:</li>
+              <% current_user.domains.each do | domain | %>
+              <% if current_user.current_domain == domain.id %>
+              <li>
+                <%# link_to domain.name, root_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+              </li>
+              <% else %>
+              <li class="bg-gray-200 pl-2">
+                <%= link_to domain.name, set_domain_path(domain.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+              </li>
+              <% end %>
+              <% end %>
+              <% end %>
+
+
+              <li>
+                <%= link_to "Manage Domains", domains_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" if user_signed_in? %>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your
+                  Account</a>
+              </li>
+            </ul>
+            <div class="py-1">
+              <%= link_to "Sign out", destroy_user_session_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white", data: { turbo_method: :delete } if user_signed_in? %>
+            </div>
+          </div>
+        </li>
+        <li>
+
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+<div class="w-full m-0 bg-purple-gradient h-1"></div>
