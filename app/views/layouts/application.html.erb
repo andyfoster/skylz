@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Skylz</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <%= favicon_link_tag asset_path('favicon.ico') %> 
-    <script>
-      function setHeight(fieldId){
-        document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight+ 'px';
-      }  
+<head>
+  <title>Skylz</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <%= favicon_link_tag asset_path('favicon.ico') %>
+  <script>
+    function setHeight(fieldId) {
+      document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight + 'px';
+    }
   </script>
-  </head>
+</head>
 
-  <body class="bg-gray-300">
-    <%= render 'layouts/navbar' %>
-    <main class="container mx-auto mt-5 px-5 flex">
-      
-      <%= yield %>
-    </main>
-  </body>
+<body class="bg-white">
+  <%= render 'layouts/navbar' %>
+
+<div id="quote" class="mx-auto w-full text-indigo-900 text-lg mb-5 p-3 italic text-center">
+  <span>I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times</span>
+  <span>—</span>
+  <span class="font-extrabold"> Bruce Lee</span>
+</div>
+
+<%
+# Repetition of the same thought or physical action develops into a habit which, repeated frequently enough, becomes an automatic reflex. Norman Vincent Peale
+# Repetition makes perfect. DeAndre Hopkins
+# Repetition is the key to success.
+# Practice does not make perfect. Only perfect practice makes perfect. Vince Lombardi
+# In theory there is no difference between theory and practice. In practice there is. Yogi Berra
+# The more you practice, the better you get, the more freedom you have to create. Jocko Willink
+# The more I practice the luckier I get. Gary Player
+# Practice makes permanent. Bobby Robson
+# I know you've heard it a thousand times before. But it's true - hard work pays off. If you want to be good, you have to practice, practice, practice. If you don't love something, then don't do it. Ray Bradbury
+# If you don't practice you don't deserve to win. Andre Agassi
+# Practice puts brains in your muscles. Sam Snead
+
+%>
+
+  <main class="container mx-auto mt-5 px-5 flex">
+
+    <%= yield %>
+  </main>
+  <footer class="mt-[3rem] border border-t border-indigo-900">
+  </footer>
+</body>
 
 </html>
