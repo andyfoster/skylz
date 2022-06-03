@@ -84,6 +84,6 @@ class ActivitiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def activity_params
-      params.require(:activity).permit(:description, :skill_id, :date, :tags, :rating, :activity_type).merge({user_id: current_user.id})
+      params.require(:activity).permit(:description, :skill_id, :date, :tags, :rating, :activity_type, :reps).merge({user_id: current_user.id})
     end
 end

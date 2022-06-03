@@ -5,7 +5,7 @@ class SkillsController < ApplicationController
   # GET /skills or /skills.json
   def index
     @domain = Domain.find(current_user.current_domain)
-    @skills = current_user.skills.where(domain_id: @domain.id).order("created_at DESC")
+    @skills = current_user.skills.where(domain_id: @domain.id).sort_by {|skill| skill.total_reps }.reverse
   end
 
   # GET /skills/1 or /skills/1.json

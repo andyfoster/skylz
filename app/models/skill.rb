@@ -5,4 +5,9 @@ class Skill < ApplicationRecord
   validates :name, presence: true
 
   has_rich_text :notes
+
+  def total_reps
+    activities.sum(:reps)
+  end
+
 end

@@ -18,7 +18,7 @@
               </p>
             </div>
 
-            <%= content_tag :span, "#{skill.activities.count}x", 
+            <%= content_tag :span, "#{skill.total_reps}x", 
             class: "text-indigo-200 rounded-full
             bg-gradient-to-r from-indigo-500 to-indigo-900 flex items-center 
             justify-center h-10 w-10 p-6 ml-5" %>
@@ -149,7 +149,10 @@
       <div class="text-xs mt-3">
         <em><%= activity.date.strftime("%a, %e %b %Y") %> -
           <span class="text-md leading-3 text-orange-900 inline">
-            <%= activity.activity_type %></span> </em>
+            <%= activity.activity_type %>
+          </span>
+          <span class="text-indigo-900 ml-5"><%= activity.reps %>x</span>
+        </em>
         <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "float-right hover:font-bold" %>
       </div>
     </div>
