@@ -57,6 +57,8 @@ gem "devise"
 # Use the font-awesome icons
 gem "font-awesome-rails"
 
+gem 'rails_admin', '~> 3.0' # RailsAdmin for managing data
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -80,3 +82,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+gem "sassc-rails"
