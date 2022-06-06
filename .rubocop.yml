@@ -1,0 +1,9 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.0.0
+  Exclude:
+    - config/**/*
+    - db/**/*
+    - bin/**/*
+    - vendor/bundle/**/*
+    - node_modules/**/*
