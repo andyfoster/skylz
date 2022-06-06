@@ -1,7 +1,6 @@
 class DomainsController < ApplicationController
-  before_action :set_domain, only: %i[ show edit update destroy ]
+  before_action :set_domain, only: %i[show edit update destroy]
   before_action :authenticate_user!
-
 
   # GET /domains or /domains.json
   def index
@@ -9,8 +8,7 @@ class DomainsController < ApplicationController
   end
 
   # GET /domains/1 or /domains/1.json
-  def show
-  end
+  def show; end
 
   # GET /domains/new
   def new
@@ -18,8 +16,7 @@ class DomainsController < ApplicationController
   end
 
   # GET /domains/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /domains or /domains.json
   def create
@@ -31,7 +28,7 @@ class DomainsController < ApplicationController
       if @domain.save
         c.update_attribute(:current_domain, @domain.id)
 
-        format.html { redirect_to root_path, notice: "Domain was successfully created." }
+        format.html { redirect_to root_path, notice: 'Domain was successfully created.' }
         format.json { render :show, status: :created, location: @domain }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +41,7 @@ class DomainsController < ApplicationController
   def update
     respond_to do |format|
       if @domain.update(domain_params)
-        format.html { redirect_to domains_path, notice: "Domain was successfully updated." }
+        format.html { redirect_to domains_path, notice: 'Domain was successfully updated.' }
         format.json { render :show, status: :ok, location: @domain }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +55,7 @@ class DomainsController < ApplicationController
     @domain.destroy
 
     respond_to do |format|
-      format.html { redirect_to domains_url, notice: "Domain was successfully destroyed." }
+      format.html { redirect_to domains_url, notice: 'Domain was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -72,13 +69,14 @@ class DomainsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_domain
-      @domain = Domain.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def domain_params
-      params.require(:domain).permit(:name).merge({user_id: current_user.id})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_domain
+    @domain = Domain.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def domain_params
+    params.require(:domain).permit(:name).merge({ user_id: current_user.id })
+  end
 end

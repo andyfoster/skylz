@@ -1,8 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :get_skill
-  before_action :set_activity, only: %i[ show edit update destroy ]
+  before_action :set_activity, only: %i[show edit update destroy]
   before_action :authenticate_user!
-
 
   # GET /activities or /activities.json
   def index
@@ -16,22 +15,20 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/new
   def new
-    if !@skill.activities.empty?
-          @last_activity_type = @skill.activities.last.activity_type
-    else
-        @last_activity_type = 'Solo Practice'
-    end
+    @last_activity_type = if !@skill.activities.empty?
+                            @skill.activities.last.activity_type
+                          else
+                            'Solo Practice'
+                          end
     @activity = @skill.activities.build
   end
 
   def show_all
     # @activities = current_user.activities.where(condition) current_user.current_domain
-
   end
 
   # GET /activities/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /activities or /activities.json
   def create
@@ -54,7 +51,7 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to skill_path(@skill)}
+        format.html { redirect_to skill_path(@skill) }
         format.json { render :show, status: :ok, location: @activity }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,16 +71,19 @@ class ActivitiesController < ApplicationController
   end
 
   private
-    def get_skill
-      @skill = Skill.find(params[:skill_id])
-    end 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = @skill.activities.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def activity_params
-      params.require(:activity).permit(:description, :skill_id, :date, :tags, :rating, :activity_type, :reps).merge({user_id: current_user.id})
-    end
+  def get_skill
+    @skill = Skill.find(params[:skill_id])
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = @skill.activities.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def activity_params
+    params.require(:activity).permit(:description, :skill_id, :date, :tags, :rating, :activity_type,
+                                     :reps).merge({ user_id: current_user.id })
+  end
 end
