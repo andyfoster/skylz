@@ -17,10 +17,10 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/new
   def new
-    @last_activity_type = if !@skill.activities.empty?
-                            @skill.activities.last.activity_type
-                          else
+    @last_activity_type = if @skill.activities.empty?
                             'Solo Practice'
+                          else
+                            @skill.activities.last.activity_type
                           end
     @activity = @skill.activities.build
   end
