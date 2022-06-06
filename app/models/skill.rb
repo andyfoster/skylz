@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Skill < ApplicationRecord
   belongs_to :user
   has_one :domain
@@ -9,5 +11,4 @@ class Skill < ApplicationRecord
   def total_reps
     activities.sum(:reps)
   end
-
 end
