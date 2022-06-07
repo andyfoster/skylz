@@ -4,7 +4,8 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-purple-gradient text-white text-center text-sm font-medium inline-flex items-center py-2 px-4 rounded-lg cursor-pointer;
+    @apply bg-purple-gradient text-white text-center text-sm font-medium inline-flex items-center py-2 px-4 rounded-lg
+    cursor-pointer;
   }
 
   h1 {
@@ -16,6 +17,6 @@
   }
 
   .bg-purple-gradient {
-    @apply bg-gradient-to-r from-indigo-500 to-indigo-900;
+    @apply bg-gradient-to-r from-indigo-500 to-indigo-900 hover:from-indigo-900 hover:to-indigo-500;
   }
 }
