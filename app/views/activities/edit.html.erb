@@ -1,9 +1,9 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing activity</h1>
+  <h1 class="font-bold text-4xl inline-block">Editing activity</h1>
+  <%= link_to "Back", skill_path(@skill), class: "ml-2 mt-3 underline inline-block font-medium float-right" %>
 
   <%= render "form", activity: @activity %>
 
-    <%= link_to "Back to #{@skill.name}", skill_path(@skill), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= button_to "delete", {:controller => :activities, :action => 'destroy', :id => @activity.id }, :method => :delete %>
+  <%= button_to "delete", {:controller => :activities, :action => 'destroy', :id => @activity.id }, :method => :delete, class: "bg-red-500 p-2 rounded-md text-white inline-block float-right" %>
 
 </div>
