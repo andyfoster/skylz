@@ -2,12 +2,18 @@
   <% if action_name != "show" %>
   <div class="flex items-center flex-row flex-wrap justify-center w-full">
     <div class="focus:outline-none bg-white shadow w-full mb-3 border border-black hover:bg-indigo-100">
-      <div id="card-content" class=" p-6">
+      <div id="card-content" class="p-6 relative">
+      <% cache skill do %>
+            <%= content_tag :span, "#{skill.total_reps}x", 
+            class: "text-indigo-200 rounded-full
+            bg-gradient-to-r from-indigo-500 to-indigo-900 flex items-center 
+            justify-center h-10 w-10 p-8 absolute -top-2 -right-2" %>
+      <% end %>
         <div class="flex items-center">
           <%# <img src="https://cdn.tuk.dev/assets/components/misc/doge-coin.png" alt="coin avatar" class="w-12 h-12 rounded-full" /> %>
           <div class="flex items-start justify-between w-full">
-            <div class="w-full">
-              <%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800 hover:underline" %>
+            <div class="w-full pr-8">
+              <span><%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800 hover:underline" %></span>
 
               <p class="focus:outline-none text-sm leading-normal pt-2 text-gray-500">
                 <%=  !skill.activities.empty? ? "Last done: #{skill.activities.last.date.strftime("%a, %e %b %Y")}" : 'New Skill' %>
@@ -17,10 +23,6 @@
               </p>
             </div>
 
-            <%= content_tag :span, "#{skill.total_reps}x", 
-            class: "text-indigo-200 rounded-full
-            bg-gradient-to-r from-indigo-500 to-indigo-900 flex items-center 
-            justify-center h-10 w-10 p-6 ml-5" %>
 
           </div>
         </div>
@@ -30,12 +32,15 @@
             <%= skill.notes %>
           </p>
   -->
-          <div class="focus:outline-none" id="tags">
+          <div class="focus:outline-none mt-3" id="tags">
             <% if skill.tags.present? 
                             skill.tags.split(", ").each do |tag|%>
-            <div class="py-2 px-4 text-xs leading-3 
-                              text-indigo-700 rounded-full bg-indigo-100 mb-3 inline">
-              #<%= tag %></div>
+            <div class="text-xs inline-block
+        mr-2 px-2 py-0.5 rounded-lg
+        text-indigo-900 border border-indigo-900
+        hover:text-white cursor-pointer
+        hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-900">
+              <%= tag %></div>
             <% end %>
             <% end %>
           </div>
@@ -72,12 +77,14 @@
 #%>
 
   <div>
-    <%= link_to edit_skill_path(@skill) do %>
-    <span class="text-gray-500 hover:text-gray-900 inline-block float-right"><%= fa_icon "pencil" %> Edit</span>
-    <% end %>
+    <div class="relative">
+      <%= link_to edit_skill_path(@skill) do %>
+      <span class="text-indigo-500 hover:text-white absolute right-0"><%= fa_icon "pencil" %> Edit</span>
+      <% end %>    
+    </div>
   </div>
 
-  <%= content_tag :h1, skill.name, class: "text-6xl font-bold py-3 text-center bg-gradient-to-r from-indigo-500 to-indigo-900 bg-clip-text text-transparent underline decoration-4 decoration-indigo-800" %>
+  <%= content_tag :h1, skill.name, class: "text-6xl block font-bold py-3 text-center bg-gradient-to-r from-indigo-500 to-indigo-900 text-white" %>
 
   <% if skill.tags.present? %>
   <div
@@ -178,6 +185,8 @@
   </div>
   <% end %>
 
+<!-- 
+TODO - add related skills field
   <h2 class="font-bold text-xl mb-3">Related Skills</h2>
   <span class="p-3"><a href=""
       class="text-indigo-700 bg-indigo-100 hover:text-indigo-100 hover:bg-indigo-700 rounded-full mb-3 py-2 px-4 text-lg whitespace-nowrap">Kimura
@@ -185,12 +194,14 @@
   <span class="p-3"><a href=""
       class="text-indigo-700 bg-indigo-100 hover:text-indigo-100 hover:bg-indigo-700 rounded-full mb-3 py-2 px-4 text-lg whitespace-nowrap">Triangle
       from Mount</a></span>
-  <br>
-  <br>
+-->
 
+<!--
+TODO: add a quick practice button
   <a href="#" class="btn-primary">Marked as practiced today</a>
+-->
 
-  <br>
-  <%#= TODO: render "activities/form", :activity => @activity, :skill => @skill %>
+<%#= TODO: render "activities/form", :activity => @activity, :skill => @skill %>
+
   <% end %>
 </div>
