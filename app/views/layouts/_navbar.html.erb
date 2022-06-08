@@ -28,7 +28,7 @@
           <%= content_tag :a, 'Training List', class: "block px-4 py-2 hover:bg-gray-100" %>
         </li>
         <li class="">
-          <%= content_tag :a, 'Activities', class: "block px-4 py-2 hover:bg-gray-100" %>
+          <%= link_to "Activities", activities_path, class: "block px-4 py-2 hover:bg-gray-100" if user_signed_in? %>
         </li>
         <li>
           <%= link_to "Manage Domains", domains_path, class: "block px-4 py-2 hover:bg-gray-100" if user_signed_in? %>
