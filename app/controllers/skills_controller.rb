@@ -8,7 +8,7 @@ class SkillsController < ApplicationController
   def index
     @domain = Domain.find(current_user.current_domain)
     @tags = Skill.where(user_id: current_user.id, domain_id: @domain.id)
-    .pluck(:tags).join(",").split(",").collect(&:strip).uniq.reject(&:blank?)
+                 .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
     @skills = current_user.skills.where(domain_id: @domain.id).sort_by(&:total_reps).reverse
   end
 
