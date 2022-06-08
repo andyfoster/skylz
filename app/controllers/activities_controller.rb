@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 class ActivitiesController < ApplicationController
-  before_action :get_skill
+  before_action :get_skill, except: %i[index]
   before_action :set_activity, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   # GET /activities or /activities.json
+
   def index
-    @activities = @skill.activities
+    @domain = Domain.find(current_user.current_domain)
+    user_skill_ids = Skill.where(domain_id: @domain).pluck('id')
+    @activities = Activity.where(skill_id: user_skill_ids)
   end
 
   # GET /skills/:skill_id/activities/1 or /activities/1.json
