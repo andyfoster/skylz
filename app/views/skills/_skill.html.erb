@@ -36,10 +36,10 @@
             <% if skill.tags.present? 
                             skill.tags.split(", ").each do |tag|%>
             <div class="text-xs inline-block
-        mr-2 px-2 py-0.5 rounded-lg
-        text-indigo-900 border border-indigo-900
-        hover:text-white cursor-pointer
-        hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-900">
+            mr-2 px-2 py-0.5 rounded-lg
+            text-indigo-900 border border-indigo-900
+            hover:text-white cursor-pointer
+            hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-900">
               <%= tag %></div>
             <% end %>
             <% end %>
@@ -79,12 +79,12 @@
   <div>
     <div class="relative">
       <%= link_to edit_skill_path(@skill) do %>
-      <span class="text-indigo-500 hover:text-white absolute right-0"><%= fa_icon "pencil" %> Edit</span>
+      <span class="text-indigo-500 hover:text-white absolute z-20 right-20"><%= fa_icon "pencil" %> Edit</span>
       <% end %>    
     </div>
   </div>
 
-  <%= content_tag :h1, skill.name, class: "text-6xl block font-bold py-3 text-center bg-gradient-to-r from-indigo-500 to-indigo-900 text-white" %>
+  <%= content_tag :h1, skill.name, class: "sloped relative text-6xl block font-bold py-3 text-center bg-gradient-to-r from-indigo-500 to-indigo-900 text-white" %>
 
   <% if skill.tags.present? %>
   <div
@@ -108,13 +108,20 @@
     <a href="#activity-log">Activity Log</a>
   </div>
   -->
+  
+  <% if skill.reason.present? %>
+    <div class="mt-3">
+      <h2 class="font-bold text-xl">Reason</h2>
+      <%= content_tag :p, skill.reason, class: 'whitespace-pre-wrap' %>
+      <br>
+    </div>
+  <% end %>
 
   <div class="mt-3">
     <h2 class="font-bold text-xl">Notes</h2>
     <%= content_tag :p, skill.notes, class: 'trix-content whitespace-pre-wrap' %>
     <br>
   </div>
-
 
   <div class="mt-3">
     <% if !skill.steps.blank? %>

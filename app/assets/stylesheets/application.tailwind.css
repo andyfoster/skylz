@@ -12,6 +12,36 @@
     @apply font-bold text-3xl text-indigo-900;
   }
 
+  .sloped:before {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    left: -10%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #646bed;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+  }
+
+  .sloped:after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    right: -10%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #323180;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+  }
+
   trix-toolbar {
     display: none;
   }
