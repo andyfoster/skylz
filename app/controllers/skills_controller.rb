@@ -115,6 +115,6 @@ class SkillsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def skill_params
     params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :steps, :category,
-                                    :domain_id).merge(user_id: current_user.id)
+                                    :domain_id, :reason).merge(user_id: current_user.id)
   end
 end
