@@ -8,6 +8,28 @@
     <!-- TODO: Add modal popup to add an activity for any skill -->
   </div>
 
+  <div id="activities-table" class="min-w-full">
+        <table class=" border-black">
+          <tr>
+            <th>Info</th>
+            <th>Skill</th>
+            <th></th>
+            <th>Notes</th>
+          </tr>
+          <% @activities.each do |activity| %>
+            <tr class="border-t border-b border-black">
+              <td class="text-xs text-gray-500 italic">
+                <%= activity.date %><br><%= activity.activity_type %>
+                <br>
+                <%= link_to "edit", edit_skill_activity_path(activity.skill, activity), class: "hover:font-bold" %>
+              </td>
+              <td><%= link_to activity.skill.name, skill_path(activity.skill), class: "text-purple-500" %></td>
+              <td><%= activity.reps %>x</td>
+              <td><%= activity.description %></td>
+            </tr>
+          <% end %> 
+        </table>
+  </div>
 
   <div>
     <% @activities.each do |activity| %>
@@ -29,6 +51,7 @@
     <% end %>
   </div>
   <br>
+
 
   <div id="activities" class="min-w-full">
     <% @activities.each do |a| %>
