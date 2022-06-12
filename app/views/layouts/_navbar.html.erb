@@ -1,7 +1,7 @@
 <nav class="border-gray-200 px-2 sm:px-4 py-2.5 bg-white">
-  <div class="container flex flex-wrap justify-between items-center mx-auto">
+  <div class="container flex flex-wrap items-center justify-between mx-auto">
     <a href="/" class="flex items-center">
-      <%# <img src="/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> %>
+      <%# <img src="/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" /> %>
       <span class="self-center text-xl font-semibold whitespace-nowrap text-gradient-to-r from-indigo-500 to-indigo-900">skylz</span>
     </a>
     <button data-collapse-toggle="mobile-menu" type="button"
@@ -43,17 +43,17 @@
           </button>
           <!-- Dropdown menu -->
           <div id="dropdownNavbar"
-            class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+            class="z-10 hidden bg-white rounded shadow divide-y divide-gray-100 w-44 dark:bg-gray-700 dark:divide-gray-600">
             <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
               <% if current_user && !current_user.domains.empty? %>
-              <li class="bg-gray-200 block px-4 py-2 font-bold">Switch to:</li>
+              <li class="block px-4 py-2 font-bold bg-gray-200">Switch to:</li>
               <% current_user.domains.each do | domain | %>
               <% if current_user.current_domain == domain.id %>
               <li>
                 <%# link_to domain.name, root_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
               </li>
               <% else %>
-              <li class="bg-gray-200 pl-2">
+              <li class="pl-2 bg-gray-200">
                 <%= link_to domain.name, set_domain_path(domain.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
               </li>
               <% end %>
@@ -81,4 +81,4 @@
     </div>
   </div>
 </nav>
-<div class="w-full m-0 bg-purple-gradient h-1"></div>
+<div class="w-full h-1 m-0 bg-purple-gradient"></div>

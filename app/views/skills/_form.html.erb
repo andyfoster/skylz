@@ -1,6 +1,6 @@
 <%= form_with(model: skill, class: "contents") do |form| %>
   <% if skill.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="px-3 py-2 mt-3 font-medium text-red-500 rounded-lg bg-red-50">
       <h2><%= pluralize(skill.errors.count, "error") %> prohibited this skill from being saved:</h2>
 
       <ul>
@@ -47,7 +47,7 @@
 
   <% if true == false #if action_name == "edit" %>
     <% button_to skill_path(@skill), method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} do %>
-      <span class="btn-primary bg-red-500 hover:bg-red-900"><%= fa_icon "trash", class: "mr-2" %> Delete this skill</span>
+      <span class="bg-red-500 btn-primary hover:bg-red-900"><%= fa_icon "trash", class: "mr-2" %> Delete this skill</span>
     <% end %> 
   <% end %>  
 <% end %>

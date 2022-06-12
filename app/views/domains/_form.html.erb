@@ -1,6 +1,6 @@
 <%= form_with(model: domain, class: "contents") do |form| %>
   <% if domain.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+    <div id="error_explanation" class="px-3 py-2 mt-3 font-medium text-red-500 rounded-lg bg-red-50">
       <h2><%= pluralize(domain.errors.count, "error") %> prohibited this domain from being saved:</h2>
 
       <ul>
