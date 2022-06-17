@@ -1,4 +1,4 @@
-<nav class="border-gray-200 px-2 sm:px-4 py-2.5 bg-white">
+<nav class="border-gray-200 px-2 sm:px-4 py-2.5 bg-white dark:bg-indigo-900 dark:text-white">
   <div class="container flex flex-wrap items-center justify-between mx-auto">
     <a href="/" class="flex items-center">
       <%# <img src="/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" /> %>
@@ -22,16 +22,16 @@
     <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
       <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
         <li class="">
-          <%= content_tag :a, 'Sessions', class: "block px-4 py-2 hover:bg-gray-100" %>
+          <%= content_tag :a, 'Sessions', class: "block px-4 py-2 hover:underline" %>
         </li>
         <li class="">
-          <%= content_tag :a, 'Training List', class: "block px-4 py-2 hover:bg-gray-100" %>
+          <%= content_tag :a, 'Training List', class: "block px-4 py-2 hover:underline" %>
         </li>
         <li class="">
-          <%= link_to "Activities", activities_path, class: "block px-4 py-2 hover:bg-gray-100" if user_signed_in? %>
+          <%= link_to "Activities", activities_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
         </li>
         <li>
-          <%= link_to "Manage Domains", domains_path, class: "block px-4 py-2 hover:bg-gray-100" if user_signed_in? %>
+          <%= link_to "Manage Domains", domains_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
         </li>
 
 
@@ -50,7 +50,7 @@
               <% current_user.domains.each do | domain | %>
               <% if current_user.current_domain == domain.id %>
               <li>
-                <%# link_to domain.name, root_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                <%# link_to domain.name, root_path, class: "block px-4 py-2 hover:underline dark:hover:bg-gray-600 dark:hover:text-white" %>
               </li>
               <% else %>
               <li class="pl-2 bg-gray-200">
