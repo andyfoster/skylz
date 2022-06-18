@@ -5,5 +5,4 @@
   <%= render "form", activity: @activity %>
 
   <%= button_to "delete", {:controller => :activities, :action => 'destroy', :id => @activity.id }, :method => :delete, class: "bg-red-500 p-2 rounded-md text-white inline-block float-right" %>
-
 </div>
