@@ -7,7 +7,7 @@
     <%= render @activity %>
 
     <%= link_to 'Edit this activity', edit_skill_activity_path(@activity), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
+    <div class="inline-block ml-2 p-1">
       <%#= button_to 'Delete', controller: 'activities', method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
       <%= button_to "delete", {:controller => :activities, :action => 'destroy', :id => @activity.id }, :method => :delete %>
     </div>
