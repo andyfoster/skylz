@@ -4,8 +4,19 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
+one:
+  name: 'test skill'
+  notes: 'blah'
+  media: null
+  tags: 'test'
+  category: null
+  user_id: 1
+  created_at: <%= 5.day.ago.to_s(:db) %>
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+  domain_id: 1
+  steps: 'step 1, step 2'
+  reason: 'reason here'
+
 #
 two: {}
 # column: value
