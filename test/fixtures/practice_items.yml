@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  skill: one
+  PracticeList: one
+
+two:
+  skill: two
+  PracticeList: two
