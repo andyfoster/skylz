@@ -49,4 +49,19 @@
   .bg-purple-gradient {
     @apply bg-gradient-to-r from-indigo-500 to-indigo-900 hover:from-indigo-900 hover:to-indigo-500;
   }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+      display: absolute;
+    }
+    100% {
+      opacity: 0;
+      display: none !important;
+    }
+  }
+
+  .fade-out {
+    animation: fade-out 5s normal forwards;
+  }
 }
