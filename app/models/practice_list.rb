@@ -1,0 +1,2 @@
+class PracticeList < ApplicationRecord
+end
