@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
   has_many :skills, dependent: :destroy
   has_many :domains, dependent: :destroy
+  has_many :practice_lists, dependent: :destroy
 
   after_create :create_domain
   after_create :create_example_skill
