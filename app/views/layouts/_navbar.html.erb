@@ -49,13 +49,13 @@
               <li class="block px-4 py-2 font-bold bg-gray-200">Switch to:</li>
               <% current_user.domains.each do | domain | %>
               <% if current_user.current_domain == domain.id %>
-              <li>
-                <%# link_to domain.name, root_path, class: "block px-4 py-2 hover:underline dark:hover:bg-gray-600 dark:hover:text-white" %>
-              </li>
+                <li>
+                  <%# link_to domain.name, root_path, class: "block px-4 py-2 hover:underline dark:hover:bg-gray-600 dark:hover:text-white" %>
+                </li>
               <% else %>
-              <li class="pl-2 bg-gray-200">
-                <%= link_to domain.name, set_domain_path(domain.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
-              </li>
+                <li class="pl-2 bg-gray-200">
+                  <%= link_to domain.name, set_domain_path(domain.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                </li>
               <% end %>
               <% end %>
               <% end %>
@@ -65,8 +65,7 @@
                 <%= link_to "Manage Domains", domains_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" if user_signed_in? %>
               </li>
               <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your
-                  Account</a>
+                <%= link_to "Your Account", edit_user_registration_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
               </li>
             </ul>
             <div class="py-1">
