@@ -6,9 +6,14 @@ class SkillsController < ApplicationController
 
   # GET /skills or /skills.json
   def index
-    @domain = Domain.find(current_user.current_domain)
+    # TODO: fix situation if a the current domain has been deleted
+    # if Domain.find(current_user.current_domain).exists?
+      @domain = Domain.find(current_user.current_domain)
+    # else
+      # @domain = current_user.domains.first
+    # end
     @tags = Skill.where(user_id: current_user.id, domain_id: @domain.id)
-                 .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
+      .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
     @skills = current_user.skills.where(domain_id: @domain.id).sort_by(&:total_reps).reverse
   end
 
@@ -42,7 +47,7 @@ class SkillsController < ApplicationController
     skill_array = []
     params[:skill][:name].split("\n").reject(&:blank?).each do |skill_name|
       skill_array.push({ name: skill_name, user_id: current_user.id,
-                         domain_id: current_user.current_domain, tags: params[:skill][:tags] })
+        domain_id: current_user.current_domain, tags: params[:skill][:tags] })
     end
 
     if Skill.insert_all(skill_array)
