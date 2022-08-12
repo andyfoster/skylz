@@ -29,6 +29,7 @@ class DomainsController < ApplicationController
     respond_to do |format|
       if @domain.save
         c.update_attribute(:current_domain, @domain.id)
+        PracticeList.create(domain_id: @domain.id, user_id: c.id)
 
         format.html { redirect_to root_path, notice: 'Domain was successfully created.' }
         format.json { render :show, status: :created, location: @domain }

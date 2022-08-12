@@ -16,7 +16,11 @@
               <span><%= link_to skill.name, skill, class: "focus:outline-none text-xl font-medium leading-5 text-gray-800 hover:underline" %></span>
 
               <p class="pt-2 text-sm leading-normal text-gray-500 focus:outline-none">
-                <%=  !skill.activities.empty? ? "Last done: #{skill.activities.last.date.strftime("%a, %e %b %Y")}" : 'New Skill' %>
+                <% if !skill.activities.empty? %>
+                  <%= time_ago_in_words(skill.activities.last.date.strftime("%a, %e %b %Y")) %> ago
+                <% else %>
+                  <span class="px-2 py-0 rounded-sm text-sm bg-indigo-500 text-white">New</span>
+                <% end %>
               </p>
               <p class="pt-2 text-sm leading-normal text-gray-500 focus:outline-none">
                 <%= "Last rated: #{skill.activities.last.rating}" unless skill.activities.empty? %>
@@ -52,6 +56,9 @@
           <%= link_to edit_skill_path(skill) do %>
           <span class="text-gray-500 hover:text-gray-900"><%= fa_icon "pencil" %> edit</span>
           <% end %>
+        </div>
+        <div>
+        <%= button_to 'Add to List', practice_items_path(skill_id: skill) %>
         </div>
         <div class="">
           <%= link_to edit_skill_path(skill) do %>
@@ -129,10 +136,17 @@
       <% skill.steps.split("\n").reject(&:blank?).each_with_index do |step, index| %>
       <div class="flex items-center border-black step border-b-1"
         onclick='this.style.color = "grey"; this.style.textDecoration = "line-through"'>
-        <span class="flex items-center justify-center w-10 h-10 mt-4 ml-4 text-white rounded-full bg-purple-gradient">
-          <%= index +1 %>
-        </span>
-        <span class="w-5/6 py-3 ml-4 text-2xl leading-relaxed cursor-pointer"><%= step %></span>
+
+        <% if step[0] == "*" %>
+          <span class="text-grey-900 py-3 ml-4 text-center w-full text-2xl"><%= step[1..step.length] %></span>
+          <% #index = index -1 %>
+        <% else %>
+          <span class="flex items-center justify-center w-10 h-10 ml-4 text-white rounded-full bg-purple-gradient">
+            <%= index +1 %>
+          </span>
+          <span class="w-5/6 py-3 ml-4 text-2xl leading-relaxed cursor-pointer"><%= step %></span>
+        <% end %>
+
       </div>
       <% end %>
     </div>

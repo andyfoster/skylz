@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_28_053833) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_28_090529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,12 +75,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_28_053833) do
     t.index ["user_id"], name: "index_domains_on_user_id"
   end
 
-  create_table "practice_lists", force: :cascade do |t|
-    t.bigint "domain_id"
-    t.bigint "user_id"
+  create_table "practice_items", force: :cascade do |t|
+    t.bigint "skill_id", null: false
+    t.bigint "practice_list_id", null: false
+    t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["domain_id"], name: "index_practice_lists_on_domain_id"
+    t.index ["practice_list_id"], name: "index_practice_items_on_practice_list_id"
+    t.index ["skill_id"], name: "index_practice_items_on_skill_id"
+  end
+
+  create_table "practice_lists", force: :cascade do |t|
+    t.bigint "domain_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domain_id"], name: "index_practice_lists_on_domain_id", unique: true
     t.index ["user_id"], name: "index_practice_lists_on_user_id"
   end
 
@@ -118,6 +128,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_28_053833) do
   add_foreign_key "activities", "skills"
   add_foreign_key "activities", "users"
   add_foreign_key "domains", "users"
+  add_foreign_key "practice_items", "practice_lists"
+  add_foreign_key "practice_items", "skills"
+  add_foreign_key "practice_lists", "domains"
+  add_foreign_key "practice_lists", "users"
   add_foreign_key "skills", "domains"
   add_foreign_key "skills", "users"
 end
