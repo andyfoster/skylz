@@ -7,7 +7,12 @@
 
 
   <div class="mt-10">
-    <%= button_to "Delete #{@domain.name}", domain_path(@domain), method: :delete, form_class: "inline-block", class: "py-3 px-5 bg-red-500 text-white rounded-md inline-block font-medium" %>
+    <% if current_user.current_domain != @domain.id %>
+      <%= button_to "Delete #{@domain.name}", domain_path(@domain), method: :delete, form_class: "inline-block", class: "py-3 px-5 bg-red-500 text-white rounded-md inline-block font-medium" %>
+    <% else %>
+      <p class="text-red-500">You can't delete your current domain. <br>
+      If you wish to delete this domain, switch to another domain and try again.</p>
+    <% end %>
   </div>
 
 </div>
