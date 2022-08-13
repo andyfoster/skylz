@@ -2,7 +2,7 @@
 
 class Skill < ApplicationRecord
   belongs_to :user
-  has_one :domain
+  belongs_to :domain
   has_many :activities, dependent: :destroy
   has_many :practice_items
 
