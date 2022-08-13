@@ -82,6 +82,12 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
+  
+  # Fix for Heroku Sass Tailwind error
+  # https://github.com/tailwindlabs/tailwindcss/discussions/6738
+  config.assets.css_compressor = nil
+
+
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
