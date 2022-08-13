@@ -1,0 +1,41 @@
+<div class="w-full mx-auto md:w-2/3">
+  <%= link_to 'Back to skills', skills_path, class: "float-right ml-2 inline-block font-md underline decoration-indigo-800" %>
+  <h1 class="mb-10">Export your skills</h1>
+
+  <% if current_user.skills.empty? %>
+    <p>You don't have any skills yet. <%= link_to 'Add a skill', new_skill_path %></p>
+  <% end %>
+
+  <%# loop through each skill %>
+
+  <% @skills.each do |skill| %>
+    <div class="mb-5 border-b-1 border-black">
+      <strong class="underline font-extrabold"><%= link_to skill.name, skill_path(skill) %></strong><br />
+      <% unless skill.reason.blank? %>
+        <span class="font-bold">Reason:</span> <%= skill.reason %></span><br />
+      <% end %>
+      <% unless skill.notes.blank? %>
+        Notes: <%= skill.notes %><br />
+      <% end %>
+      <% unless skill.tags.blank? %>
+        Tags: <%= skill.tags %><br />
+      <% end %>
+      <% unless skill.domain.blank? %>
+        Domain: <%= skill.domain.name %><br />
+      <% end %>
+      <% unless skill.steps.blank? %>
+        <span class="font-bold">Steps:</span><br />
+          <ul>          
+            <% skill.steps.split("\n").reject(&:blank?).each_with_index do |step, index| %>
+              <li><%= step %></li>
+            <% end %>
+          </ul>
+      <% end %>
+      
+
+    </div>
+  
+  <% end %>
+
+
+</div>

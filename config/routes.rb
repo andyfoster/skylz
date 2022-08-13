@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :activities
   end
 
+  get '/export' => 'skills#export' , :as => 'export_skills'
+
   get '/activities' => 'activities#index'
 
   get '/new_multi' => 'skills#new_multi', as: :new_multi

@@ -17,6 +17,14 @@ class SkillsController < ApplicationController
     @skills = current_user.skills.where(domain_id: @domain.id).sort_by(&:total_reps).reverse
   end
 
+  def export
+    @skills = current_user.skills.where(domain_id: current_user.current_domain)
+    # respond_to do |format|
+    #   format.csv { send_data @skills.to_csv, filename: 'skills.csv' }
+    # end
+  end
+
+
   # GET /skills/1 or /skills/1.json
   def show
     @skill = current_user.skills.find(params[:id])
