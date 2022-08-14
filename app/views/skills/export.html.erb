@@ -15,13 +15,13 @@
         <span class="font-bold">Reason:</span> <%= skill.reason %></span><br />
       <% end %>
       <% unless skill.notes.blank? %>
-        Notes: <%= skill.notes %><br />
+        <span class="font-bold">Notes:</span> <%= skill.notes %><br />
       <% end %>
       <% unless skill.tags.blank? %>
-        Tags: <%= skill.tags %><br />
+        <span class="font-bold">Tags:</span> <%= skill.tags %><br />
       <% end %>
       <% unless skill.domain.blank? %>
-        Domain: <%= skill.domain.name %><br />
+        <span class="font-bold">Domain:</span> <%= skill.domain.name %><br />
       <% end %>
       <% unless skill.steps.blank? %>
         <span class="font-bold">Steps:</span><br />
