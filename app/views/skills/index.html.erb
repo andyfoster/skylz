@@ -1,6 +1,6 @@
 <div class="w-full">
   <% if notice.present? %>
-    <p class="fade-out absolute top-1/4 left-1/4 px-3 py-2 mb-5 font-medium text-green-500 rounded-lg bg-green-50 " id="notice"><%= notice %></p>
+    <p class="absolute px-3 py-2 mb-5 font-medium text-green-500 rounded-lg fade-out top-1/4 left-1/4 bg-green-50 " id="notice"><%= notice %></p>
   <% end %>
 
   <div class="flex items-center justify-between">
@@ -72,8 +72,9 @@
 </div> -->
 
 <div>
-    <div aria-label="group of cards" tabindex="0" 
-    class="flex flex-row flex-wrap justify-between w-full py-8 focus:outline-none">
+    <%# <div aria-label="group of cards" tabindex="0"  %>
+    <%# class="flex flex-row flex-wrap justify-between w-full py-8 focus:outline-none"> %>
+    <div>
       <%= render @skills %>
     </div>
 </div>
