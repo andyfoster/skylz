@@ -1,24 +1,18 @@
-# README
+# Skylz
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+App for keeping track of skills. Think of it as a personal database of the things you know that you don't want to forget. Petential uses in organisations for keeping staff up-to-date with their knowledge and finding out what needs to be practiced.
 
-Things you may want to cover:
+Standard Rails 7 installation.
+```
+$ bundle install
+```
 
-* Ruby version
+Start the dev server to keep Tailwind settings up to date:
+```
+$ ./bin/dev 
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Otherwise, run:
+```
+$ rails server
+```
