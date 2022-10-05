@@ -13,7 +13,10 @@
   <%= favicon_link_tag asset_path('favicon.ico') %>
   <script>
     function setHeight(fieldId) {
-      document.getElementById(fieldId).style.height = document.getElementById(fieldId).scrollHeight + 'px';
+      var field = document.getElementById(fieldId);
+      // field.style.height = field.scrollHeight + 'px; overflow-y:hidden;';
+      field.style.height = 0;
+      field.style.height = (field.scrollHeight) + "px";
     }
   </script>
 </head>
