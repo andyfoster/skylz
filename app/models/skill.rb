@@ -8,7 +8,8 @@ class Skill < ApplicationRecord
 
   before_destroy :ensure_not_referenced_by_any_practice_item
 
-  validates :name, presence: true, uniqueness: true
+  # validates [:user_id, :domain_id, :name], presence: true, uniqueness: true
+  validates :name, presence: true
   validates :user_id, presence: true
   validates :domain_id, presence: true
 
