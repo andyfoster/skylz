@@ -4,12 +4,23 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-purple-gradient hover:from-indigo-900 hover:to-indigo-500 text-white text-center text-sm font-medium inline-flex items-center py-2 px-4 rounded-lg
-    cursor-pointer;
+    @apply inline-flex items-center px-4 py-2 text-base font-medium text-white bg-indigo-900 rounded-lg cursor-pointer;
+  }
+  .btn-secondary {
+    /* @apply inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg cursor-pointer bg-purple-gradient hover:from-indigo-900 hover:to-indigo-500; */
+    @apply inline-flex items-center px-4 py-2 text-base font-medium text-center text-indigo-500 bg-gray-200 rounded-lg cursor-pointer;
   }
 
   h1 {
-    @apply font-bold text-3xl text-indigo-900;
+    @apply text-4xl font-bold text-indigo-900 font-header;
+  }
+
+  @layer base {
+    @font-face {
+      font-family: Gemunu Libre;
+      font-weight: 400;
+      src: url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;600;700;800&display=swap');
+    }
   }
 
   .sloped:before {
