@@ -2,7 +2,7 @@
   <div class="container flex flex-wrap items-center justify-between mx-auto">
     <a href="/" class="flex items-center">
       <span class="self-center text-2xl font-header whitespace-nowrap text-gradient-to-r from-indigo-500 to-indigo-900">
-        <span class="flex items-center justify-center p-2 text-lg text-white bg-indigo-900 rounded-full w-9 h-9">s</span>
+        <span class="p-2 text-3xl text-indigo-900 w-9 h-9">s</span>
         <span>
           <%= Domain.find(current_user.current_domain).name if user_signed_in?  %>
         </span>
