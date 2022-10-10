@@ -55,7 +55,7 @@ class SkillsController < ApplicationController
     skill_array = []
     params[:skill][:name].split("\n").reject(&:blank?).each do |skill_name|
       skill_array.push({ name: skill_name, user_id: current_user.id,
-        domain_id: current_user.current_domain, tags: params[:skill][:tags] })
+        domain_id: params[:skill][:domain_id], tags: params[:skill][:tags] })
     end
 
     if Skill.insert_all(skill_array)
@@ -106,13 +106,16 @@ class SkillsController < ApplicationController
 
   # DELETE /skills/1 or /skills/1.json
   def destroy
-    @skill.destroy
+    if @skill.present?
+      @skill.destroy
+      redirect_to skills_url
+    end
     # TODO: - update is_deleted to true
 
-    respond_to do |format|
-      format.html { redirect_to skills_url, notice: 'Skill was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to skills_url, notice: 'Skill was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   # get /s/medical
