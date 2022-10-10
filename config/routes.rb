@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     get "/register" => "devise/registrations#new"
   end
 
+  authenticated do
+    root :to => 'skills#index', as: :authenticated
+  end
+
+  root :to => 'static_pages#home'
+
   resources :skills do
     resources :activities
   end
@@ -25,7 +31,4 @@ Rails.application.routes.draw do
   # get '/s/', to: 'skills#tag_search', :as => 'tag_search'
   # put '/admin/users/:id/activate' => 'admins#activate_user', :as => 'activate_user'
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  root "skills#index"
 end
