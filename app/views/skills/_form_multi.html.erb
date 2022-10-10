@@ -5,31 +5,27 @@
 
       <ul>
         <% skill.errors.each do |error| %>
-          <li class="opacity-0 transition-opacity duration-300"><%= error.full_message %></li>
+          <li class="transition-opacity duration-300 opacity-0"><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="mb-5">
-    <%= form.label :name, class: ""%><br />
-    <%= form.text_area :name, class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %><br />
+  <div class="mt-5 mb-5">
+    <%= form.text_area :name, placeholder: "add a new skill\non each line", class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %>
     <br />
-    <%= form.label :tags, class: "" %><br />
-    <%= form.text_field :tags, placeholder: "separate, tags with, commas", class: "w-full" %>
+    <br />
+    <%= form.text_field :tags, placeholder: "Tags: separate, tags with, commas", class: "w-full" %>
     <% if current_user.domains.count > 1 %>
-      <%= form.label :domain_id, class: "" %><br />
+      <br />
+      <br />
       <%= form.select :domain_id, current_user.domains.collect {|d| [ d.name, d.id ] }, :selected => @domain.id, class: "w-full" %>
     <% else %>
       <%= form.hidden_field :domain_id, value: @domain.id %>
     <% end %>
-    
   </div>
-
 
   <div class="inline">
     <%= form.submit class: "btn-primary" %>
   </div>
-
   <% end %>
-  
