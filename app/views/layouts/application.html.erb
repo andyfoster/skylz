@@ -11,6 +11,10 @@
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
   <%= favicon_link_tag asset_path('favicon.ico') %>
+  <link rel="apple-touch-icon" sizes="128x128" href="<%= asset_path('favicon.ico') %>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;600;700;800&display=swap');
+  </style>
   <script>
     function setHeight(fieldId) {
       var field = document.getElementById(fieldId);
@@ -21,7 +25,7 @@
   </script>
 </head>
 
-<body class="bg-white">
+<body class="bg-[#F2F2F6] dark:bg-black">
   <%= render 'layouts/navbar', cached: true %>
   <main class="container px-5 mx-auto">
     <%= yield %>
