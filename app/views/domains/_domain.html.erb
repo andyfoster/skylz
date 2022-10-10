@@ -5,9 +5,9 @@
       <span class="p-3 rounded-lg hover:bg-indigo-900 hover:text-white"><%= fa_icon "pencil", class: ""%></span>
     <% end %>
     <% if current_user.current_domain != domain.id %>
-      <%= link_to 'Set current', set_domain_path(domain.id), class: "btn-primary" %>
+      <%= link_to 'Switch to', set_domain_path(domain.id), class: "font-bold border p-2 rounded-lg b-1 border-indigo-900" %>
     <% else %>
-      <%= content_tag :span, 'Currrent Domain: ', class: "text-indigo-900 font-bold" %>
+      <%= content_tag :span, 'Currrent Domain: ', class: "font-bold" %>
     <% end %>
     <%= domain.name %>
   </p>
