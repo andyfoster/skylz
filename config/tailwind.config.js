@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        header: ['Gemunu Libre'],
       },
       colors: {
         ...defaultTheme.colors,
