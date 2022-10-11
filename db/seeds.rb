@@ -22,3 +22,5 @@
 #              notes: 'JavaScript is a high-level, interpreted programming language. It is a language which is also characterized as dynamic, weakly typed and prototype-based. Alongside HTML and CSS, JavaScript is one of the three core technologies of the World Wide Web.', media: 'https://www.javascript.com/', tags: 'programming, language, javascript, jquery, ajax, json', category: 'programming', user_id: 1)
 # Skill.create(name: 'jQuery',
 #              notes: 'jQuery is a cross-platform JavaScript library designed to simplify the client-side scripting of HTML. It is free software under the MIT License.', media: 'https://jquery.com/', tags: 'programming, library, javascript, jquery, ajax, json', category: 'programming', user_id: 1)
+
+User.create(id: 1, "email": "andy@andyfoster.net")
