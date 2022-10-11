@@ -1,12 +1,12 @@
-<section class="text-gray-600 body-font">
+<section class="text-gray-600 dark:text-gray-300 dark:bg-[#1C1C1E] body-font">
   <div class="container px-5 py-10 mx-auto">
   <div class="mx-auto mb-5 text-center">
-    <h1>Welcome to Skylz</h1>
+    <h1 class="text-indigo-500">Welcome to Skylz</h1>
   </div>
-    <div class="flex flex-col items-center pb-5 mx-auto mb-5 border-b border-gray-200 lg:w-3/5 sm:flex-row">
-      <%= link_to "Sign Up", new_user_registration_path, class: "flex px-8 py-2 mx-auto text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600" %>
-      <button class="flex px-8 py-2 mx-auto text-lg text-white bg-orange-500 border-0 rounded focus:outline-none hover:bg-orange-700">Demo</button>
-      <%= link_to "Sign In", new_user_session_path, class: "flex px-8 py-2 mx-auto text-lg bg-indigo-100 text-indigo-500 border-indigo-500 rounded hover:text-white border focus:outline-none hover:bg-indigo-300" %>
+    <div class="flex items-center pb-5 mx-auto mb-5 border-b border-gray-200 lg:w-3/5 sm:flex-row">
+      <%= link_to "Sign Up", new_user_registration_path, class: "flex px-8 py-2 mx-auto text-sm lg:text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600" %>
+      <button class="flex p-2 mx-auto text-sm text-white bg-orange-500 border-0 rounded lg:text-lg focus:outline-none hover:bg-orange-700">Demo</button>
+      <%= link_to "Sign In", new_user_session_path, class: "flex px-8 py-2 mx-auto text-sm lg:text-lg bg-indigo-100 text-indigo-500 border-indigo-500 rounded hover:text-white border focus:outline-none hover:bg-indigo-300" %>
 
     </div>
     <div class="flex flex-col items-center pb-10 mx-auto mb-10 border-b border-gray-200 lg:w-3/5 sm:flex-row">
