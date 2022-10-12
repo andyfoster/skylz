@@ -13,8 +13,6 @@ class Skill < ApplicationRecord
   validates :user_id, presence: true
   validates :skillset_id, presence: true
 
-  has_rich_text :notes
-
   def total_reps
     activities.sum(:reps)
   end

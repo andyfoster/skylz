@@ -53,10 +53,6 @@
     transform: skewX(-10deg);
   }
 
-  trix-toolbar {
-    display: none;
-  }
-
   .bg-purple-gradient {
     @apply bg-gradient-to-r from-indigo-500 to-indigo-900;
   }
