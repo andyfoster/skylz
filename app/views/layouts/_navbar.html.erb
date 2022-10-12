@@ -4,7 +4,7 @@
       <span class="self-center text-2xl font-header whitespace-nowrap text-gradient-to-r from-indigo-500 to-indigo-900">
         <span class="p-2 text-3xl text-indigo-900 w-9 h-9">s</span>
         <span>
-          <%= Domain.find(current_user.current_domain).name if user_signed_in?  %>
+          <%= Skillset.find(current_user.current_skillset).name if user_signed_in?  %>
         </span>
       </span>
     </a>
@@ -12,7 +12,7 @@
       <div class="mt-2 md:hidden">
         <%= fa_icon "plus", class: "" %>
       </div>
-      <%# <span class="inline md:hidden"><%= Domain.find(current_user.current_domain).name %>
+      <%# <span class="inline md:hidden"><%= Skillset.find(current_user.current_skillset).name %>
       <button data-collapse-toggle="mobile-menu" type="button"
         class="inline-flex items-center p-2 ml-3 text-sm rounded-lg text-red dark:text-white md:hidden focus:outline-none"
         aria-controls="mobile-menu" aria-expanded="false">
@@ -44,7 +44,7 @@
           <%= link_to "Activities", activities_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
         </li>
         <li>
-          <%= link_to "Domains", domains_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
+          <%= link_to "Skillsets", skillsets_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
         </li>
 
         <li>
@@ -57,22 +57,22 @@
           <div id="dropdownNavbar"
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
-              <% if current_user && !current_user.domains.empty? %>
+              <% if current_user && !current_user.skillsets.empty? %>
                 <li class="block px-4 py-2 font-bold bg-gray-200">Switch to:</li>
-                <% current_user.domains.each do | domain | %>
-                  <% if current_user.current_domain == domain.id %>
+                <% current_user.skillsets.each do | skillset | %>
+                  <% if current_user.current_skillset == skillset.id %>
                     <li>
-                      <%# link_to domain.name, root_path, class: "block px-4 py-2 hover:underline dark:hover:bg-gray-600 dark:hover:text-white" %>
+                      <%# link_to skillset.name, root_path, class: "block px-4 py-2 hover:underline dark:hover:bg-gray-600 dark:hover:text-white" %>
                     </li>
                   <% else %>
                     <li class="pl-2 bg-gray-200">
-                      <%= link_to domain.name, set_domain_path(domain.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                      <%= link_to skillset.name, set_skillset_path(skillset.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                     </li>
                   <% end %>
                 <% end %>
               <% end %>
               <li>
-                <%= link_to "Manage Domains", domains_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" if user_signed_in? %>
+                <%= link_to "Manage Skillsets", skillsets_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" if user_signed_in? %>
               </li>
               <li>
                 <%= link_to "Your Account", edit_user_registration_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>

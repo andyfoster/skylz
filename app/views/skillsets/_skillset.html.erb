@@ -1,0 +1,27 @@
+<div id="<%= dom_id skillset %>" class="flex justify-between w-full">
+
+  <p class="inline-block my-5">
+    <%= link_to edit_skillset_path(skillset) do %>
+      <span class="p-3 rounded-lg hover:bg-indigo-900 hover:text-white"><%= fa_icon "pencil", class: ""%></span>
+    <% end %>
+    <% if current_user.current_skillset != skillset.id %>
+      <%= link_to 'Switch to', set_skillset_path(skillset.id), class: "font-bold border p-2 rounded-lg b-1 border-indigo-900" %>
+    <% else %>
+      <%= content_tag :span, 'Currrent Skillset: ', class: "font-bold" %>
+    <% end %>
+    <%= skillset.name %>
+  </p>
+
+  <% if action_name != "show" %>
+  <div class="inline-block float-right">
+
+<!--    <% if current_user.current_skillset != skillset.id %>
+    <%= link_to 'Set current', set_skillset_path(skillset.id), class: "btn-primary" %>
+    <% end %>
+-->
+  </div>
+
+
+  <hr class="mt-6">
+  <% end %>
+</div>

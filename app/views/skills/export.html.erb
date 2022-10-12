@@ -20,8 +20,8 @@
       <% unless skill.tags.blank? %>
         <span class="font-bold">Tags:</span> <%= skill.tags %><br />
       <% end %>
-      <% unless skill.domain.blank? %>
-        <span class="font-bold">Domain:</span> <%= skill.domain.name %><br />
+      <% unless skill.skillset.blank? %>
+        <span class="font-bold">Skillset:</span> <%= skill.skillset.name %><br />
       <% end %>
       <% unless skill.steps.blank? %>
         <span class="font-bold">Steps:</span><br />

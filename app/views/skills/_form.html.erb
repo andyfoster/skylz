@@ -21,11 +21,11 @@
     placeholder: "Steps:\nPut each step\nOn a separate line", onblur: 'setHeight("stepsTextarea")' %><br />
     <%= form.text_field :tags, placeholder: "Tags: e.g: advanced, choke", class: "w-full" %>
     <br />
-    <% if current_user.domains.count > 1 %>
-      <%= form.label :domain_id, class: "" %><br />
-      <%= form.select :domain_id, current_user.domains.collect {|d| [ d.name, d.id ] }, :selected => @domain.id, class: "w-full" %>
+    <% if current_user.skillsets.count > 1 %>
+      <%= form.label :skillset_id, class: "" %><br />
+      <%= form.select :skillset_id, current_user.skillsets.collect {|d| [ d.name, d.id ] }, :selected => @skillset.id, class: "w-full" %>
     <% else %>
-      <%= form.hidden_field :domain_id, value: @domain.id %>
+      <%= form.hidden_field :skillset_id, value: @skillset.id %>
     <% end %>
   </div>
 

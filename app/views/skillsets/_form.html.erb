@@ -1,10 +1,10 @@
-<%= form_with(model: domain, class: "contents") do |form| %>
-  <% if domain.errors.any? %>
+<%= form_with(model: skillset, class: "contents") do |form| %>
+  <% if skillset.errors.any? %>
     <div id="error_explanation" class="px-3 py-2 mt-3 font-medium text-red-500 rounded-lg bg-red-50">
-      <h2><%= pluralize(domain.errors.count, "error") %> prohibited this domain from being saved:</h2>
+      <h2><%= pluralize(skillset.errors.count, "error") %> prohibited this skillset from being saved:</h2>
 
       <ul>
-        <% domain.errors.each do |error| %>
+        <% skillset.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

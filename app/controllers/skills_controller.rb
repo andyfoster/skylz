@@ -6,19 +6,19 @@ class SkillsController < ApplicationController
 
   # GET /skills or /skills.json
   def index
-    # TODO: fix situation if a the current domain has been deleted
-    # if Domain.find(current_user.current_domain).exists?
-      @domain = Domain.find(current_user.current_domain)
+    # TODO: fix situation if a the current skillset has been deleted
+    # if Skillset.find(current_user.current_skillset).exists?
+      @skillset = Skillset.find(current_user.current_skillset)
     # else
-      # @domain = current_user.domains.first
+      # @skillset = current_user.skillsets.first
     # end
-    @tags = Skill.where(user_id: current_user.id, domain_id: @domain.id)
+    @tags = Skill.where(user_id: current_user.id, skillset_id: @skillset.id)
       .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
-    @skills = current_user.skills.where(domain_id: @domain.id).sort_by(&:total_reps).reverse
+    @skills = current_user.skills.where(skillset_id: @skillset.id).sort_by(&:total_reps).reverse
   end
 
   def export
-    @skills = current_user.skills.where(domain_id: current_user.current_domain)
+    @skills = current_user.skills.where(skillset_id: current_user.current_skillset)
     # respond_to do |format|
     #   format.csv { send_data @skills.to_csv, filename: 'skills.csv' }
     # end
@@ -33,19 +33,19 @@ class SkillsController < ApplicationController
 
   # GET /skills/new
   def new
-    @domain = Domain.find(current_user.current_domain)
+    @skillset = Skillset.find(current_user.current_skillset)
     @skill = Skill.new
     # @skill = current_user.skills.build
   end
 
   # GET /skills/1/edit
   def edit
-    @domain = Domain.find(current_user.current_domain)
+    @skillset = Skillset.find(current_user.current_skillset)
     @skill = current_user.skills.find(params[:id])
   end
 
   def new_multi
-    @domain = Domain.find(current_user.current_domain)
+    @skillset = Skillset.find(current_user.current_skillset)
     @skill = Skill.new
   end
 
@@ -55,7 +55,7 @@ class SkillsController < ApplicationController
     skill_array = []
     params[:skill][:name].split("\n").reject(&:blank?).each do |skill_name|
       skill_array.push({ name: skill_name, user_id: current_user.id,
-        domain_id: params[:skill][:domain_id], tags: params[:skill][:tags] })
+        skillset_id: params[:skill][:skillset_id], tags: params[:skill][:tags] })
     end
 
     if Skill.insert_all(skill_array)
@@ -131,6 +131,6 @@ class SkillsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def skill_params
     params.fetch(:skill, {}).permit(:name, :notes, :media, :tags, :steps, :category,
-                                    :domain_id, :reason).merge(user_id: current_user.id)
+                                    :skillset_id, :reason).merge(user_id: current_user.id)
   end
 end

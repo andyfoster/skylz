@@ -2,16 +2,16 @@
 
 class Skill < ApplicationRecord
   belongs_to :user
-  belongs_to :domain
+  belongs_to :skillset
   has_many :activities, dependent: :destroy
   has_many :practice_items
 
   before_destroy :ensure_not_referenced_by_any_practice_item
 
   # validates :name, presence: true
-  validates :name, presence: true, uniqueness: { scope: [:user, :domain] }
+  validates :name, presence: true, uniqueness: { scope: [:user, :skillset] }
   validates :user_id, presence: true
-  validates :domain_id, presence: true
+  validates :skillset_id, presence: true
 
   has_rich_text :notes
 

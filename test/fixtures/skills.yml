@@ -13,7 +13,7 @@ one:
   user_id: 1
   created_at: <%= 5.day.ago.to_s(:db) %>
   updated_at: <%= 5.day.ago.to_s(:db) %>
-  domain_id: 1
+  skillset_id: 1
   steps: 'step 1, step 2'
   reason: 'reason here'
 

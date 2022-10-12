@@ -1,6 +1,6 @@
 <div id="<%= dom_id practice_list %>">
   <% if action_name != "show" %>
-    <h1>User <%= practice_list.user.id %>'s list for <%= practice_list.domain.name %></h1>
+    <h1>User <%= practice_list.user.id %>'s list for <%= practice_list.skillset.name %></h1>
     <%= link_to "Show this practice list", practice_list, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to 'Edit this practice list', edit_practice_list_path(practice_list), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">

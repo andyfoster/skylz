@@ -7,6 +7,7 @@ class CreateActivities < ActiveRecord::Migration[7.0]
       t.string :activity_type
       t.date :date
       t.integer :rating
+      t.integer :reps, null: false, default: 0
       t.string :tags
 
       t.timestamps

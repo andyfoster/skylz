@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DomainTest < ActiveSupport::TestCase
+class SkillsetTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

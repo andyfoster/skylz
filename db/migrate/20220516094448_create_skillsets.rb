@@ -1,6 +1,6 @@
-class CreateDomains < ActiveRecord::Migration[7.0]
+class CreateSkillsets < ActiveRecord::Migration[7.0]
   def change
-    create_table :domains do |t|
+    create_table :skillsets do |t|
       t.string :name
       t.references :user, null: false, foreign_key: true
 
