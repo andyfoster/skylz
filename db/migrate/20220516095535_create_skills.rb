@@ -3,7 +3,7 @@ class CreateSkills < ActiveRecord::Migration[7.0]
     create_table :skills do |t|
       t.string :name
       t.string :icon
-      t.string :notes
+      t.text :notes
       t.string :reason
       t.text :steps
       t.string :media
