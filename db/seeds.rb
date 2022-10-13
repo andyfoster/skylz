@@ -23,4 +23,4 @@
 # Skill.create(name: 'jQuery',
 #              notes: 'jQuery is a cross-platform JavaScript library designed to simplify the client-side scripting of HTML. It is free software under the MIT License.', media: 'https://jquery.com/', tags: 'programming, library, javascript, jquery, ajax, json', category: 'programming', user_id: 1)
 
-User.create(id: 1, email: "andy@andyfoster.net", role: "admin")
+User.create(id: 1, email: "andy@andyfoster.net", password: 'changeme', role: "admin")
