@@ -8,12 +8,12 @@ class SkillsController < ApplicationController
   def index
     # TODO: fix situation if a the current skillset has been deleted
     # if Skillset.find(current_user.current_skillset).exists?
-      @skillset = Skillset.find(current_user.current_skillset)
+    @skillset = Skillset.find(current_user.current_skillset)
     # else
-      # @skillset = current_user.skillsets.first
+    # @skillset = current_user.skillsets.first
     # end
     @tags = Skill.where(user_id: current_user.id, skillset_id: @skillset.id)
-      .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
+                 .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
     @skills = current_user.skills.where(skillset_id: @skillset.id).sort_by(&:total_reps).reverse
   end
 
@@ -23,7 +23,6 @@ class SkillsController < ApplicationController
     #   format.csv { send_data @skills.to_csv, filename: 'skills.csv' }
     # end
   end
-
 
   # GET /skills/1 or /skills/1.json
   def show
@@ -55,7 +54,7 @@ class SkillsController < ApplicationController
     skill_array = []
     params[:skill][:name].split("\n").reject(&:blank?).each do |skill_name|
       skill_array.push({ name: skill_name, user_id: current_user.id,
-        skillset_id: params[:skill][:skillset_id], tags: params[:skill][:tags] })
+                         skillset_id: params[:skill][:skillset_id], tags: params[:skill][:tags] })
     end
 
     if Skill.insert_all(skill_array)

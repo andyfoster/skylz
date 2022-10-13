@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class StaticPagesController < ApplicationController
   def home
-    render :layout => "guest"
+    render layout: 'guest'
   end
 end

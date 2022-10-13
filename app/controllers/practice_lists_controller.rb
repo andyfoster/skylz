@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PracticeListsController < ApplicationController
-  before_action :set_practice_list, only: %i[ show edit update destroy ]
+  before_action :set_practice_list, only: %i[show edit update destroy]
 
   # GET /practice_lists or /practice_lists.json
   def index
@@ -7,8 +9,7 @@ class PracticeListsController < ApplicationController
   end
 
   # GET /practice_lists/1 or /practice_lists/1.json
-  def show
-  end
+  def show; end
 
   # GET /practice_lists/new
   def new
@@ -16,8 +17,7 @@ class PracticeListsController < ApplicationController
   end
 
   # GET /practice_lists/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /practice_lists or /practice_lists.json
   def create
@@ -25,7 +25,7 @@ class PracticeListsController < ApplicationController
 
     respond_to do |format|
       if @practice_list.save
-        format.html { redirect_to practice_list_url(@practice_list), notice: "Practice list was successfully created." }
+        format.html { redirect_to practice_list_url(@practice_list), notice: 'Practice list was successfully created.' }
         format.json { render :show, status: :created, location: @practice_list }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class PracticeListsController < ApplicationController
   def update
     respond_to do |format|
       if @practice_list.update(practice_list_params)
-        format.html { redirect_to practice_list_url(@practice_list), notice: "Practice list was successfully updated." }
+        format.html { redirect_to practice_list_url(@practice_list), notice: 'Practice list was successfully updated.' }
         format.json { render :show, status: :ok, location: @practice_list }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class PracticeListsController < ApplicationController
     @practice_list.destroy
 
     respond_to do |format|
-      format.html { redirect_to practice_lists_url, notice: "Practice list was successfully destroyed." }
+      format.html { redirect_to practice_lists_url, notice: 'Practice list was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_practice_list
-      @practice_list = PracticeList.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def practice_list_params
-      params.fetch(:practice_list, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_practice_list
+    @practice_list = PracticeList.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def practice_list_params
+    params.fetch(:practice_list, {})
+  end
 end

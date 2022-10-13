@@ -11,14 +11,18 @@
   <% end %>
 
   <div class="mt-5 mb-5">
-    <%= form.text_field :name, placeholder: :name, class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %><br />
+    <%= form.text_field :name, placeholder: :name, class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %>
     <br />
-    <%= form.text_field :reason, placeholder: "Reason/motivation/objective", class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %><br />
+    <br />
+    <%= form.text_field :reason, placeholder: "Reason/motivation/objective", class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %>
+    <br />
     <br />
     <%= form.text_area :notes, placeholder: "Notes", id: "notesTextarea", class: "bg-white w-full" %>
     <br />
+    <br />
     <%= form.text_area :steps, id: "stepsTextarea", class: "w-full", 
-    placeholder: "Steps:\nPut each step\nOn a separate line", onblur: 'setHeight("stepsTextarea")' %><br />
+    placeholder: "Steps:\nPut each step\nOn a separate line", onblur: 'setHeight("stepsTextarea")' %>
+    <br />
     <%= form.text_field :tags, placeholder: "Tags: e.g: advanced, choke", class: "w-full" %>
     <br />
     <% if current_user.skillsets.count > 1 %>

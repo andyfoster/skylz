@@ -9,7 +9,7 @@ class Skill < ApplicationRecord
   before_destroy :ensure_not_referenced_by_any_practice_item
 
   # validates :name, presence: true
-  validates :name, presence: true, uniqueness: { scope: [:user, :skillset] }
+  validates :name, presence: true, uniqueness: { scope: %i[user skillset] }
   validates :user_id, presence: true
   validates :skillset_id, presence: true
 

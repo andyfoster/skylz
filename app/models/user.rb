@@ -24,7 +24,7 @@ class User < ApplicationRecord
                      notes: "Welcome to Skylz! \rThis is an example of a skill. \rYou can edit or delete this. And of course, you can change BJJ to whatever 'skillset' of skills you want to track!", user_id: id, skillset_id: new_skillset.id, tags: 'easy, welcome, task')
     Activity.create(description: 'Did 10x reps on each side with my grappling dummy', user_id: id, skill_id: s.id,
                     tags: 'solo, fun, home', activity_type: 'Solo Drills', date: Date.yesterday, rating: 5)
-    Activity.create(description: 'Managed to pull this off in rolls with the new white belt. He just escaped.',
+    Activity.create(description: 'Managed to pull this off in rolls with the new white belt.',
                     user_id: id, skill_id: s.id, tags: 'success', activity_type: 'Rolls', date: Date.yesterday, rating: 2)
     Activity.create(
       description: 'Saw this move in class for the first time. Almost managed it but forgot the last step', user_id: id, skill_id: s.id, tags: 'class, first time', activity_type: 'Class', date: Date.yesterday, rating: 2

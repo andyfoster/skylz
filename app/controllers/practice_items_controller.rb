@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PracticeItemsController < ApplicationController
-  before_action :set_practice_item, only: %i[ show edit update destroy ]
+  before_action :set_practice_item, only: %i[show edit update destroy]
 
   # # GET /practice_items or /practice_items.json
   # def index
@@ -27,7 +29,7 @@ class PracticeItemsController < ApplicationController
 
     respond_to do |format|
       if @practice_item.save
-        format.html { redirect_to practice_item_url(@practice_item), notice: "Practice item was successfully created." }
+        format.html { redirect_to practice_item_url(@practice_item), notice: 'Practice item was successfully created.' }
         format.json { render :show, status: :created, location: @practice_item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,19 +56,20 @@ class PracticeItemsController < ApplicationController
     @practice_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to practice_items_url, notice: "Practice item was successfully destroyed." }
+      format.html { redirect_to practice_items_url, notice: 'Practice item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_practice_item
-      @practice_item = PracticeItem.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def practice_item_params
-      params.require(:practice_item).permit(:skill_id, :PracticeList_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_practice_item
+    @practice_item = PracticeItem.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def practice_item_params
+    params.require(:practice_item).permit(:skill_id, :PracticeList_id)
+  end
 end
