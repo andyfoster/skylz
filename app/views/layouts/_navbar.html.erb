@@ -10,7 +10,9 @@
     </a>
     <div class="flex row">
       <div class="mt-2 md:hidden">
-        <%= fa_icon "plus", class: "" %>
+      <%= link_to new_skill_path do %>
+        <span class=""><%= fa_icon "plus", class: "" %></span>
+      <% end %> 
       </div>
       <%# <span class="inline md:hidden"><%= Skillset.find(current_user.current_skillset).name %>
       <button data-collapse-toggle="mobile-menu" type="button"
