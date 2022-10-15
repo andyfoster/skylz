@@ -8,7 +8,7 @@ class ActivitiesController < ApplicationController
   # GET /activities or /activities.json
 
   def index
-    @skillset = Skillset.find(current_user.surrent_dkillset)
+    @skillset = Skillset.find(current_user.current_skillset)
     user_skill_ids = Skill.where(skillset_id: @skillset).pluck('id')
     @activities = Activity.where(skill_id: user_skill_ids)
   end
@@ -29,7 +29,7 @@ class ActivitiesController < ApplicationController
   end
 
   def show_all
-    # @activities = current_user.activities.where(condition) current_user.surrent_dkillset
+    # @activities = current_user.activities.where(condition) current_user.current_skillset
   end
 
   # GET /activities/1/edit
