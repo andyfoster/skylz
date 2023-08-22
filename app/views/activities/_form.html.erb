@@ -12,39 +12,39 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.text_area :description, 
-    class: "bg-transparent border border-indigo-900 block shadow rounded-md border 
+    <%= form.text_area :description,
+                       class: "bg-transparent border border-indigo-900 block shadow rounded-md border
     border-gray-200 outline-none px-3 py-2 mt-2 w-full", placeholder: "Short note about the activity (required)" %>
   </div>
   <div class="my-5">
-    <%= form.select :activity_type, 
+    <%= form.select :activity_type,
       options_for_select([
-        'Solo Drills', 
-        'Partner Drills', 
-        'Competition', 
-        'Mental Visualization', 
-        'Class', 
-        'Rolls'], 
+                           'Solo Drills',
+                           'Partner Drills',
+                           'Competition',
+                           'Mental Visualization',
+                           'Class',
+                           'Rolls'],
         :selected => @last_activity_type
-        ), 
-        {}, 
-        { :class => 
-      "bg-transparent border border-indigo-900 shadow rounded-md border border-gray-200 
-      outline-none px-3 py-2 mt-2 w-1/3" } %>
+      ),
+                    {},
+                    { :class =>
+                        "bg-transparent border border-indigo-900 shadow rounded-md border border-gray-200
+      outline-none dark:text-white px-3 py-2 mt-2 w-1/3" } %>
     <%= form.number_field :reps, :min => 1, class: "w-[80px]", :value => '1' %><span>x reps</span>
-    <%= form.date_field :date, 
-      class: "bg-transparent border border-indigo-900 shadow rounded-md border border-gray-200 
+    <%= form.date_field :date,
+                        class: "bg-transparent border border-indigo-900 shadow rounded-md border border-gray-200
       outline-none px-3 py-2 mt-2 w-1/3 float-right", :value => Time.now.strftime('%Y-%m-%d') %>
   </div>
 
   <div class="my-5">
     <%= form.label :rating, class: 'block' %>
     <div>
-      <%= form.range_field :rating, :min=>0, :max=>10, :id=>"slider1", 
+      <%= form.range_field :rating, :min => 0, :max => 10, :id => "slider1",
       class: "form-range
-      block shadow rounded-md border border-gray-200 
+      block shadow rounded-md border border-gray-200
       outline-none inline-block w-4/5 cursor-pointer" %>
-      <span class="inline-block">10</span>    
+      <span class="inline-block">10</span>
     </div>
   </div>
 
@@ -54,6 +54,6 @@
   </div>
 
   <div class="inline">
-    <%= form.submit class: "btn-primary" %>
+    <%= form.submit "Save", class: "btn-primary" %>
   </div>
 <% end %>
