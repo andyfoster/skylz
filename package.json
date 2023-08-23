@@ -1,0 +1,28 @@
+{
+  "name": "skylz",
+  "version": "1.0.0",
+  "description": "Rails 7 app for keeping track of your skills in various areas. Think of it as a personal database of the things you know that you don't want to forget. Petential uses in organisations for keeping staff up-to-date with their knowledge and finding out what needs to be practiced.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "flowbite": "^1.5.3",
+    "mini-svg-data-uri": "^1.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyfoster/skylz.git"
+  },
+  "author": "Andy Foster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andyfoster/skylz/issues"
+  },
+  "homepage": "https://github.com/andyfoster/skylz#readme"
+}
