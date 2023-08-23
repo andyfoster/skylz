@@ -1,5 +1,5 @@
 <%# <div id="<%= dom_id skill" class="<%= action_name != "show" ? "w-full md:w-[48%] lg:w-[30%] cursor-pointer" : "" %>
-<div id="<%= dom_id skill%>" class="<%= action_name != "show" ? "w-full" : "bg-gray-400 p-5" %>">
+<div id="<%= dom_id skill %>" class="<%= action_name != "show" ? "w-full" : "bg-indigo-100 p-5" %>">
   <% if action_name != "show" %>
  <!--
   <div class="flex flex-row flex-wrap items-center justify-center w-full">
@@ -17,7 +17,7 @@
             <div class="w-full pr-8">
               <span>
                 <%= link_to skill.name, skill, class: "focus:outline-none
-                text-lg font-medium leading-5 text-gray-800 hover:underline" %>
+                text-xxl font-medium leading-5 text-gray-800 hover:underline" %>
                 </span>
 
               <div class="flex space-between">
@@ -88,7 +88,7 @@
 <div class="dark:text-white">
 
   <%# <%= content_tag :h1, skill.name, class: "lg:block sloped relative text-lg lg-text-6xl block font-bold py-3 text-center bg-gradient-to-r from-indigo-500 to-indigo-900 text-white" %>
-  <%= content_tag :h1, skill.name, class: "text-2xl font-bold py-3 text-center text-indigo-900" %>
+  <%= content_tag :h1, skill.name, class: "text-4xl font-bold py-3 text-center text-indigo-900" %>
 
   <div class="inline clear-both mb-2">
     <div class="float-left">
@@ -188,7 +188,8 @@
   <% if skill.media.present? %>
   <div class="mb-3 section">
     <h2 class="text-xl font-bold" id="media">Media</h2>
-    <iframe width="420" height="315" <%# src="https://www.youtube.com/embed/tgbNymZ7vqY"> %> </iframe> <ul>
+    <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+    <ul>
       <li class="p-3">
         <a href="" class="text-lg text-blue-500 underline hover:text-black">Roger Gracie demonstrates move
           (youtube.com)</a>
