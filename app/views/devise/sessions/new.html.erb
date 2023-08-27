@@ -1,8 +1,8 @@
-    <div class="w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-md dark:bg-indigo-900">
+    <div class="w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-md ">
         <div class="px-6 py-4">
-            <h3 class="mt-1 text-xl font-medium text-center dark:text-white">Welcome Back</h3>
+            <h3 class="mt-1 text-xl font-medium text-center ">Welcome Back</h3>
 
-            <p class="mt-1 text-center text-gray-800 dark:text-gray-300">Login or create account</p>
+            <p class="mt-1 text-center text-gray-800 ">Login or create account</p>
 
               <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { data: { turbo: false} } ) do |f| %>
                 <div class="w-full mt-4">
@@ -17,9 +17,9 @@
                 </div>
 
                 <div class="flex items-center justify-between mt-4">
-                  <%= link_to 'Forget Password?', new_user_password_path, class: "text-sm text-indigo-900 dark:text-white hover:text-black" %>
+                  <%= link_to 'Forget Password?', new_user_password_path, class: "text-sm text-indigo-900  hover:text-black" %>
 
-                  <%= f.submit "Log in", class: "px-4 py-2 rounded-md cursor-pointer leading-5 text-indigo-900 border border-indigo-900 dark:text-white dark:border-white focus:outline-none" %>
+                  <%= f.submit "Log in", class: "px-4 py-2 rounded-md cursor-pointer leading-5 text-indigo-900 border border-indigo-900   focus:outline-none" %>
                 </div>
             </form>
         </div>

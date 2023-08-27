@@ -85,7 +85,7 @@
 ### ############################################################################
 #%>
 
-<div class="dark:text-white">
+<div class="">
 
   <%# <%= content_tag :h1, skill.name, class: "lg:block sloped relative text-lg lg-text-6xl block font-bold py-3 text-center bg-gradient-to-r from-indigo-500 to-indigo-900 text-white" %>
   <%= content_tag :h1, skill.name, class: "text-4xl font-bold py-3 text-center text-indigo-900" %>
@@ -136,8 +136,8 @@
 
   <div class="mt-3">
     <% if !skill.steps.blank? %>
-    <h2 class="mb-3 text-xl font-bold dark:text-white" id="steps">Steps</h2>
-    <div id="steps" class="p-2 pt-0 pl-0 bg-white border-2 border-indigo-900 divide-y dark:bg-gray-600 divide-solid">
+    <h2 class="mb-3 text-xl font-bold" id="steps">Steps</h2>
+    <div id="steps" class="p-2 pt-0 pl-0 bg-white border-2 border-indigo-900 divide-y divide-solid">
       <% skill.steps.split("\n").reject(&:blank?).each_with_index do |step, index| %>
       <div class="flex items-center border-black step border-b-1"
         onclick='this.style.color = "grey"; this.style.textDecoration = "line-through"'>
@@ -149,7 +149,7 @@
           <span class="flex items-center justify-center w-10 h-10 ml-4 text-white rounded-full bg-purple-gradient">
             <%= index +1 %>
           </span>
-          <span class="w-5/6 py-3 ml-4 text-2xl leading-relaxed cursor-pointer dark:text-white"><%= step %></span>
+          <span class="w-5/6 py-3 ml-4 text-2xl leading-relaxed cursor-pointer"><%= step %></span>
         <% end %>
 
       </div>

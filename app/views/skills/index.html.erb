@@ -23,7 +23,7 @@
 
   <div id="search-filter-bar" class="flex items-center justify-between">
     <div class="inline w-full">
-      <input type="text" class="dark:bg-[#1C1C1E] w-full px-2 py-2 my-5 text-center border-0 rounded-xl" placeholder="search">
+      <input type="text" class="w-full px-2 py-2 my-5 text-center border-0 rounded-xl" placeholder="search">
     </div>
     <div id="sort-by" class="hidden w-[40%] align-middle ml-5">
         <div class="">
@@ -72,13 +72,13 @@
     <% end %>
 </div>
 
-<!-- <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Default tooltip</button>
-<div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+<!-- <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Default tooltip</button>
+<div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
     Tooltip content
     <div class="tooltip-arrow" data-popper-arrow></div>
 </div> -->
 
-<div class="w-full px-4 m-0 bg-white divide-y rounded-md dark:text-white dark:bg-[#1C1C1E] ph-3">
+<div class="w-full px-4 m-0 bg-white divide-y rounded-md[#1C1C1E] ph-3">
   <% current_user.skills.where(skillset_id: @skillset.id).sort_by(&:total_reps).reverse.each do |skill| %>
         <div class="container flex flex-wrap items-center justify-between py-3 mx-auto">
           <div class="flex w-2/3">
