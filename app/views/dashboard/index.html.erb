@@ -1,0 +1,46 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+
+  <div class="grid grid-cols-2 gap-4">
+
+    <div class="bg-white rounded p-4 shadow-lg col-span-2">
+      <h3 class="text-lg font-bold mb-2">Average Rating per Skill</h3>
+      <%= bar_chart @avg_rating_per_skill, class: "h-40" %>
+    </div>
+
+    <!-- Total Activities in a Week Chart -->
+    <div class="bg-white rounded p-4 shadow-lg">
+      <h3 class="text-lg font-bold mb-2">Types of Activities</h3>
+      <%= pie_chart @activity_types_count, class: "h-40" %>
+    </div>
+
+    <!-- Total Reps in a Week Chart -->
+    <div class="bg-white rounded p-4 shadow-lg">
+      <h3 class="text-lg font-bold mb-2">Total Reps in a Week</h3>
+      <%= line_chart @total_reps_by_week, class: "h-40" %>
+    </div>
+
+    <!-- Average Rating Chart -->
+    <div class="bg-white rounded p-4 shadow-lg col-span-2">
+      <h3 class="text-lg font-bold mb-2">Total Reps by Day</h3>
+      <%= line_chart @total_reps_by_day, class: "h-40" %>
+    </div>
+
+    <!-- Types of Activities Pie Chart -->
+    <div class="bg-white rounded p-4 shadow-lg col-span-2">
+      <h3 class="text-lg font-bold mb-2">Number of Activities in a Week</h3>
+      <%= column_chart @activities_by_week %>
+    </div>
+
+    <!-- Types of Activities Pie Chart -->
+    <div class="bg-white rounded p-4 shadow-lg col-span-2">
+      <h3 class="text-lg font-bold mb-2">Average Rating by Day</h3>
+      <%= line_chart @average_rating_by_day %>
+    </div>
+
+
+  </div>
+</div>
+
+
+
