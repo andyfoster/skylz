@@ -1,56 +1,151 @@
-<section class="text-gray-600[#1C1C1E] body-font">
-  <div class="container px-5 py-10 mx-auto">
-    <p>Hello</p>
-    <header class="bg-purple-700 text-white p-6">
-      <h1 class="text-3xl">Skylz</h1>
-      <p class="text-sm">Track, Improve, Master</p>
-    </header>
+<div class="bg-purple-gradient text-white p-6 h-40">
+  <div class="float-left">
+    <img src="<%= asset_path('apple-touch-icon.png') %>" alt="" class="h-24 w-24"/>
+  </div>
+  <div class="float-left">
+    <span class="text-3xl text-white font-header">Skylz</span><br>
+    <span>Track, Improve, Master</span>
+  </div>
+  <div class="float-right">
+    <%= link_to "Log In", new_user_session_path, class: "text-white border-white rounded px-4 py-2" %>
+  </div>
+</div>
 
-    <section class="p-6">
-      <h2 class="text-2xl">What is Skylz?</h2>
-      <p>Skylz is your go-to app for tracking and mastering skills across a wide range of disciplines.</p>
-      <!-- DALL-E Prompt for Image: "Create an image that visually represents skill mastery across different disciplines." -->
-    </section>
+<div class="p-8 text-center">
+  <%= link_to "Get Started", new_user_registration_path, class: "bg-purple-gradient rounded text-white p-5 mx-auto" %>
+</div>
 
-    <section class="bg-gray-100 p-6">
-      <h2 class="text-2xl">Features</h2>
 
-      <div class="grid grid-cols-3 gap-4">
+
+<div class="p-6 bg-gray-50 h-40">
+  <h2 class="text-2xl">Why Skylz?</h2>
+  <p>Track your skills, improve your expertise, and demonstrate your proficiency.</p>
+  <!-- DALL-E Prompt: "Create an image that visually captures the essence of skill mastery in a dynamic way." -->
+</div>
+
+<div class="p-6 bg-gray-200">
+  <h2 class="text-2xl mb-6">What People Are Saying</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <!-- Testimonial 1 -->
+    <div class="bg-white p-4 rounded">
+      <p>⭐️⭐️⭐️⭐️⭐️</p>
+      <p class="py-2">
+        "Skylz has revolutionized the way I track my skills. Now I know exactly where I stand."</p>
+      <div class="flex items-center space-x-4">
+        <img class="w-8 h-8 rounded-full" src="<%= asset_path('face.jpg') %>" alt="Person's face">
         <div>
-          <h3 class="text-xl">Skill Tracking</h3>
-          <p>Log each skill you're learning, practice it, and monitor your progress.</p>
-          <!-- DALL-E Prompt for Image: "Create an image that visually represents tracking skills over time." -->
-        </div>
-
-        <div>
-          <h3 class="text-xl">Note-Taking</h3>
-          <p>Attach notes and important details to each skill you're learning.</p>
-          <!-- DALL-E Prompt for Image: "Create an image that visually represents the concept of note-taking linked to skill learning." -->
-        </div>
-
-        <div>
-          <h3 class="text-xl">Real-World Application</h3>
-          <p>Mark skills you’ve applied in different real-world situations.</p>
-          <!-- DALL-E Prompt for Image: "Create an image that shows the real-world application of various skills." -->
+          <span class="font-semibold">Jane Doe</span>
+          <span class="text-gray-500">Software Engineer</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="p-6">
-      <h2 class="text-2xl">Who can benefit from Skylz?</h2>
-      <ul>
-        <li>Professionals</li>
-        <li>Athletes</li>
-        <li>Students</li>
-        <li>Hobbyists</li>
-      </ul>
-      <!-- DALL-E Prompt for Image: "Create an image that visually represents a diverse group of people benefiting from skill tracking." -->
-    </section>
+    <!-- Testimonial 2 -->
+    <div class="bg-white p-4 rounded">
+      <p>⭐️⭐️⭐️⭐️⭐️</p>
+      <p class="py-2">
+        "I never thought tracking my jiu-jitsu techniques could be so easy. Skylz is a game-changer!"
+      </p>
+      <div class="flex items-center space-x-4">
+        <img class="w-8 h-8 rounded-full" src="<%= asset_path('face.jpg') %>" alt="Person's face">
+        <div>
+          <span class="font-semibold">John Smith</span>
+          <span class="text-gray-500">BJJ Brown Belt</span>
+        </div>
+      </div>
+    </div>
 
-    <footer class="bg-purple-700 text-white p-6">
-      <p>© 2023 Skylz. All rights reserved.</p>
-    </footer>
-
+    <!-- Testimonial 3 -->
+    <div class="bg-white p-4 rounded">
+      <p>⭐️⭐️⭐️⭐️⭐️</p>
+      <p class="py-2">"As a paramedic, it's crucial for me to stay updated on my skills. Skylz gives me that
+        confidence."</p>
+      <div class="flex items-center space-x-4">
+        <img class="w-8 h-8 rounded-full" src="<%= asset_path('face.jpg') %>" alt="Person's face">
+        <div>
+          <span class="font-semibold">Emily Johnson</span>
+          <span class="text-gray-500">Paramedic</span>
+        </div>
+      </div>
+    </div>
 
   </div>
-</section>
+</div>
+
+
+<div class="p-6 bg-white">
+  <h2 class="text-2xl">Features</h2>
+  <p>From skill tracking to quick training sessions, discover what you can do with Skylz.</p>
+  <!-- DALL-E Prompt: "Create an image showcasing diverse skills, from athletic to academic, all being tracked on a digital platform." -->
+  <br>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div>
+      <h3 class="text-xl">Track</h3>
+      <p>Keep track of your skills and see how you're progressing.</p>
+      <img src="<%= asset_path('sales-list-iphone.png') %>" alt="" class="h-128 w-82"/>
+
+    </div>
+    <div>
+      <h3 class="text-xl">Improve</h3>
+      <p>Get personalized recommendations to improve your skills.</p>
+      <img src="<%= asset_path('sales-description-iphone.png') %>" alt="" class="h-128 w-82"/>
+
+    </div>
+    <div>
+      <h3 class="text-xl">Master</h3>
+      <p>Get certified and demonstrate your proficiency.</p>
+      <img src="<%= asset_path('sales-activities-iphone.png') %>" alt="" class="h-128 w-82"/>
+
+    </div>
+  </div>
+</div>
+
+<div class="p-6 bg-gray-50">
+  <h2 class="text-2xl">For Professionals</h2>
+  <p>Keep track of your proficiencies to boost your career.</p>
+  <!-- DALL-E Prompt: "Create an image of a professional environment where skills like project management and coding are being tracked on a screen." -->
+</div>
+
+<div class="p-6 bg-white">
+  <h2 class="text-2xl">For Athletes</h2>
+  <p>Monitor your training sessions and prepare for competitions.</p>
+  <!-- DALL-E Prompt: "Create an image of an athlete checking his skill metrics on a tablet during training." -->
+</div>
+
+
+<div class="p-6 bg-white">
+  <h2 class="text-2xl">For Coaches</h2>
+  <p>Assign your team members drills and watch how their performance improves.</p>
+</div>
+
+<div class="p-6 bg-gray-50">
+  <h2 class="text-2xl">For Students and Lifelong Learners</h2>
+  <p>Stay on top of your learning journey.</p>
+  <!-- DALL-E Prompt: "Create an image of a student tracking language learning skills on a laptop." -->
+</div>
+
+<div class="flex space-x-4 p-8 text-xl">
+  <!-- Free Plan Card -->
+  <div class="flex-1 bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-xxl font-semibold mb-2 text-center">Individual User</h3>
+    <p class="text-gray-600">Free</p>
+    <ul class="list-disc pl-6 mt-2">
+      <li>Track 5 Skillsets 📊</li>
+      <li>Unlimited Skills 📝</li>
+      <li>Activity Logging 📆</li>
+    </ul>
+  </div>
+
+  <!-- Coach's Plan Card -->
+  <div class="flex-1 bg-white p-6 rounded-lg shadow-lg">
+    <h3 class="text-xxl font-semibold mb-2 text-center">Coach's Plan</h3>
+    <p class="text-gray-600">$1 per player/month 💵</p>
+    <ul class="list-disc pl-6 mt-2">
+      <li>All Free Plan Features ✔️</li>
+      <li>Team Collaboration 🤝</li>
+      <li>Advanced Analytics 📈</li>
+      <li>Priority Support 📞</li>
+    </ul>
+  </div>
+</div>
