@@ -10,7 +10,7 @@ class ActivitiesController < ApplicationController
   def index
     @skillset = Skillset.find(current_user.current_skillset)
     user_skill_ids = Skill.where(skillset_id: @skillset).pluck('id')
-    @activities = Activity.where(skill_id: user_skill_ids)
+    @activities = Activity.where(skill_id: user_skill_ids).sort_by(&:date)
   end
 
   # GET /skills/:skill_id/activities/1 or /activities/1.json

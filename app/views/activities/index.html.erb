@@ -4,34 +4,59 @@
   <% end %>
 
   <div class="flex items-center justify-between">
-    <h1 class="text-4xl font-bold">Activity Log</h1>
+    <h1 class="text-4xl font-bold  mt-4">Activity Log</h1>
     <!-- TODO: Add modal popup to add an activity for any skill -->
   </div>
 
-  <div id="activities-table" class="min-w-full mt-3">
-        <table class="border-black ">
-          <tr>
-            <th>Skill</th>
-            <th></th>
-            <th>Notes</th>
-            <th>Info</th>
-          </tr>
-          <% @activities.reverse.each do |activity| %>
-            <tr class="border-t border-b border-black">
-              <td><%= link_to activity.skill.name, skill_path(activity.skill), class: "font-semibold" %></td>
-              <td><%= activity.reps %>x</td>
-              <td><%= activity.description %></td>
-              <td class="text-xs italic text-gray-500">
-                <%= activity.date.strftime("%a, %e %b %Y") %><br>
-              <span class="inline leading-3 text-orange-900 text-md">
-                <%= activity.activity_type %>
-              </span>
-                <br>
-                <%= link_to "edit", edit_skill_activity_path(activity.skill, activity), class: "font-semibold hover:font-bold" %>
-              </td>
-            </tr>
-          <% end %> 
-        </table>
+
+  <!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+
+  <div class="overflow-x-auto mt-3 bg-white rounded p-4 shadow-lg">
+    <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm ">
+      <thead class="ltr:text-left rtl:text-right">
+      <tr>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Skill
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Reps
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Notes
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Date
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Type
+        </th>
+        <th class="px-4 py-2"></th>
+      </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+
+      <% @activities.reverse.each do |activity| %>
+        <tr>
+          <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            <%= link_to activity.skill.name, skill_path(activity.skill), class: "font-semibold text-lg hover:underline" %>
+          </td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700"><%= activity.reps %>x</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700"><%= activity.description %></td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700"><%= activity.date.strftime("%a, %e %b %Y") %></td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700"><%= activity.activity_type %></td>
+          <td class="whitespace-nowrap px-4 py-2">
+            <%= link_to "edit", edit_skill_activity_path(activity.skill, activity), class: "inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700" %>
+          </td>
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
   </div>
 </div>
 
