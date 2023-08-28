@@ -4,6 +4,14 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :skillsets
 
+  # API
+  namespace :api do
+    namespace :v1 do
+      resources :activities, only: [:index] # You can add more routes here
+      resources :skills, only: [:index] # You can add more routes here
+    end
+  end
+
   devise_for :users do
     get "/login" => "devise/sessions#new"
     get "/register" => "devise/registrations#new"
