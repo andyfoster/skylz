@@ -1,12 +1,15 @@
 class DashboardController < ApplicationController
+  before_action :authenticate_user!
+  before_action :get_current_skillset
+
   def index
     # Replace with your actual logic for determining the current user and skillset
-    @current_user = current_user
-    @current_skillset = Skillset.find(current_user.current_skillset)
+    # @current_user = current_user
+    # @current_skillset = Skillset.find(current_user.current_skillset)
 
     # Fetch activities confined to the current skillset
     @activities = Activity.joins(:skill)
-                          .where(user: @current_user, skills: { skillset: @current_skillset })
+                          .where(user: current_user, skills: { skillset: @current_skillset })
 
     # Total reps for each day
     @total_reps_by_day = @activities.group_by_day(:created_at).sum(:reps)
@@ -37,6 +40,11 @@ class DashboardController < ApplicationController
 
     # Convert skill IDs to skill names for better chart readability
     @avg_rating_per_skill = @avg_rating_per_skill.transform_keys { |key| Skill.find(key).name }
+  end
 
+  private
+
+  def get_current_skillset
+    @current_skillset = Skillset.find(current_user.current_skillset)
   end
 end
