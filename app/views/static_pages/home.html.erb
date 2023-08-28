@@ -1,6 +1,6 @@
 <div class="bg-purple-gradient text-white p-6 h-40">
   <div class="float-left">
-    <img src="<%= asset_path('apple-touch-icon.png') %>" alt="" class="h-24 w-24"/>
+    <img src="<%= asset_path('logo.svg') %>" alt="Skylz logo" class="mr-8 h-24 w-24"/>
   </div>
   <div class="float-left">
     <span class="text-3xl text-white font-header">Skylz</span><br>
@@ -11,11 +11,26 @@
   </div>
 </div>
 
-<div class="p-8 text-center">
-  <%= link_to "Get Started", new_user_registration_path, class: "bg-purple-gradient rounded text-white p-5 mx-auto" %>
+<!-- Full-Width Panel -->
+<div class="bg-gray-100 w-full py-20 flex items-center justify-around">
+  <!-- Bruce Lee Image -->
+  <img src="<%= asset_path('bruce-lee.png') %>" alt="Bruce Lee" class="w-1/4 h-auto rounded shadow-lg">
+
+  <!-- Quote Text -->
+  <div class="text-center w-1/2">
+    <h1 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900">
+      "I fear not the man who has practiced 10,000 kicks once,
+    </h1>
+    <h1 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900">
+      but I fear the man who has practiced one kick 10,000 times."
+    </h1>
+    <p class="text-md md:text-lg lg:text-xl xl:text-2xl text-gray-700 mt-4">- Bruce Lee</p>
+  </div>
 </div>
 
-
+<div class="p-8 text-center bg-purple-gradient">
+  <%= link_to "Start Using Skylz Now", new_user_registration_path, class: "bg-white rounded text-purple p-5 mx-auto" %>
+</div>
 
 <div class="p-6 bg-gray-50 h-40">
   <h2 class="text-2xl">Why Skylz?</h2>
