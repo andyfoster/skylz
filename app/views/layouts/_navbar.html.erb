@@ -44,6 +44,9 @@
           <%= link_to "New", new_skill_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
         </li>
         <li class="">
+          <%= link_to "Dash", dashboard_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
+        </li>
+        <li class="">
           <%= link_to "Activities", activities_path, class: "block px-4 py-2 hover:underline" if user_signed_in? %>
         </li>
         <li>
