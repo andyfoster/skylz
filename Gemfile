@@ -56,6 +56,8 @@ gem 'bootsnap', require: false
 # Use Devise for authentication
 gem 'devise'
 
+gem "chartkick" # For graphs and charts
+
 # Use the font-awesome icons
 gem 'font-awesome-rails'
 
