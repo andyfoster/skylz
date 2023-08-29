@@ -27,6 +27,14 @@ Rails.application.routes.draw do
     resources :activities
   end
 
+  # refresh token and get new one and redirect to dashboard
+  post '/refresh_token' => 'users#refresh_token'
+
+  get '/api_documentation' => 'static_pages#api', :as => 'api_docs'
+  get '/faq' => 'static_pages#faq', :as => 'faq'
+
+  # post '/refresh_token' => 'user#refresh_token', :as => 'refresh_token'
+
   get '/dashboard' => 'dashboard#index', :as => 'dashboard'
 
   get '/export' => 'skills#export', :as => 'export_skills'

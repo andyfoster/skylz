@@ -8,14 +8,33 @@ class User < ApplicationRecord
   has_many :skillsets, dependent: :destroy
   has_many :practice_lists, dependent: :destroy
 
+  before_save :ensure_authentication_token
+
   after_create :create_skillset
   after_create :create_example_skill
+
+  def ensure_authentication_token
+    self.authentication_token ||= generate_authentication_token
+  end
 
   def create_skillset
     d = Skillset.create(name: 'BJJ', user_id: id)
     u = User.find(id)
     u.current_skillset = d.id
     u.save!
+  end
+
+  def refresh_token_only
+    self.authentication_token = generate_authentication_token
+    save!
+  end
+
+  # Redirect to user account page after refresh
+  def refresh_token
+    self.authentication_token = generate_authentication_token
+    save!
+    # current_user.generate_authentication_token
+    redirect_to dashboard_path, notice: 'Token has been refreshed.'
   end
 
   def create_example_skill
@@ -29,5 +48,14 @@ class User < ApplicationRecord
     Activity.create(
       description: 'Saw this move in class for the first time. Almost managed it but forgot the last step', user_id: id, skill_id: s.id, tags: 'class, first time', activity_type: 'Class', date: Date.yesterday, rating: 2
     )
+  end
+
+  private
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
   end
 end
