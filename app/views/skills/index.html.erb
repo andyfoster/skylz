@@ -5,6 +5,11 @@
 <!--    <span class="font-extrabold"> Bruce Lee</span>-->
 <!--  </div>-->
 <!--</div>-->
+<div>
+  Reps total: <%= current_user.num_reps_total %>
+  Reps this week: <%= current_user.num_reps_this_week %>
+</div>
+
 
 <div class="w-full mt-2 lg:mt-0">
   <% if notice.present? %>
