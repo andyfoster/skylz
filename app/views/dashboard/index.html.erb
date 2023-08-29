@@ -37,10 +37,68 @@
       <h3 class="text-lg font-bold mb-2">Average Rating by Day</h3>
       <%= line_chart @average_rating_by_day %>
     </div>
-
-
   </div>
+
+  <article
+    class="flex items-end justify-between rounded-lg border border-gray-100 bg-white p-6"
+  >
+    <div>
+      <p class="text-sm text-gray-500">Reps this week</p>
+
+      <p class="text-2xl font-medium text-gray-900">23</p>
+    </div>
+
+    <div class="inline-flex gap-2 rounded bg-green-100 p-1 text-green-600">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+          />
+      </svg>
+
+      <span class="text-xs font-medium"> 32.4 </span>
+    </div>
+  </article>
+
+  <article
+    class="flex items-end justify-between rounded-lg border border-gray-100 bg-white p-6"
+  >
+    <div>
+      <p class="text-sm text-gray-500">Training Sessions this week</p>
+
+      <p class="text-2xl font-medium text-gray-900">5</p>
+    </div>
+
+    <div class="inline-flex gap-2 rounded bg-red-100 p-1 text-red-600">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+          />
+      </svg>
+
+      <span class="text-xs font-medium"> 30% </span>
+    </div>
+  </article>
 </div>
+
+
 
 
 
