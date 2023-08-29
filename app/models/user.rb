@@ -8,10 +8,22 @@ class User < ApplicationRecord
   has_many :skillsets, dependent: :destroy
   has_many :practice_lists, dependent: :destroy
 
+  has_many :activities
+
   before_save :ensure_authentication_token
 
   after_create :create_skillset
   after_create :create_example_skill
+
+  def num_reps_total # seems to be total ever
+    activities.where('created_at >= ?', 1.week.ago).sum(:reps)
+  end
+
+  def num_reps_this_week
+    activities.where('activities.created_at >= ?', Time.zone.now.beginning_of_week).sum(:reps)
+
+    # activities.where('created_at >= ? AND created_at <= ?', 2.week.ago, 1.week.ago).sum(:reps)
+  end
 
   def ensure_authentication_token
     self.authentication_token ||= generate_authentication_token

@@ -11,6 +11,13 @@ class DashboardController < ApplicationController
     @activities = Activity.joins(:skill)
                           .where(user: current_user, skills: { skillset: @current_skillset })
 
+    @num_activities = @activities.count
+
+    # error on this line
+    # @num_activities_today = @activities.where('activities.created_at >= ?', 1.day.ago).count
+    @num_activities_this_week = @activities.where('activities.created_at >= ?', 1.week.ago).count
+    # @num_activities_this_month = @activities.where('activities.created_at >= ?', 1.month.ago).count
+
     # Total reps for each day
     @total_reps_by_day = @activities.group_by_day(:created_at).sum(:reps)
 
@@ -40,6 +47,16 @@ class DashboardController < ApplicationController
 
     # Convert skill IDs to skill names for better chart readability
     @avg_rating_per_skill = @avg_rating_per_skill.transform_keys { |key| Skill.find(key).name }
+
+    #   Number of activities this week
+    # @activities_this_week = @activities_by_week[0][1]
+
+    #   Number of activities last week
+    # @activities_last_week = @activities_by_week[1][1]
+
+    #   Number of reps this week
+    @reps_this_week = @activities.where('activities.created_at >= ?', 1.week.ago).sum(:reps)
+
   end
 
   private
