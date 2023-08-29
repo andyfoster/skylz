@@ -4,6 +4,14 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :skillsets
 
+  # API
+  namespace :api do
+    namespace :v1 do
+      resources :activities, only: [:index] # You can add more routes here
+      resources :skills, only: [:index] # You can add more routes here
+    end
+  end
+
   devise_for :users do
     get "/login" => "devise/sessions#new"
     get "/register" => "devise/registrations#new"
@@ -18,6 +26,14 @@ Rails.application.routes.draw do
   resources :skills do
     resources :activities
   end
+
+  # refresh token and get new one and redirect to dashboard
+  post '/refresh_token' => 'users#refresh_token'
+
+  get '/api_documentation' => 'static_pages#api', :as => 'api_docs'
+  get '/faq' => 'static_pages#faq', :as => 'faq'
+
+  # post '/refresh_token' => 'user#refresh_token', :as => 'refresh_token'
 
   get '/dashboard' => 'dashboard#index', :as => 'dashboard'
 

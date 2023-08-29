@@ -59,6 +59,8 @@ gem 'devise'
 gem "chartkick" # For graphs and charts
 gem 'groupdate' # Required for group_by_day, group_by_week, etc.
 
+gem 'redcarpet' # For markdown rendering
+
 # Use the font-awesome icons
 gem 'font-awesome-rails'
 

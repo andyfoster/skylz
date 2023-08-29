@@ -1,13 +1,13 @@
 <div class="w-full mx-auto md:w-2/3">
 
-<%= link_to 'Back', :back, class: "float-right ml-2 inline-block font-md underline decoration-indigo-800" %>
-<h1>Edit <%= resource_name.to_s.humanize %></h1>
+  <%= link_to 'Back', :back, class: "float-right ml-2 inline-block font-md underline decoration-indigo-800" %>
+  <h1>Edit <%= resource_name.to_s.humanize %></h1>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field">
-      <%= f.label :email %><br />
+      <%= f.label :email %><br/>
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
 
@@ -16,21 +16,21 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br/>
       <%= f.password_field :password, autocomplete: "new-password" %>
       <% if @minimum_password_length %>
-        <br />
+        <br/>
         <em><%= @minimum_password_length %> characters minimum</em>
       <% end %>
     </div>
 
     <div class="field">
-      <%= f.label :password_confirmation %><br />
+      <%= f.label :password_confirmation %><br/>
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
     </div>
 
     <div class="field">
-      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br/>
       <%= f.password_field :current_password, autocomplete: "current-password" %>
     </div>
 
@@ -39,10 +39,25 @@
     </div>
   <% end %>
 
-<br><br><br>
-<h1>Cancel my account</h1>
+  <div class="mt-5">
+    <h2 class="font-semibold text-lg">Your API token</h2>
+    <p>Use this token to access the API.</p>
+    <p>It is unique to you and should be kept secret.</p>
+    <p>It can be used to create, update and delete your own resources.</p>
+    <input type="text" value="<%= current_user.authentication_token %>" class="w-1/2 p-3 bg-grey-300" readonly>
+    <p>Click here to refresh your token. All your existing apps will need to use the new token</p>
+    <%#= button_to "Refresh token", refresh_token_path, method: :post, class: "bg-purple-900 text-white p-1 rounded" %>
+    <%= form_tag '/refresh_token', method: 'post' do %>
+      <%= submit_tag 'Refresh Token', class: "bg-indigo-900 p-1 text-white cursor-pointer" %>
+    <% end %>
 
-<%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "bg-grey-300 p-3 text-red-500" %>
+  </div>
+
+
+  <br><br><br>
+  <h1>Delete my account</h1>
+
+  <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "bg-grey-300 p-3 text-red-500" %>
 
 
 </div>
