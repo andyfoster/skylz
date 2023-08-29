@@ -463,3 +463,45 @@
     </div>
   </div>
 </div>
+
+<div class="bg-gray-800 text-white w-full py-8">
+  <div class="container mx-auto">
+    <div class="flex flex-wrap justify-between">
+      <!-- Company Info -->
+      <div class="w-full md:w-1/4 mb-6 md:mb-0">
+        <h3 class="text-xl font-bold mb-4">Company</h3>
+        <p>About Us</p>
+        <p>Blog</p>
+        <p>Careers</p>
+        <p>Contact Us</p>
+      </div>
+
+      <!-- Product Info -->
+      <div class="w-full md:w-1/4 mb-6 md:mb-0">
+        <h3 class="text-xl font-bold mb-4">Product</h3>
+        <p>Features</p>
+        <p>Pricing</p>
+        <p><%= link_to 'FAQ', faq_path, class: "text-purple-500 hover:underline" %></p>
+        <p>Documentation</p>
+      </div>
+
+      <!-- Resources -->
+      <div class="w-full md:w-1/4 mb-6 md:mb-0">
+        <h3 class="text-xl font-bold mb-4">Resources</h3>
+        <p><%= link_to 'API Docs', api_docs_path, class: "text-purple-500 hover:underline" %></p>
+        <p>Guides</p>
+        <p>Webinars</p>
+        <p>Community</p>
+      </div>
+
+      <!-- Legal -->
+      <div class="w-full md:w-1/4">
+        <h3 class="text-xl font-bold mb-4">Legal</h3>
+        <p>Terms of Service</p>
+        <p>Privacy Policy</p>
+        <p>Cookie Policy</p>
+        <p>Accessibility</p>
+      </div>
+    </div>
+  </div>
+</div>
