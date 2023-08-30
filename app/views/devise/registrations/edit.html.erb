@@ -44,7 +44,14 @@
     <p>Use this token to access the API.</p>
     <p>It is unique to you and should be kept secret.</p>
     <p>It can be used to create, update and delete your own resources.</p>
-    <input type="text" value="<%= current_user.authentication_token %>" class="w-1/2 p-3 bg-grey-300" readonly>
+
+    <div data-controller="clipboard">
+      <input type="text" data-clipboard-target="source" value="<%= current_user.authentication_token %>" class="w-1/2 p-1 bg-grey-300 text-sm" readonly>
+      <button data-action="clipboard#copy" class="bg-purple-gradient px-2 text-sm lowercase rounded text-white hover:bg-white hover:border-indigo-900">Copy
+        to
+        Clipboard
+      </button>
+    </div>
     <p>Click here to refresh your token. All your existing apps will need to use the new token</p>
     <%#= button_to "Refresh token", refresh_token_path, method: :post, class: "bg-purple-900 text-white p-1 rounded" %>
     <%= form_tag '/refresh_token', method: 'post' do %>
