@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :skills, dependent: :destroy
   has_many :skillsets, dependent: :destroy
   has_many :practice_lists, dependent: :destroy
-
   has_many :activities
 
   before_save :ensure_authentication_token
