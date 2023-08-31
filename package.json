@@ -8,10 +8,10 @@
     "test": "test"
   },
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
     "flowbite": "^1.5.3",
     "mini-svg-data-uri": "^1.4.4"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
