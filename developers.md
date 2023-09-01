@@ -101,6 +101,33 @@ Authorization: Bearer YOUR_TOKEN_HERE
 }
 ```
 
+### Get skillsets
+
+- **URL**: `/skillsets`
+- **Method**: `GET`
+
+** Response Body **
+
+```
+[
+    {
+        "id": 1,
+        "name": "BJJ",
+        "is_current": true
+    },
+    {
+        "id": 2,
+        "name": "Paramedicine",
+        "is_current": false
+    },
+    {
+        "id": 3,
+        "name": "Motorcycling 🏍",
+        "is_current": false
+    }
+ ]
+```
+
 ### Refresh Token
 
 - **URL**: `/refresh_token`

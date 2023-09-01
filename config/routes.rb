@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
-      resources :activities, only: [:index] # You can add more routes here
-      resources :skills, only: [:index] # You can add more routes here
+      resources :activities, only: [:index]
+      resources :skills, only: [:index]
+      resources :skillsets, only: [:index]
     end
   end
 
