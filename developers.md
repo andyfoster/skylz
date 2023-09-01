@@ -2,14 +2,14 @@
 
 ## Overview
 
-This document describes the API endpoints available in YourApp for managing skills and activities. All requests and
-responses are in JSON format.
+This document describes the API endpoints available in Skylz for managing skills and activities.
+All requests and responses are in JSON format.
 
 ## Base URL
 
 ```
 https://skylz.herokuapp.com/api/v1
-http://127.0.0.1:3000/api/v1/
+http://127.0.0.1:3000/api/v1
 ```
 
 ## Authentication
@@ -38,16 +38,11 @@ Authorization: Bearer YOUR_TOKEN_HERE
     "id": 1,
     "name": "Triangle from Closed Guard",
     "icon": null,
-    "notes": "The technique employs your legs to encircle the opponent's neck and one of their arms, creating a stranglehold. ",
-    "reason": "(opportunity) They have their arms away from their chest or can force their arms up",
-    "steps": "Start in Closed Guard: Begin by having your opponent in your closed guard, with your legs wrapped around their waist.\nControl the Arms: Use your hands to control your opponent's arms. This is typically done by gripping the wrists or sleeves.\nCreate an Opening: Open your guard momentarily to create space and place one foot on the opponent's hip.",
+    "notes": "The technique employs your legs to encircle the opponent's neck and one of their arms, creating a stranglehold. ...",
     "media": null,
     "tags": "guard, triangle, choke, submission",
     "category": null,
-    "user_id": 1,
-    "skillset_id": 1,
-    "created_at": "2023-08-23T05:39:41.680Z",
-    "updated_at": "2023-08-28T02:02:55.091Z"
+    "skillset_id": 1
   }
 ]
 ```
@@ -84,11 +79,18 @@ Authorization: Bearer YOUR_TOKEN_HERE
 
 **Request Body**
 
+`skill_id` is required. The rest are optional but recommended.
+The `date` field should be a string in the format `Fri, 1 Sep 2023`
+The owner of the token must also own the skill whose `skill_id` is being referred to.
+
 ```json
 {
-  "description": "Did some drills",
+  "skill_id": 1,
+  "description": "Posting a new activity from the API. Love that Leg Triangle!!",
+  "rating": 4,
+  "reps": 101,
+  "date": "Fri, 1 Sep 2023",
   "activity_type": "Solo Drills"
-  // more fields
 }
 ```
 
@@ -96,8 +98,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
 
 ```json
 {
-  "id": 1
-  // other fields
+  "status": 200
 }
 ```
 
@@ -133,6 +134,8 @@ Authorization: Bearer YOUR_TOKEN_HERE
 - **URL**: `/refresh_token`
 - **Method**: `POST`
 
+This will return a new token that you can use to authenticate future requests. The old token will be invalidated.
+
 **Response**
 
 ```json
@@ -155,7 +158,16 @@ All error responses will contain an `error` field describing the issue.
 
 ## Notes
 
-This is a basic API documentation outline. For more complex applications, you may want to include details like rate
-limiting, data types, and more.
+This is a basic API documentation outline.
+
+V1 is very unstable and will change often. I will try to keep this document
+up to date with the latest changes.
+
+- [ ] Add rate limiting and logging
+- [ ] Add more details to the endpoints
+- [ ] Add more endpoints
+- [ ] Add more error handling
+- [ ] Add more tests
+- [ ] Add more documentation
 
 ---
