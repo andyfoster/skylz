@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :activities, only: [:index, :create]
-      resources :skills, only: [:index]
+      resources :skills, only: [:index, :create]
       resources :skillsets, only: [:index]
     end
   end
