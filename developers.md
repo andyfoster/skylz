@@ -47,6 +47,44 @@ Authorization: Bearer YOUR_TOKEN_HERE
 ]
 ```
 
+### Create Skill
+
+- **URL**: `/skills`
+- **Method**: `POST`
+
+`name` is required and must be unique.
+The rest are optional but recommended.
+
+**Request Body**
+
+```
+{
+    "name": "My new move",
+    "notes": "My notes",
+    "reason": "(opportunity) They have their arms away from their chest or can force their arms up",
+    "steps": "Step one\nStep two",
+    "tags": "guard, triangle, choke, submission",
+    "skillset_id": 1
+}
+```
+
+- **Response**
+
+```json
+{
+  "id": 150,
+  "name": "My new move",
+  "icon": null,
+  "notes": "My notes",
+  "reason": "(opportunity) They have their arms away from their chest or can force their arms up",
+  "steps": "Step one\nStep two",
+  "media": null,
+  "tags": "guard, triangle, choke, submission",
+  "category": null,
+  "skillset_id": 1
+}
+```
+
 ### Get Activities
 
 - **URL**: `/activities`
