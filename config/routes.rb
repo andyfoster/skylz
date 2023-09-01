@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
   resources :practice_items
   resources :practice_lists
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
