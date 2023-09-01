@@ -23,13 +23,19 @@ class SkillsetsController < ApplicationController
   # POST /skillsets or /skillsets.json
   def create
     @skillset = Skillset.new(skillset_params)
-
     c = current_user
-
+    
     respond_to do |format|
       if @skillset.save
         c.update_attribute(:current_skillset, @skillset.id)
         PracticeList.create(skillset_id: @skillset.id, user_id: c.id)
+        Skill.create(name: 'First Skill',
+                     user_id: c.id,
+                     skillset_id: @skillset.id,
+                     tags: 'first, easy',
+                     notes: 'This is your first skill. You can edit or delete it.',
+                     reason: 'When you might do this skill, e.g. after finishing a spin',
+                     steps: "Step one\nStep two")
 
         format.html { redirect_to root_path, notice: 'Skillset was successfully created.' }
         format.json { render :show, status: :created, location: @skillset }
