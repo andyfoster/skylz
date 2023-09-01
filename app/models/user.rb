@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  # Include default devise modules.
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable, :omniauthable
+  include DeviseTokenAuth::Concerns::User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
@@ -13,6 +18,8 @@ class User < ApplicationRecord
 
   after_create :create_skillset
   after_create :create_example_skill
+
+  has_secure_password
 
   def num_reps_total # seems to be total ever
     activities.where('created_at >= ?', 1.week.ago).sum(:reps)
