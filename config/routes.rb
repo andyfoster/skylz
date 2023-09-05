@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :activities, only: [:index, :create]
       resources :skills, only: [:index, :create]
       resources :skillsets, only: [:index]
+      post '/auth' => 'authentication#login'
     end
   end
 

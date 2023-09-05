@@ -24,8 +24,9 @@ class User < ApplicationRecord
     # activities.where('created_at >= ? AND created_at <= ?', 2.week.ago, 1.week.ago).sum(:reps)
   end
 
+  # Should strip the 'Bearer ' part of the token
   def ensure_authentication_token
-    self.authentication_token ||= generate_authentication_token
+    self.authentication_token = generate_authentication_token
   end
 
   def create_skillset
@@ -45,7 +46,7 @@ class User < ApplicationRecord
     self.authentication_token = generate_authentication_token
     save!
     # current_user.generate_authentication_token
-    redirect_to dashboard_path, notice: 'Token has been refreshed.'
+    # redirect_to dashboard_path, notice: 'Token has been refreshed.'
   end
 
   def create_example_skill

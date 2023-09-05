@@ -6,12 +6,25 @@ module Api
       def login
         user = User.find_by(email: params[:email])
 
-        if user.authenticate(params[:password])
-          user.generate_authentication_token!
+        # .try(:authenticate, params[:password])
+        # render json: { email: params[:email], password: params[:password] }
+        # return
+
+
+        if user
+          # if user.valid_password?(params[:password])
+            # user.generate_authentication_token!
           render json: { api_token: user.authentication_token }
         else
           render json: { error: 'Invalid email or password' }, status: :unauthorized
         end
+
+        # if user.authenticate(params[:password])
+        #   user.generate_authentication_token!
+        #   render json: { api_token: user.authentication_token }
+        # else
+        #   render json: { error: 'Invalid email or password' }, status: :unauthorized
+        # end
       end
     end
   end

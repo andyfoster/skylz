@@ -18,12 +18,36 @@ This API uses token-based authentication. Include your authentication token in t
 You can access this token on your account page
 
 ```http
-Authorization: Bearer YOUR_TOKEN_HERE
+Authorization: YOUR_TOKEN_HERE
 ```
 
 ---
 
 ## Endpoints
+
+### Get authentication token
+
+- **URL**: `/auth`
+- **Method**: `POST`
+
+**Request Body**
+
+```json
+{
+  "email": "YOUR_EMAIL_HERE",
+  "password": "YOUR_PASSWORD_HERE"
+}
+```
+
+- **Response**
+
+```json
+{
+    "api_token": "USER_TOKEN"
+}
+```
+
+
 
 ### Get Skills
 
@@ -140,6 +164,35 @@ The owner of the token must also own the skill whose `skill_id` is being referre
 }
 ```
 
+### Set current skillset
+
+- **URL**: `/skillsets/:id/set_current`
+- **Method**: `PUT`
+- **Response**
+
+```json
+{
+  "status": 200
+}
+```
+
+### Get current skillset
+
+- **URL**: `/skillsets/current`
+- **Method**: `GET`
+- **Response**
+
+```json
+{
+  "id": 1,
+  "name": "BJJ",
+  "is_current": true
+}
+```
+
+
+
+
 ### Get skillsets
 
 - **URL**: `/skillsets`
@@ -166,6 +219,82 @@ The owner of the token must also own the skill whose `skill_id` is being referre
     }
  ]
 ```
+
+### Create skillset
+
+- **URL**: `/skillsets`
+- **Method**: `POST`
+- **Request Body**
+
+```
+{
+    "name": "BJJ",
+    "is_current": true
+}
+```
+
+- **Response**
+
+```json
+{
+  "id": 1,
+  "name": "BJJ",
+  "is_current": true
+}
+```
+
+### Get skillset
+
+- **URL**: `/skillsets/:id`
+- **Method**: `GET`
+- **Response**
+
+```json
+{
+  "id": 1,
+  "name": "BJJ",
+  "is_current": true
+}
+```
+
+### Update skillset
+
+- **URL**: `/skillsets/:id`
+- **Method**: `PUT`
+- **Request Body**
+
+```
+{
+    "name": "BJJ",
+    "is_current": true
+}
+```
+
+- **Response**
+
+```json
+{
+  "id": 1,
+  "name": "BJJ",
+  "is_current": true
+}
+```
+
+### Delete skillset
+
+- **URL**: `/skillsets/:id`
+- **Method**: `DELETE`
+- **Response**
+
+```json
+{
+  "status": 200
+}
+```
+
+
+
+
 
 ### Refresh Token
 

@@ -4,9 +4,12 @@ module Api
       skip_before_action :verify_authenticity_token
       before_action :authenticate_user_from_token!
 
+
       def index
         skills = current_user.skills
-        render json: skills.as_json(except: [:user_id, :created_at, :updated_at])
+        skillset_id = params[:skillset_id]
+        # render json: skills.as_json(except: [:user_id, :created_at, :updated_at])#.where(skillset_id: skillset_id)
+        render json: skills.where(skillset_id: current_user.current_skillset).as_json(except: [:user_id, :created_at, :updated_at])
       end
 
       def create
