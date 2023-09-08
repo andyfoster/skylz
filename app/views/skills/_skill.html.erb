@@ -92,7 +92,16 @@
       <%# <%= content_tag :h1, skill.name, class: "lg:block sloped relative text-lg lg-text-6xl block font-bold py-3 text-center bg-gradient-to-r from-indigo-500 to-indigo-900 text-white" %>
       <%= content_tag :h1, skill.name, class: "text-4xl font-bold py-3 text-center text-indigo-900" %>
 
-      <div class="inline clear-both mb-2">
+      <div id="stats-table" class="text-xs italic flex space-between">
+        <div class="inline-block">Last done: <%= time_ago_in_words skill.activities.last.date %> ago</div>
+        <div class="inline-block">Last rated: <%= skill.activities.last.rating %> a</div>
+        <div class="inline-block">First done: <%= time_ago_in_words skill.activities.first.date %> ago</div>
+        <div class="inline-block">Created: <%= skill.created_at %></div>
+        <div class="inline-block">Total Reps: <%= skill.total_reps %></div>
+        <div class="inline-block">Mastery Level: ??</div>
+      </div>
+
+      <div class="mb-2 h-5">
         <div class="float-left">
           <% if skill.tags.present? %>
             <% skill.tags.split(", ").each do |tag| %>
@@ -122,121 +131,176 @@
   -->
 
       <% if skill.reason.present? %>
-        <div class="clear-both mt-3">
-          <h2 class="text-xl font-bold">Reason</h2>
+        <div class="clear-both mt-3 p-3 bg-white rounded shadow-lg">
+          <h2 class="text-xl font-bold">When to use</h2>
           <%= content_tag :p, skill.reason, class: 'whitespace-pre-wrap' %>
-          <br>
         </div>
       <% end %>
 
-      <div class="clear-both mt-3">
-        <h2 class="hidden text-xl font-bold">Notes</h2>
-        <%= content_tag :p, skill.notes, class: 'whitespace-pre-wrap' %>
-        <br>
-      </div>
+  <%# Notes Div %>
+  <div class="mt-3">
+       <details class="group [&_summary::-webkit-details-marker]:hidden" open>
+        <summary
+          class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-4 text-gray-900"
+        >
+          <h2 class="font-medium">
+            Notes
+          </h2>
 
-      <div class="mt-3">
-        <% if !skill.steps.blank? %>
-          <h2 class="mb-3 text-xl font-bold" id="steps">Steps</h2>
+          <svg
+            class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+              />
+          </svg>
+        </summary>
+
+        <div class="clear-both mt-3 p-3 bg-white rounded shadow-lg">
+          <%= content_tag :p, skill.notes, class: 'whitespace-pre-wrap' %>
+        </div>
+      </details>
+
+  </div>
 
 
-      <div id="steps" class="bg-white divide-y divide-solid rounded shadow-lg">
-        <% actual_index = 0 %>
-        <% skill.steps.split("\n").reject(&:blank?).each do |step| %>
-          <div class="flex items-center border-black step border-b-1 hover:bg-indigo-50">
 
-            <% if step[0] == "*" %>
-              <span class="w-full py-3 ml-4 text-2xl text-center text-grey-900"><%= step[1..step.length] %></span>
-            <% else %>
 
-              <% actual_index += 1 %>
-              <span class="flex items-center justify-center w-10 h-10 ml-4 text-white rounded-full bg-purple-gradient">
-                <%= actual_index %>
-              </span>
-              <span class="w-5/6 py-3 ml-4 text-2xl leading-relaxed cursor-pointer" data-action="click->toggle#lineThrough"><%= step %></span>
+
+    <%# Steps %>
+    <div class="space-y-4 mt-4">
+      <details class="group [&_summary::-webkit-details-marker]:hidden" open>
+        <summary
+          class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-4 text-gray-900"
+        >
+          <h2 class="font-medium">
+            Steps
+          </h2>
+
+          <svg
+            class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+              />
+          </svg>
+        </summary>
+
+          <div class="mt-3">
+            <% if !skill.steps.blank? %>
+              <%# <h2 class="mb-3 text-xl font-bold" id="steps">Steps</h2> %>
+
+
+          <div id="steps" class="bg-white divide-y divide-solid rounded shadow-lg">
+            <% actual_index = 0 %>
+            <% skill.steps.split("\n").reject(&:blank?).each do |step| %>
+              <div class="flex items-center border-black step border-b-1 hover:bg-indigo-50">
+
+                <% if step[0] == "*" %>
+                  <span class="w-full py-3 ml-4 text-2xl text-center text-grey-900"><%= step[1..step.length] %></span>
+                <% else %>
+
+                  <% actual_index += 1 %>
+                  <span class="flex items-center justify-center w-10 h-10 ml-4 text-white rounded-full bg-purple-gradient">
+                    <%= actual_index %>
+                  </span>
+                  <span class="w-5/6 py-3 ml-4 text-2xl leading-relaxed cursor-pointer" data-action="click->toggle#lineThrough"><%= step %></span>
+                <% end %>
+              </div>
             <% end %>
           </div>
-        <% end %>
-      </div>
+      </details>
 
 
 
+              <%# <% else %>
+              <%# link_to 'No steps for this skill yet.', edit_skill_path(@skill), class: "text-center" %>
+            <% end %>
+          </div>
 
+          <div class="mt-5 mb-3">
+            <h2 class="inline-block mb-3 text-xl font-bold" id="activity-log">
+              Activity Log (<%= skill.activities.count %>)
+            </h2>
+            <%= link_to 'Log A Session', new_skill_activity_path(skill),
+                        class: "float-right b-1 text-sm px-2 rounded text-white bg-indigo-900 hover:bg-white hover:text-indigo-900 border border-indigo-900" %>
+          </div>
 
-          <%# <% else %>
-          <%# link_to 'No steps for this skill yet.', edit_skill_path(@skill), class: "text-center" %>
-        <% end %>
-      </div>
-
-      <div class="mt-5 mb-3">
-        <h2 class="inline-block mb-3 text-xl font-bold" id="activity-log">
-          Activity Log (<%= skill.activities.count %>)
-        </h2>
-        <%= link_to 'Log A Session', new_skill_activity_path(skill),
-                    class: "float-right b-1 text-sm px-2 rounded text-white bg-indigo-900 hover:bg-white hover:text-indigo-900 border border-indigo-900" %>
-      </div>
-
-      <div>
-        <% skill.activities.reverse.each do |activity| %>
-          <article class="border-2 border-gray-100 bg-white rounded shadow-lg">
-            <div class="flex items-start gap-4 p-4 sm:p-6 lg:p-8">
-              <div>
-                <a href="#" class="block w-1/2">
-                  <span class="ml-5 text-indigo-900"><%= activity.reps %>x</span>
-                </a>
-              </div>
-
-
-              <div>
-                <h3 class="font-medium sm:text-lg">
-                  <a href="#" class="hover:underline">
-                    <%= activity.description %>
-                  </a>
-                </h3>
-
-                <p class="line-clamp-2 text-sm text-gray-700">
-                  <%= activity.date.strftime("%a, %e %b %Y") %>
-                </p>
-
-                <div class="mt-2 sm:flex sm:items-center sm:gap-2">
-                  <div class="flex items-center gap-1 text-gray-500">
-                    <span class="bg-orange-500 text-white px-2 text-xs"><%= activity.activity_type.downcase %></span>
+          <div>
+            <% skill.activities.reverse.each do |activity| %>
+              <article class="border-2 border-gray-100 bg-white rounded shadow-lg">
+                <div class="flex items-start gap-4 p-4 sm:p-6 lg:p-8">
+                  <div>
+                    <a href="#" class="block w-1/2">
+                      <span class="ml-5 text-indigo-900"><%= activity.reps %>x</span>
+                    </a>
                   </div>
 
-                  <span class="hidden sm:block" aria-hidden="true">&middot;</span>
-                  <p class="hidden sm:block sm:text-xs sm:text-gray-500">
-                    <%= activity.rating %>/10
-                  </p>
 
-                  <p class="hidden sm:block sm:text-xs sm:text-gray-500">
-                    <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "font-medium underline hover:text-gray-700" %>
-                  </p>
+                  <div>
+                    <h3 class="font-medium sm:text-lg">
+                      <a href="#" class="hover:underline">
+                        <%= activity.description %>
+                      </a>
+                    </h3>
+
+                    <p class="line-clamp-2 text-sm text-gray-700">
+                      <%= activity.date.strftime("%a, %e %b %Y") %>
+                    </p>
+
+                    <div class="mt-2 sm:flex sm:items-center sm:gap-2">
+                      <div class="flex items-center gap-1 text-gray-500">
+                        <span class="bg-orange-500 text-white px-2 text-xs"><%= activity.activity_type.downcase %></span>
+                      </div>
+
+                      <span class="hidden sm:block" aria-hidden="true">&middot;</span>
+                      <p class="hidden sm:block sm:text-xs sm:text-gray-500">
+                        <%= activity.rating %>/10
+                      </p>
+
+                      <p class="hidden sm:block sm:text-xs sm:text-gray-500">
+                        <%= link_to "edit", edit_skill_activity_path(skill, activity), class: "font-medium underline hover:text-gray-700" %>
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </article>
+
+            <% end %>
+          </div>
+          <br>
+
+          <% if skill.media.present? %>
+            <div class="mb-3 section">
+              <h2 class="text-xl font-bold" id="media">Media</h2>
+              <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+              <ul>
+                <li class="p-3">
+                  <a href="" class="text-lg text-blue-500 underline hover:text-black">Roger Gracie demonstrates move
+                    (youtube.com)</a>
+                </li>
+                <li class="p-3">
+                  <a href="" class="text-lg text-blue-500 underline hover:text-black">Simple demo (youtube.com)</a>
+                </li>
+              </ul>
             </div>
-          </article>
+          <% end %>
 
-        <% end %>
-      </div>
-      <br>
-
-      <% if skill.media.present? %>
-        <div class="mb-3 section">
-          <h2 class="text-xl font-bold" id="media">Media</h2>
-          <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
-          <ul>
-            <li class="p-3">
-              <a href="" class="text-lg text-blue-500 underline hover:text-black">Roger Gracie demonstrates move
-                (youtube.com)</a>
-            </li>
-            <li class="p-3">
-              <a href="" class="text-lg text-blue-500 underline hover:text-black">Simple demo (youtube.com)</a>
-            </li>
-          </ul>
-        </div>
-      <% end %>
-
-</div>
+    </div>
 
       <!--
       TODO - add related skills field
