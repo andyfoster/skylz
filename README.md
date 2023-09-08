@@ -1,6 +1,6 @@
 # Skylz
 
-Rails 7 app for keeping track of your skills in various areas. Think of it as a personal database of the things you know that you don't want to forget. 
+Rails 7 app for keeping track of your skills in various areas. Think of it as a personal database of the things you know that you don't want to forget.
 Potential uses in organisations for keeping staff up-to-date with their knowledge and finding out what needs to be practiced.
 
 ## Getting started
@@ -33,4 +33,40 @@ Start the dev server to keep Tailwind settings up to date:
 
 ```
 $ ./bin/dev
+```
+
+
+## Pulling production database to local
+
+### backup local
+
+```bash
+$ pg_dump -U andy skylz_development > skylz_development_backup-DATE.sql
+
+# ChatGPT suggests:
+# $ pg_dump -Fc --no-acl --no-owner -h localhost -U <user> skylz_development > latest.dump
+
+$ rails db:drop
+$ rails db:create
+```
+
+### Pull down from heroku
+
+
+```bash
+$ heroku pg:backups:capture --app skylz
+$ heroku pg:backups:download --app skylz
+```
+
+and to restore:
+
+```bash
+$ pg_restore -d skylz_development latest.dump
+```
+
+
+maybe try this:
+
+```bash
+$ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U <user> -d skylz_development latest.dump
 ```
