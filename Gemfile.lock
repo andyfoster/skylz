@@ -104,6 +104,7 @@ GEM
       bcrypt (~> 3.0)
       devise (> 3.5.2, < 5)
       rails (>= 4.2.0, < 7.1)
+    diff-lcs (1.5.0)
     erubi (1.11.0)
     ffi (1.15.5)
     font-awesome-rails (4.7.0.8)
@@ -217,6 +218,23 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.6)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-rails (6.0.3)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      railties (>= 6.1)
+      rspec-core (~> 3.12)
+      rspec-expectations (~> 3.12)
+      rspec-mocks (~> 3.12)
+      rspec-support (~> 3.12)
+    rspec-support (3.12.1)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -274,6 +292,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
@@ -294,6 +313,7 @@ DEPENDENCIES
   rails (~> 7.0.2, >= 7.0.2.4)
   rails_admin (~> 3.0)
   redcarpet
+  rspec-rails (~> 6.0.0)
   sassc-rails
   selenium-webdriver
   sprockets-rails
@@ -305,7 +325,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.0.0p0
+   ruby 3.1.4p223
 
 BUNDLED WITH
    2.4.14
