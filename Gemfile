@@ -58,6 +58,8 @@ gem 'bootsnap', require: false
 # Use Devise for authentication
 gem 'devise'
 
+gem 'sassc-rails' # RailsAdmin 3 wants this
+
 gem "chartkick" # For graphs and charts
 gem 'groupdate' # Required for group_by_day, group_by_week, etc.
 
@@ -94,4 +96,4 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-gem 'sassc-rails'
+
