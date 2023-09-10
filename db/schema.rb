@@ -40,18 +40,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_231336) do
   end
 
   create_table "practice_lists", force: :cascade do |t|
-    t.bigint "skillset_id", null: false
+    t.bigint "skillsets_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["skillset_id"], name: "index_practice_lists_on_skillset_id"
+    t.index ["skillsets_id"], name: "index_practice_lists_on_skillsets_id"
     t.index ["user_id"], name: "index_practice_lists_on_user_id"
   end
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
-    t.string "icon"
-    t.text "notes"
+    t.string "notes"
     t.string "reason"
     t.text "steps"
     t.string "media"
@@ -100,7 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_231336) do
   add_foreign_key "activities", "users"
   add_foreign_key "practice_items", "practice_lists"
   add_foreign_key "practice_items", "skills"
-  add_foreign_key "practice_lists", "skillsets"
+  add_foreign_key "practice_lists", "skillsets", column: "skillsets_id"
   add_foreign_key "practice_lists", "users"
   add_foreign_key "skills", "skillsets"
   add_foreign_key "skills", "users"
