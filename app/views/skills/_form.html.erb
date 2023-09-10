@@ -138,11 +138,11 @@
     <%= form.text_field :reason, placeholder: "Reason/motivation/objective", class: "w-full rounded-sm focus:ring-1 focus:ring-indigo-900 caret-indigo-900" %>
     <br/>
     <br/>
-    <%= form.text_area :notes, placeholder: "Notes", id: "notesTextarea", class: "bg-white w-full" %>
+    <%= form.text_area :notes, placeholder: "Notes", id: "notesTextarea", class: "bg-white w-full", data: {controller:  "textarea-autogrow" } %>
     <br/>
     <br/>
     <%= form.text_area :steps, id: "stepsTextarea", class: "w-full",
-                       placeholder: "* Start section header with *\nPut each step\n*Section 2\nOn a separate line\nLike so", onblur: 'setHeight("stepsTextarea")' %>
+                       placeholder: "* Start section header with *\nPut each step\n*Section 2\nOn a separate line\nLike so", data: {controller:  "textarea-autogrow" } %>
     <br/>
     <br/>
     <%= form.text_field :tags, placeholder: "Tags: e.g: advanced, choke", class: "w-full" %>
