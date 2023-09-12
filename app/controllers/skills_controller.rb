@@ -17,6 +17,44 @@ class SkillsController < ApplicationController
     @skills = current_user.skills.where(skillset_id: @skillset.id).sort_by(&:total_reps).reverse
   end
 
+
+  # Return a json object with axample data for skill name, notes, and steps
+  def generate
+    # @skill = Skill.new
+    # @skill.name = Faker::Hacker.verb
+    # @skill.notes = Faker::Hacker.say_something_smart
+    # @skill.steps = Faker::Hacker.say_something_smart
+    # @skill.tags = Faker::Hacker.ingverb
+    # @skill.category = Faker::Hacker.adjective
+    # @skill.reason = Faker::Hacker.abbreviation
+    # @skill.media = Faker::Internet.url
+    # @skill.save
+    # render json: @skill
+    # Use the openAi API
+    # @response = ChatgptService.call(params[:message])
+
+    @answer = ChatgptService.call(params[:message], 'gpt-3.5-turbo')
+
+    # convert the response to a json array
+    @answer = @answer.split("\n").reject(&:blank?).to_json
+
+    # render json: @answer
+
+    render json: { data: @answer }
+
+    # render json: {
+    #   name: "Skill from API",
+    #   notes: "The bow and arrow choke is a highly effective submission in Brazilian Jiu-Jitsu. It's an aggressive move that can finish a match quickly if applied correctly. Take your time to properly get your grips and secure your positioning to successfully apply this choke. It requires a steady balance along with a tight grip. Check out online tutorials or seek guidance from a professional coach to perfect this skill. Always remember safety first.",
+    #   steps: [ "*Secure control of your opponent's collars*",
+    #   "Grip the collar of your opponent from under their arm and across their neck.",
+    #   "Transition to their back and maintain control by gripping their pants at the knee, this is your 'bow'.",
+    #   "Pull your opponent onto their side, swing your leg over their shoulder and hook their arm, this is your 'arrow'.",
+    #   "Pull back on both grips while pushing your leg against their back for the choke."],
+    #   tags: ["tag1", "tag2"],
+    #   reason: "When you want to destory the opponent",
+    # }
+  end
+
   def export
     @skills = current_user.skills.where(skillset_id: current_user.current_skillset)
     # respond_to do |format|

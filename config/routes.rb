@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     resources :activities
   end
 
+  get 'generate' => 'skills#generate', :as => 'generate_skills'
+
+
   # refresh token and get new one and redirect to dashboard
   post '/refresh_token' => 'users#refresh_token'
 

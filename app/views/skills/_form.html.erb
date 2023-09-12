@@ -1,4 +1,3 @@
-<%= form_with(model: skill, class: "contents") do |form| %>
   <% if skill.errors.any? %>
     <div
       id="error_explanation"
@@ -14,15 +13,22 @@
     </div>
   <% end %>
 
-  <div class="mt-5 mb-5">
+  <div class="mt-5 mb-5" data-controller="skill-form">
+
+  <%# Needs to be outside the form or clicking this submits the form - turbo? %>
+  <button data-action="skill-form#generate" class="border-2 border-indigo-200 rounded p-3">✨ Generate Draft with AI</button>
+
+<%= form_with(model: skill, class: "contents") do |form| %>
 
     <div class="mb-6">
       <%= form.label :name,
                  class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
       <%= form.text_field :name,
                       class:
-                        "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5",
-                      required: true %>
+                        "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg block w-full p-2.5",
+                      required: true,
+                      data: { skill_form_target: "skillNameInput" }
+                      %>
     </div>
 
     <div class="mb-6">
@@ -31,18 +37,21 @@
                  class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
       <%= form.text_field :reason,
                       class:
-                        "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" %>
+                        "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg block w-full p-2.5",
+                      data: { skill_form_target: "skillReasonInput" }
+                        %>
     </div>
 
     <div class="mb-6">
       <%= form.label :notes,
                  class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
       <%= form.text_area :notes,
-                     placeholder: "Notes",
+                     placeholder: "",
                      id: "notesTextarea",
-                     class: "bg-white w-full",
+                     class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg block w-full p-2.5",
                      data: {
-                       controller: "textarea-autogrow"
+                       controller: "textarea-autogrow",
+                       skill_form_target: "skillNotesInput"
                      } %>
 
     </div>
@@ -53,42 +62,53 @@
 
       <%= form.text_area :steps,
                      id: "stepsTextarea",
-                     class: "w-full",
+                     class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg block w-full p-2.5",
                      placeholder:
-                       "* Start section header with *\nPut each step\n*Section 2\nOn a separate line\nLike so",
+                       "* Start section header\nPut each step\nOn a separate line\n*Section 2\nLike so",
                      data: {
-                       controller: "textarea-autogrow"
+                      controller: "textarea-autogrow",
+                      skill_form_target: "skillStepsInput"
                      } %>
 
     </div>
 
-    <div class="mb-6">
-      <%= form.label :tags,
+    <div class="mb-6 flex justify-between">
+
+    <div class="inline-block w-1/3">
+    <%= form.label :tags,
                  class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
       <%= form.text_field :tags,
-                      placeholder: "Tags: e.g: advanced, choke",
-                      class: "w-full" %>
+                      placeholder: "tag one, tag two, tag three",
+                      class: "shadow-sm border border-gray-300 text-gray-900 text-lg rounded-lg block w-full p-2.5",
+                      data: { skill_form_target: "skillTagsInput" }
+                      %>
     </div>
-
-    <div class="mb-6">
-      <% if current_user.skillsets.count > 1 %>
+    <div class="inline-block w-1/3">
+     <% if current_user.skillsets.count > 1 %>
         <%= form.label :skillset_id,
                    class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
         <%= form.select :skillset_id,
                     current_user.skillsets.collect { |d| [d.name, d.id] },
                     selected: @skillset.id,
                     class:
-                      "block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" %>
+                      "block w-full p-2 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50" %>
       <% else %>
         <%= form.hidden_field :skillset_id, value: @skillset.id %>
       <% end %>
     </div>
 
+
+    </div>
+
+    <div class="mb-6 flex">
+      <div class="w-1/3">
+      <%= form.submit class:
+                  "inline-flex items-center bg-indigo-500 px-4 py-2 text-base font-medium rounded-lg text-white cursor-pointer" %>
+
+      </div>
+    </div>
+
   </div>
 
-  <div class="block">
-    <%= form.submit class:
-                  "inline-flex items-center bg-indigo-500 px-4 py-2 text-base font-medium rounded-lg text-white cursor-pointer" %>
-  </div>
 
 <% end %>
