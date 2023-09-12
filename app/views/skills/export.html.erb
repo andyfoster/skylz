@@ -1,5 +1,4 @@
 <div class="w-full mx-auto md:w-2/3">
-  <%= link_to 'Back to skills', skills_path, class: "float-right ml-2 inline-block font-md underline decoration-indigo-800" %>
   <h1 class="mb-10">Export your skills</h1>
 
   <% if current_user.skills.empty? %>
@@ -25,16 +24,16 @@
       <% end %>
       <% unless skill.steps.blank? %>
         <span class="font-bold">Steps:</span><br />
-          <ul>          
+          <ul>
             <% skill.steps.split("\n").reject(&:blank?).each_with_index do |step, index| %>
               <li><%= step %></li>
             <% end %>
           </ul>
       <% end %>
-      
+
 
     </div>
-  
+
   <% end %>
 
 

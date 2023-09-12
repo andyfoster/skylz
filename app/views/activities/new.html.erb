@@ -1,8 +1,6 @@
-<div class="w-full mx-auto md:w-2/3">
+<div class="w-full mx-auto md:w-2/3 mt-3">
   <h4>Record new activity for: </h4>
     <h1><strong><%= @skill.name %></strong></h1>
 
   <%= render "form", activity: @activity %>
-
-  <%= link_to 'Back', skill_activities_path(@skill), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
