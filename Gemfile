@@ -67,6 +67,10 @@ gem 'redcarpet' # For markdown rendering
 
 gem 'rack-cors' # for cross-origin resource sharing (react api etc)
 
+gem "ruby-openai" # For OpenAI API
+
+gem 'httparty' # For web requests
+
 # Use the font-awesome icons
 gem 'font-awesome-rails'
 
@@ -82,6 +86,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
+
+  gem 'erb-formatter'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
