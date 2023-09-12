@@ -24,6 +24,11 @@ class User < ApplicationRecord
     # activities.where('created_at >= ? AND created_at <= ?', 2.week.ago, 1.week.ago).sum(:reps)
   end
 
+  # Return true if user is role admin
+  def is_admin?
+    role == 'admin'
+  end
+
   # Should strip the 'Bearer ' part of the token
   def ensure_authentication_token
     self.authentication_token = generate_authentication_token
