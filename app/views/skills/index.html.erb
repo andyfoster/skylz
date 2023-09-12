@@ -5,7 +5,8 @@
 <!--    <span class="font-extrabold"> Bruce Lee</span>-->
 <!--  </div>-->
 <!--</div>-->
-<div>
+<div class="hidden">
+<%# Put this stuff on the home page dashboard %>
   Reps total: <%= current_user.num_reps_total %>
   Reps this week: <%= current_user.num_reps_this_week %>
 </div>
@@ -55,26 +56,30 @@
     </div>
   </div>
 
-  <div id="all-tags" class="hidden w-full overflow-x-hidden lg:inline-block whitespace-nowrap">
-  <span class="mr-3 border border-indigo-900 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-900">
-      <span class="text-sm 
-          px-5 py-0.5
-          text-white cursor-pointer">
-          selected tag 
-          </span>
-          <span class="w-3 h-3 px-1 text-white bg-indigo-900 rounded-full cursor-pointer hover:bg-white hover:text-black">x</span>
-  </span>
-    <%# TODO sort by most used, have tags flow off the screen and overflow:scroll %>
-    <% @tags.each do |tag| %>
-      <span class="text-sm 
-          mr-3 px-5 py-0.5 rounded-lg
-          text-indigo-900 border border-indigo-900
-          hover:text-white cursor-pointer
-          hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-900 
-          ">
-          <%= tag.strip %>
-          </span>
-    <% end %>
+  <div>
+    <%= link_to "New Skill", new_skill_path, class: "btn-primary" %>
+  </div>
+
+  <div id="all-tags" class="mt-3 hidden w-full overflow-x-hidden lg:inline-block whitespace-nowrap">
+    <span class="mr-3 border border-indigo-900 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-900">
+      <span class="text-sm
+            px-5 py-0.5
+            text-white cursor-pointer">
+            selected tag
+            </span>
+            <span class="w-3 h-3 px-1 text-white bg-indigo-900 rounded-full cursor-pointer hover:bg-white hover:text-black">x</span>
+    </span>
+      <%# TODO sort by most used, have tags flow off the screen and overflow:scroll %>
+      <% @tags.each do |tag| %>
+        <span class="text-sm
+            mr-3 px-5 py-0.5 rounded-lg
+            text-indigo-900 border border-indigo-900
+            hover:text-white cursor-pointer
+            hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-900
+            ">
+            <%= tag.strip %>
+            </span>
+      <% end %>
   </div>
 
   <!-- <button data-tooltip-target="tooltip-default" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Default tooltip</button>
