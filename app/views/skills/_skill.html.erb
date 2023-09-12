@@ -93,9 +93,13 @@
       <%= content_tag :h1, skill.name, class: "text-4xl font-bold py-3 text-center text-indigo-900" %>
 
       <div id="stats-table" class="text-xs italic flex space-between">
+      <% if skill.activities.count > 0 %>
         <div class="inline-block">Last done: <%= time_ago_in_words skill.activities.last.date %> ago</div>
         <div class="inline-block">Last rated: <%= skill.activities.last.rating %> a</div>
         <div class="inline-block">First done: <%= time_ago_in_words skill.activities.first.date %> ago</div>
+
+      <% end %>
+
         <div class="inline-block">Created: <%= skill.created_at %></div>
         <div class="inline-block">Total Reps: <%= skill.total_reps %></div>
         <div class="inline-block">Mastery Level: ??</div>
@@ -164,15 +168,14 @@
         </summary>
 
         <div class="clear-both mt-3 p-3 bg-white rounded shadow-lg">
-          <%= content_tag :p, skill.notes, class: 'whitespace-pre-wrap' %>
+          <%= content_tag :p, skill.notes, class: 'p-4 text-xl whitespace-pre-wrap' %>
         </div>
       </details>
 
   </div>
 
 
-
-
+<% if !skill.steps.blank? %>
 
     <%# Steps %>
     <div class="space-y-4 mt-4">
@@ -201,9 +204,8 @@
         </summary>
 
           <div class="mt-3">
-            <% if !skill.steps.blank? %>
-              <%# <h2 class="mb-3 text-xl font-bold" id="steps">Steps</h2> %>
 
+        <%# <h2 class="mb-3 text-xl font-bold" id="steps">Steps</h2> %>
 
           <div id="steps" class="bg-white divide-y divide-solid rounded shadow-lg">
             <% actual_index = 0 %>
@@ -225,12 +227,11 @@
           </div>
       </details>
 
+  <% else %>
+  <%# nothing? link_to 'No steps for this skill yet.', edit_skill_path(@skill), class: "text-center" %>
+<% end %>
 
-
-              <%# <% else %>
-              <%# link_to 'No steps for this skill yet.', edit_skill_path(@skill), class: "text-center" %>
-            <% end %>
-          </div>
+    </div>
 
           <div class="mt-5 mb-3">
             <h2 class="inline-block mb-3 text-xl font-bold" id="activity-log">
@@ -246,7 +247,7 @@
                 <div class="flex items-start gap-4 p-4 sm:p-6 lg:p-8">
                   <div>
                     <a href="#" class="block w-1/2">
-                      <span class="ml-5 text-indigo-900"><%= activity.reps %>x</span>
+                      <span class="ml-5 text-indigo-900 text-3xl"><%= activity.reps %>x</span>
                     </a>
                   </div>
 
