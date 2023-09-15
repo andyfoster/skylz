@@ -14,7 +14,8 @@ class SkillsController < ApplicationController
     # end
     @tags = Skill.where(user_id: current_user.id, skillset_id: @skillset.id)
                  .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
-    @skills = current_user.skills.where(skillset_id: @skillset.id).sort_by(&:total_reps).reverse
+    @skills = current_user.skills.where(skillset_id: @skillset.id).includes([:activities])
+    @skills = @skills.sort_by(&:total_reps).reverse
   end
 
   # Render  fragment in a format
@@ -22,11 +23,8 @@ class SkillsController < ApplicationController
   # should be case insensitive
   def skillList
     @skillset = Skillset.find(current_user.current_skillset)
-    # @skills = current_user.skills.where(skillset_id: @skillset.id).wh
-    # @skills = current_user.skills.where(skillset_id: @skillset.id).where('name LIKE ?', "%#{params[:q]}%")
     @skills = current_user.skills.where(skillset_id: @skillset.id).where('name ILIKE ?', "%#{params[:q]}%")
 
-    # render _skillList partial
     render partial: 'skillList', locals: { skills: @skills }
   end
 
