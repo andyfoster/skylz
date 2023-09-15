@@ -3,95 +3,123 @@
 @tailwind utilities;
 
 @layer components {
-    .btn-primary {
-        @apply inline-flex items-center px-4 py-2 text-base font-medium text-white bg-indigo-900 rounded-lg cursor-pointer;
-    }
+  .btn-primary {
+    @apply inline-flex items-center px-4 py-2 text-base font-medium text-white bg-indigo-900 rounded-lg cursor-pointer;
+  }
 
-    .btn-secondary {
-        /* @apply inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg cursor-pointer bg-purple-gradient hover:from-indigo-900 hover:to-indigo-500; */
-        @apply inline-flex items-center px-4 py-2 text-base font-medium text-center text-indigo-500 bg-gray-200 rounded-lg cursor-pointer;
-    }
+  .btn-secondary {
+    /* @apply inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white rounded-lg cursor-pointer bg-purple-gradient hover:from-indigo-900 hover:to-indigo-500; */
+    @apply inline-flex items-center px-4 py-2 text-base font-medium text-center text-indigo-500 bg-gray-200 rounded-lg cursor-pointer;
+  }
 
-    input[type='number']::-webkit-inner-spin-button,
-    input[type='number']::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-    .custom-number-input input:focus {
-        outline: none !important;
-    }
+  .custom-number-input input:focus {
+    outline: none !important;
+  }
 
-    .custom-number-input button:focus {
-        outline: none !important;
-    }
+  .custom-number-input button:focus {
+    outline: none !important;
+  }
 
-    h1 {
-        @apply text-4xl font-bold text-indigo-900 font-header;
-    }
+  h1 {
+    @apply text-4xl font-bold text-indigo-900 font-header;
+  }
 
-    @layer base {
-        @font-face {
-            font-family: Gemunu Libre;
-            font-weight: 400;
-            src: url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;600;700;800&display=swap');
-        }
+  @layer base {
+    @font-face {
+      font-family: Gemunu Libre;
+      font-weight: 400;
+      src: url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;600;700;800&display=swap');
     }
+  }
 
-    .sloped:before {
-        z-index: -1;
-        content: '';
-        position: absolute;
-        left: -10%;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        background-color: #646bed;
-        -webkit-transform: skewX(-10deg);
-        -moz-transform: skewX(-10deg);
-        -ms-transform: skewX(-10deg);
-        transform: skewX(-10deg);
-    }
+  .sloped:before {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    left: -10%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #646bed;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+  }
 
-    .sloped:after {
-        position: absolute;
-        z-index: -1;
-        content: '';
-        right: -10%;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        background-color: #323180;
-        -webkit-transform: skewX(-10deg);
-        -moz-transform: skewX(-10deg);
-        -ms-transform: skewX(-10deg);
-        transform: skewX(-10deg);
-    }
+  .sloped:after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    right: -10%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #323180;
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+  }
 
-    .bg-purple-gradient {
-        @apply bg-gradient-to-r from-indigo-500 to-indigo-900;
-    }
+  .bg-purple-gradient {
+    @apply bg-gradient-to-r from-indigo-500 to-indigo-900;
+  }
 
-    @keyframes fade-out {
-        0% {
-            opacity: 1;
-            display: absolute;
-            position: 50%;
-            height: 500px;
-            width: 1000px;
-        }
-        100% {
-            opacity: 0;
-            display: none !important;
-            position: absolute;
-            left: -100%;
-            bottom: 0%;
-            height: 0px;
-            width: 0px;
-        }
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+      display: absolute;
+      position: 50%;
+      height: 500px;
+      width: 1000px;
     }
+    100% {
+      opacity: 0;
+      display: none !important;
+      position: absolute;
+      left: -100%;
+      bottom: 0%;
+      height: 0px;
+      width: 0px;
+    }
+  }
 
-    .fade-out {
-        animation: fade-out 10s normal forwards;
-    }
+  .fade-out {
+    animation: fade-out 10s normal forwards;
+  }
+
+  /* Build the list-item class in from bootstrap */
+
+  .list-group {
+    @apply flex direction-col pl-0 mb-0 list-none;
+    /* display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0; */
+  }
+
+  .list-group-item.active {
+    @apply z-10 bg-indigo-800 border-indigo-800 text-white;
+  }
+
+  .list-group-item:first-child {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+  .list-group-item {
+    position: relative;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  }
 }

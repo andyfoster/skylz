@@ -1,0 +1,5 @@
+<%# Provides a list of all the skill in the current skillset for
+  the autocomplete field. %>
+<% @skills.each do |s| %>
+  <li class="list-group-item" role="option" data-autocomplete-value="<%= s.id %>"><%= s.name %></li>
+<% end %>

@@ -1,0 +1,13 @@
+<% 3.times do %>
+
+  <div class="mx-auto p-8">
+    <h2>Choose or create a skill</h2>
+
+    <div data-controller="autocomplete" data-autocomplete-url-value="/skillList" role="combobox">
+      <input type="text" class="p-2 w-full" data-autocomplete-target="input"/>
+      <input type="hidden" name="skill_id" data-autocomplete-target="hidden"/>
+      <ul class="list-group" data-autocomplete-target="results"></ul>
+    </div>
+  </div>
+
+<% end %>

@@ -17,6 +17,18 @@ class SkillsController < ApplicationController
     @skills = current_user.skills.where(skillset_id: @skillset.id).sort_by(&:total_reps).reverse
   end
 
+  # Render  fragment in a format
+  # Perform basic search on search params
+  # should be case insensitive
+  def skillList
+    @skillset = Skillset.find(current_user.current_skillset)
+    # @skills = current_user.skills.where(skillset_id: @skillset.id).wh
+    # @skills = current_user.skills.where(skillset_id: @skillset.id).where('name LIKE ?', "%#{params[:q]}%")
+    @skills = current_user.skills.where(skillset_id: @skillset.id).where('name ILIKE ?', "%#{params[:q]}%")
+
+    # render _skillList partial
+    render partial: 'skillList', locals: { skills: @skills }
+  end
 
   # Return a json object with axample data for skill name, notes, and steps
   def generate

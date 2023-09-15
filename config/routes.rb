@@ -31,12 +31,14 @@ Rails.application.routes.draw do
 
   get 'generate' => 'skills#generate', :as => 'generate_skills'
 
-
   # refresh token and get new one and redirect to dashboard
   post '/refresh_token' => 'users#refresh_token'
 
+  # Static Pages
   get '/api_documentation' => 'static_pages#api', :as => 'api_docs'
   get '/faq' => 'static_pages#faq', :as => 'faq'
+  get '/autocomplete' => 'static_pages#autocomplete', :as => 'autocomplete'
+  get 'skillList' => 'skills#skillList', :as => 'skillList'
 
   # post '/refresh_token' => 'user#refresh_token', :as => 'refresh_token'
 
