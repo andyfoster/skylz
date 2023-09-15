@@ -98,7 +98,7 @@
   /* Build the list-item class in from bootstrap */
 
   .list-group {
-    @apply flex direction-col pl-0 mb-0 list-none;
+    @apply flex flex-col pl-0 mb-0 list-none;
     /* display: flex;
     flex-direction: column;
     padding-left: 0;
