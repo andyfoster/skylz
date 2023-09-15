@@ -2,7 +2,8 @@
 
 class Activity < ApplicationRecord
   belongs_to :user
-  belongs_to :skill
+  belongs_to :skill # todo: remove?
+  belongs_to :skill_session
 
   validates :user_id, presence: true
   validates :date, presence: true
