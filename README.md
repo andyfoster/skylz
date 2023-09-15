@@ -3,6 +3,8 @@
 Rails 7 app for keeping track of your skills in various areas. Think of it as a personal database of the things you know that you don't want to forget.
 Potential uses in organisations for keeping staff up-to-date with their knowledge and finding out what needs to be practiced.
 
+Uses Tailwind CSS with Flowbite and Stimulus for JavaScript.  
+
 ## Getting started
 
 To get started with the app, clone the repo and then install the needed gems:
