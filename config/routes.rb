@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :skill_sessions
   resources :practice_items
   resources :practice_lists
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

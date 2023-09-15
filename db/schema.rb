@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_28_231336) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_15_073727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,7 +25,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_231336) do
     t.string "tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "skill_session_id"
     t.index ["skill_id"], name: "index_activities_on_skill_id"
+    t.index ["skill_session_id"], name: "index_activities_on_skill_session_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
@@ -46,6 +48,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_231336) do
     t.datetime "updated_at", null: false
     t.index ["skillsets_id"], name: "index_practice_lists_on_skillsets_id"
     t.index ["user_id"], name: "index_practice_lists_on_user_id"
+  end
+
+  create_table "skill_sessions", force: :cascade do |t|
+    t.string "title"
+    t.datetime "date"
+    t.text "notes"
+    t.string "type"
+    t.string "tags"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_skill_sessions_on_user_id"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -95,12 +109,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_28_231336) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "activities", "skill_sessions"
   add_foreign_key "activities", "skills"
   add_foreign_key "activities", "users"
   add_foreign_key "practice_items", "practice_lists"
   add_foreign_key "practice_items", "skills"
   add_foreign_key "practice_lists", "skillsets", column: "skillsets_id"
   add_foreign_key "practice_lists", "users"
+  add_foreign_key "skill_sessions", "users"
   add_foreign_key "skills", "skillsets"
   add_foreign_key "skills", "users"
   add_foreign_key "skillsets", "users"
