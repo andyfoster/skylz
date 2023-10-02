@@ -1,9 +1,12 @@
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
-  <div class="p-4 flex space-between mx-10">
+<nav class="bg-white border-gray-200">
+  <div class="p-4 flex justify-between mx-10">
     <!--    <button class="" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">-->
     <!--      <img src="<%#= asset_path('logo.svg') %>" class="h-8 mr-3 inline" alt="Skylz Logo"/>-->
     <!--      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Skylz</span>-->
     <!--    </button>-->
+
+  <div id="drawer-and-home-link" class="flex flex-row">
+
     <div class="flex items-center cursor-pointer mr-5" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation">
       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd"
@@ -17,17 +20,26 @@
       </svg>
     </div>
 
+    <%# if user logged in show logo else skillset %>
     <div>
-    <a href="/">
-      <!-- <img src="<%= asset_path('logo.svg') %>" class="h-8 mr-3 inline" alt="Skylz Logo"/> -->
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Skylz</span>
-    </div>
-    <div>
-      <span>
+       <a href="/">
+    <% if user_signed_in? %>
+    <%# make span big and distinctive %>
+      <span class="text-2xl font-semibold hover:text-indigo-900 font-righteous">
       <%= Skillset.find(current_user.current_skillset).name if user_signed_in? %>
       </span>
+    <% else %>
+      <!-- <img src="<%= asset_path('logo.svg') %>" class="h-8 mr-3 inline" alt="Skylz Logo"/> -->
+      <span class="self-center text-2xl font-semibold whitespace-nowrap">Skylz</span>
+    <% end %>
+        </a>
     </div>
-    </a>
+
+
+
+
+
+    </div>
 
     <!--    <div class="flex items-center md:order-2">-->
     <!--      <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">-->
@@ -82,5 +94,13 @@
     <!--        </li>-->
     <!--      </ul>-->
     <!--    </div>-->
+  <div>
+    <%= link_to "New Skill Session",
+    new_skill_session_path,
+    class: "p-2 border border-indigo-900 text-indigo-900 text-sm lowercase cursor-pointer hover:text-white hover:bg-indigo-900 rounded-lg" %>
   </div>
+
+  </div>
+
+
 </nav>
