@@ -43,6 +43,8 @@
     </div>
 
     <div class="mb-6">
+      <%# Short note about markdown with a link to a cheatsheet %>
+       <%= link_to "Markdown Cheatsheet", "https://simplemde.com/markdown-guide", class: "text-sm underline text-violet-500", target: "_blank" %>
       <%= form.label :notes,
                  class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
       <%= form.text_area :notes,
