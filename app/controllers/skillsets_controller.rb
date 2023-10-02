@@ -24,20 +24,36 @@ class SkillsetsController < ApplicationController
   def create
     @skillset = Skillset.new(skillset_params)
     c = current_user
-    
+
     respond_to do |format|
       if @skillset.save
         c.update_attribute(:current_skillset, @skillset.id)
-        PracticeList.create(skillset_id: @skillset.id, user_id: c.id)
-        Skill.create(name: 'First Skill',
+        # PracticeList.create(skillset_id: @skillset.id, user_id: c.id)
+
+        # Make an example skill to get started
+        Skill.create(name: "First Skill",
                      user_id: c.id,
                      skillset_id: @skillset.id,
-                     tags: 'first, easy',
-                     notes: 'This is your first skill. You can edit or delete it.',
-                     reason: 'When you might do this skill, e.g. after finishing a spin',
+                     tags: "first, easy",
+                     notes: "This is your ==first== skill. You can **edit** or _delete_ it.",
+                     reason: "When you might do this skill, e.g. after finishing a spin",
                      steps: "Step one\nStep two")
+        c.save!
 
-        format.html { redirect_to root_path, notice: 'Skillset was successfully created.' }
+        # Make an example activity to get started
+        newSkillSession = SkillSession.create(user_id: c.id, title: "First Skill Session", date: Date.today)
+
+        a = Activity.create(user_id: c.id,
+                            description: "Each time you practice a skill, add an activity here. You can add a rating, notes, and tags to help you remember what you did.",
+                            skill_id: Skill.last.id,
+                            reps: 4,
+                            skill_session_id: newSkillSession.id,
+                            activity_type: "practice",
+                            rating: 3,
+                            date: Date.today)
+        a.save!
+
+        format.html { redirect_to root_path, notice: "Skillset was successfully created." }
         format.json { render :show, status: :created, location: @skillset }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -50,7 +66,7 @@ class SkillsetsController < ApplicationController
   def update
     respond_to do |format|
       if @skillset.update(skillset_params)
-        format.html { redirect_to skillsets_path, notice: 'Skillset was successfully updated.' }
+        format.html { redirect_to skillsets_path, notice: "Skillset was successfully updated." }
         format.json { render :show, status: :ok, location: @skillset }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,7 +80,7 @@ class SkillsetsController < ApplicationController
     @skillset.destroy
 
     respond_to do |format|
-      format.html { redirect_to skillsets_url, notice: 'Skillset was successfully destroyed.' }
+      format.html { redirect_to skillsets_url, notice: "Skillset was successfully destroyed." }
       format.json { head :no_content }
     end
   end
