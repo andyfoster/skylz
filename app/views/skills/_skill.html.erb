@@ -168,7 +168,8 @@
         </summary>
 
         <div class="clear-both mt-3 p-3 bg-white rounded shadow-lg">
-          <%= content_tag :p, skill.notes, class: 'p-4 text-xl whitespace-pre-wrap' %>
+          <% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>
+          <%= content_tag :p, markdown(skill.notes), class: '' %>
         </div>
       </details>
 
@@ -217,10 +218,11 @@
                 <% else %>
 
                   <% actual_index += 1 %>
-                  <span class="flex items-center justify-center w-10 h-10 ml-4 text-white rounded-full bg-purple-gradient">
+                  <%# <span class="flex items-center justify-center w-10 h-10 ml-4 text-black rounded-full border-1 border-indigo-900"> %>
+                  <span class="w-10 h-10 ml-4 rounded-full inline-flex items-center justify-center bg-white text-indigo-900 font-bold border-indigo-900 border">
                     <%= actual_index %>
                   </span>
-                  <span class="w-5/6 py-3 ml-4 text-2xl leading-relaxed cursor-pointer" data-action="click->toggle#lineThrough"><%= step %></span>
+                  <span class="w-5/6 py-3 ml-4 text-xl leading-relaxed cursor-pointer" data-action="click->toggle#lineThrough"><%= step %></span>
                 <% end %>
               </div>
             <% end %>
@@ -237,7 +239,9 @@
             <h2 class="inline-block mb-3 text-xl font-bold" id="activity-log">
               Activity Log (<%= skill.activities.count %>)
             </h2>
-            <%= link_to 'Log A Session', new_skill_activity_path(skill),
+            <%# link_to 'Log A Session', new_skill_activity_path(skill),
+                        class: "float-right b-1 text-sm px-2 rounded text-white bg-indigo-900 hover:bg-white hover:text-indigo-900 border border-indigo-900" %>
+            <%= link_to 'Log A Session', new_skill_session_path(skill_id: skill.id),
                         class: "float-right b-1 text-sm px-2 rounded text-white bg-indigo-900 hover:bg-white hover:text-indigo-900 border border-indigo-900" %>
           </div>
 
