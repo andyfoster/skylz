@@ -2,6 +2,10 @@
 
 class ApplicationController < ActionController::Base
 
+  # Let my helper methods see the current user
+  helper_method :current_user
+
+
   protected
 
   def authenticate_user_from_token!
