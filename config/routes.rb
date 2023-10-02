@@ -2,8 +2,13 @@ Rails.application.routes.draw do
   resources :skill_sessions
   resources :practice_items
   resources :practice_lists
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :skillsets
+
+  # Ensure only admin users can access the admin dashboard
+  authenticate :user, lambda { |u| u.is_admin? } do
+    # mount Blazer::Engine, at: "blazer"
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  end
 
   # API
   namespace :api do
@@ -21,7 +26,8 @@ Rails.application.routes.draw do
   end
 
   authenticated do
-    root :to => 'skills#index', as: :authenticated
+    # root :to => 'skills#index', as: :authenticated
+    root :to => 'home#index', as: :authenticated
   end
 
   root :to => 'static_pages#home'
@@ -31,6 +37,9 @@ Rails.application.routes.draw do
   end
 
   get 'generate' => 'skills#generate', :as => 'generate_skills'
+
+  # save skill session as PDF route
+  get '/skill_sessions/:id/save_as_pdf' => 'skill_sessions#save_as_pdf', :as => 'save_as_pdf'
 
   # refresh token and get new one and redirect to dashboard
   post '/refresh_token' => 'users#refresh_token'
