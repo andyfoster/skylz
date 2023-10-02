@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+/* @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Raleway&display=swap'); */
+  @import url('https://fonts.googleapis.com/css2?Gemunu+Libre:wght@200;300;400;500;600;700;800&family=Acme&family=Dela+Gothic+One&family=Poiret+One&family=Raleway&family=Righteous&display=swap');
+
+  @layer components {
   .btn-primary {
     @apply inline-flex items-center px-4 py-2 text-base font-medium text-white bg-indigo-900 rounded-lg cursor-pointer;
   }
@@ -36,6 +41,9 @@
       font-weight: 400;
       src: url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200;300;400;500;600;700;800&display=swap');
     }
+
+
+
   }
 
   .sloped:before {
@@ -122,4 +130,34 @@
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125);
   }
+
+/* Tailwind utility classes in a separate file */
+/* @import 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css'; */
+
+/* Custom CSS */
+.emoji-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: 1px solid transparent;
+}
+
+/* Only select this particular section (there can be more than one seet of buttons on the page) */
+.radio-wrapper input:checked + .emoji-button {
+  background-color: rgba(173, 216, 230, 0.5); /* Light Blue */
+  border: 1px solid rgba(173, 216, 230, 1); /* Light Blue */
+}
+
+.radio-wrapper input:focus + .emoji-button {
+  box-shadow: 0 0 5px rgba(173, 216, 230, 1); /* Light Blue */
+}
+
+
+
 }
