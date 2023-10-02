@@ -6,10 +6,13 @@
 
     <%= render @skill_session %>
 
-    <%= link_to 'Edit this skill_session', edit_skill_session_path(@skill_session), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<div class="flex justify-between items-center">
+    <%= link_to 'Edit', edit_skill_session_path(@skill_session), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to 'Destroy this skill_session', skill_session_path(@skill_session), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to 'Delete this session',
+      skill_session_path(@skill_session), method: :delete,
+      class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium text-red-900" %>
     </div>
-    <%= link_to 'Back to skill_sessions', skill_sessions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+</div>
   </div>
 </div>

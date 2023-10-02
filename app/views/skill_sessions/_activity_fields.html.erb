@@ -1,0 +1,187 @@
+<!-- app/views/skill_sessions/_activity_fields.html.erb -->
+
+<div class="nested-fields bg-white mt-5 mb-5 shadow p-6">
+
+<div id="div2" class="mt-2">
+
+
+<%# two divs %>
+
+<div id="div1" class="">
+ <div class="flex justify-between">
+    <div class="mr-3">
+      <%= f.number_field :reps, value: 1, size: 3, class: "w-10 text-lg border-none font-bold" %>x
+    </div>
+    <%# Select dropdown with every skill of the user in the current skill set %>
+    <div>
+    <%= f.select :skill_id,
+             Skillset.find(@current_skillset).skills.collect { |d| [d.name, d.id] },
+              :selected => @session_for_skill,
+             class:
+               "p-2 mb-6 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50" %>
+  </div>
+</div>
+
+  <div class="inline">
+    <%# f.label :rating %>
+    <%# f.number_field :rating, :value => 7, class: "w-20" %>
+
+    <%# rails form helper with 5 radio buttons %>
+
+  </div>
+
+  <div class="inline ml-5 hidden">
+    <%= f.label :description %>
+    <%= f.text_field :description, :value => "some description" %>
+  </div>
+
+<div class="container mx-auto mt-10 flex justify-between border rounded-lg p-4 items-center">
+    <div class="radio-wrapper text-center">
+      <%# Create a unique rating for this form only and not other dynamic forms%>
+      <%= f.radio_button :rating, 1, class: "radio-btn", id: 1 %>
+      <label for="1" class="emoji-button">😞</label>
+      <small>Very Bad</small>
+    </div>
+    <div class="radio-wrapper text-center">
+      <%# <input type="radio" id="2" name="rating" value="2" class="" /> %>
+            <%= f.radio_button :rating, 2, class: "radio-btn", id: 2 %>
+      <label for="2" class="emoji-button">😐</label>
+      <small>Bad</small>
+    </div>
+    <div class="radio-wrapper text-center">
+          <%= f.radio_button :rating, 3, class: "radio-btn", id: 3 %>
+
+      <%# <input type="radio" id="3" name="rating" value="3" class="" /> %>
+      <label for="3" class="emoji-button">😶</label>
+      <small>Neutral</small>
+    </div>
+    <div class="radio-wrapper text-center">
+          <%= f.radio_button :rating, 4, class: "radio-btn", id: 4 %>
+
+      <%# <input type="radio" id="4" name="rating" value="4" class="" /> %>
+      <label for="4" class="emoji-button">😃</label>
+      <small>Good</small>
+    </div>
+    <div class="radio-wrapper text-center">
+      <%# <input type="radio" id="5" name="rating" value="5" class="" /> %>
+      <%= f.radio_button :rating, 5, class: "radio-btn", id: 5 %>
+
+      <%# render label %>
+      <%= f.label :rating_5, "" do %>
+        <div class="emoji-button">😍</div>
+        <small>Very Good</small>
+      <% end %>
+    </div>
+</div>
+
+
+
+<!--  <div class="font-sans space-x-4 mt-5">
+    <%= f.radio_button :rating, 1, class: "hidden radio-btn", id: 1 %>
+    <label
+      for="attempted"
+      class="
+        inline-block
+        w-24
+        h-8
+        border-2
+        border-black
+        text-center
+        text-black
+        cursor-pointer
+        radio-label
+      "
+    >
+      Attempted
+    </label>
+
+    <%= f.radio_button :rating, 2, class: "hidden radio-btn", id: 2 %>
+    <label
+      for="notGood"
+      class="
+        inline-block
+        w-24
+        h-8
+        border-2
+        border-tomato
+        text-center
+        text-tomato
+        cursor-pointer
+        radio-label
+      "
+    >
+      Not Good
+    </label>
+
+    <%= f.radio_button :rating, 3, class: "hidden radio-btn", id: 3 %>
+    <label
+      for="ok"
+      class="
+        inline-block
+        w-24
+        h-8
+        border-2
+        border-orchid
+        text-center
+        text-orchid
+        cursor-pointer
+        radio-label
+      "
+    >
+      Ok
+    </label>
+
+    <%= f.radio_button :rating, 4, class: "hidden radio-btn", id: 4 %>
+    <label
+      for="managed"
+      class="
+        inline-block
+        w-24
+        h-8
+        border-2
+        border-gold
+        text-center
+        text-gold
+        cursor-pointer
+        radio-label
+      "
+    >
+      Managed
+    </label>
+
+    <%= f.radio_button :rating, 5, class: "hidden radio-btn", id: 5 %>
+    <label
+      for="perfect"
+      class="
+        inline-block
+        w-24
+        h-8
+        border-2
+        border-green
+        text-center
+        text-green
+        cursor-pointer
+        radio-label
+      "
+    >
+      Perfect
+    </label>
+  </div>
+
+  -->
+
+  <%= f.hidden_field :user_id, value: 1 %>
+
+  <%= f.hidden_field :date, value: Time.now.strftime("%Y-%m-%d") %>
+  <%# f.hidden_field :user_id, :value => 1 %>
+  <%= f.hidden_field :activity_type, value: "Testing Activity from activity adder" %>
+
+  <a
+    href="#"
+    data-action="nested-form#removeFields"
+    class="text-sm text-red-900 float-right py-2 pb-5"
+  >Remove</a>
+</div>
+
+</div>
+</div>

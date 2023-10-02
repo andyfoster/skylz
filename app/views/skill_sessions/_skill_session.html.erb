@@ -1,7 +1,39 @@
-<div id="<%= dom_id skill_session %>">
+<div id="<%= dom_id skill_session %>" class="border border-indigo-500 mt-10 bg-white font-lg">
+
+  <p class="line-height text-xl pl-5">
+    <%= skill_session.notes %>
+  </p>
+
+  <p>
+  <%= skill_session.activities.count %> activities and
+  <%= skill_session.activities.collect(&:reps).sum %> reps
+  </p>
+
+  <ul class="p-5 mt-5">
+    <% skill_session.activities.each do |activity| %>
+      <li class="mb-5">
+        <p class="bold text-lg font-extrabold">
+          <%= link_to Skill.find(activity.skill_id).name, skill_path(activity.skill_id), class: "text-indigo-500" %>
+        </p>
+        <span><%= activity.description %></span>
+        <span><%= activity.reps %> reps | <%= activity.rating %>/10</span>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="flex justify-between">
+    <p class="text-sm text-gray-500">
+      <%= skill_session.date.strftime("%a, %e %b %Y") %> <%= skill_session.type %>
+    </p>
+
+
   <% if action_name != "show" %>
-    <%= link_to "Show this skill session", skill_session, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this skill session', edit_skill_session_path(skill_session), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+  <div class="float-right">
+        <p><%= link_to "Show", skill_session, class: "text-indigo-500 font-sm" %> |
+        <%= link_to 'Edit', edit_skill_session_path(skill_session), class: "font-sm" %>
+        <%# <%= link_to 'Save As Template', edit_skill_session_path(skill_session), class: "font-sm" %> %>
+
+  </div>
   <% end %>
+    </div>
 </div>
