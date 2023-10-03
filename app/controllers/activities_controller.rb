@@ -5,12 +5,15 @@ class ActivitiesController < ApplicationController
   before_action :set_activity, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
+  before_action :current_skillset
+
   # GET /activities or /activities.json
 
   def index
     @skillset = Skillset.find(current_user.current_skillset)
     user_skill_ids = Skill.where(skillset_id: @skillset).pluck('id')
-    @activities = Activity.where(skill_id: user_skill_ids).sort_by(&:date)
+    @activities = Activity.where(skill_id: user_skill_ids).includes ([:skill])
+    @activities = @activities.sort_by(&:date)
   end
 
   # GET /skills/:skill_id/activities/1 or /activities/1.json
@@ -91,5 +94,9 @@ class ActivitiesController < ApplicationController
     params.require(:activity)
           .permit(:description, :skill_id, :date, :tags, :rating, :activity_type,
                   :reps).merge({ user_id: current_user.id })
+  end
+
+  def current_skillset
+    @current_skillset = current_user.current_skillset
   end
 end
