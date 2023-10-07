@@ -1,10 +1,10 @@
 <div class="bg-purple-gradient text-white p-6 h-40">
-  <div class="float-left">
-    <img src="<%= asset_path('logo.svg') %>" alt="Skylz logo" class="mr-8 h-24 w-24"/>
+  <div class="float-left hidden md:inline-block">
+    <img src="<%= asset_path('logo.svg') %>" alt="Skylz logo" class="mr-8 h-24 w-24 hidden md:inline-block"/>
   </div>
   <div class="float-left">
     <span class="text-3xl text-white font-header">Skylz</span><br>
-    <span>Track, Improve, Master</span>
+    <span class="hidden md:inline">Track, Improve, Master</span>
   </div>
   <div class="float-right">
     <%= link_to "Log In", new_user_session_path, class: "text-white border-white rounded px-4 py-2" %>
