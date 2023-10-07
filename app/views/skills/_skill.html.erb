@@ -168,7 +168,6 @@
         </summary>
 
         <div class="clear-both mt-3 p-3 bg-white rounded shadow-lg">
-          <% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true) %>
           <%= content_tag :p, markdown(skill.notes), class: '' %>
         </div>
       </details>
