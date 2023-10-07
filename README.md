@@ -3,7 +3,7 @@
 Rails 7 app for keeping track of your skills in various areas. Think of it as a personal database of the things you know that you don't want to forget.
 Potential uses in organisations for keeping staff up-to-date with their knowledge and finding out what needs to be practiced.
 
-Uses Tailwind CSS with Flowbite and Stimulus for JavaScript.  
+Uses Tailwind CSS with Flowbite and Stimulus for JavaScript.
 
 ## Getting started
 
@@ -37,6 +37,20 @@ Start the dev server to keep Tailwind settings up to date:
 $ ./bin/dev
 ```
 
+
+## Troubleshooting Postgres on Local
+
+If you get this error message:
+`psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: No such file or directory`
+you can try this:
+
+ ```bash
+$ rm /usr/local/var/postgres/postmaster.pid
+
+$ brew services restart postgresql
+```
+
+[From Stack Overflow](https://stackoverflow.com/questions/69754628/psql-error-connection-to-server-on-socket-tmp-s-pgsql-5432-failed-no-such)
 
 ## Pulling production database to local
 
