@@ -52,7 +52,7 @@ module ApplicationHelper
     def header(text, level)
       case level
       when 1
-        "<h1 class='text-4xl mb-4'>#{text}</h1>"
+        "<div class='text-4xl mb-4'>#{text}</div>" # to not interfere with site styling - yuk
       when 2
         "<h2 class='text-3xl mb-3'>#{text}</h2>"
       when 3
