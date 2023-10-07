@@ -4,6 +4,8 @@ module ApplicationHelper
 
   # redcarpet markdown
   def markdown(text)
+    text ||= "" # Handle nil values
+
     options = {
       filter_html: true,
       hard_wrap: true,
