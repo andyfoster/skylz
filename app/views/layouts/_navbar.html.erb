@@ -1,5 +1,5 @@
-<nav class="bg-white border-gray-200">
-  <div class="p-4 flex justify-between mx-10">
+<nav class="bg-white text-indigo-900 border-gray-200 w-full mx-auto lg:px-28">
+  <div class="py-4 flex justify-between px-10">
     <!--    <button class="" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">-->
     <!--      <img src="<%#= asset_path('logo.svg') %>" class="h-8 mr-3 inline" alt="Skylz Logo"/>-->
     <!--      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Skylz</span>-->
@@ -25,12 +25,12 @@
        <a href="/">
     <% if user_signed_in? %>
     <%# make span big and distinctive %>
-      <span class="text-2xl font-semibold hover:text-indigo-900 font-righteous">
+      <span class="text-2xl font-semibold hover:text-gray-200 font-righteous">
       <%= Skillset.find(current_user.current_skillset).name if user_signed_in? %>
       </span>
     <% else %>
       <!-- <img src="<%= asset_path('logo.svg') %>" class="h-8 mr-3 inline" alt="Skylz Logo"/> -->
-      <span class="self-center text-2xl font-semibold whitespace-nowrap">Skylz</span>
+      <span class="self-centerfont-semibold whitespace-nowrap">Skylz</span>
     <% end %>
         </a>
     </div>
@@ -97,7 +97,7 @@
   <div>
     <%= link_to "New Skill Session",
     new_skill_session_path,
-    class: "p-2 border border-indigo-900 text-indigo-900 text-sm lowercase cursor-pointer hover:text-white hover:bg-indigo-900 rounded-lg" %>
+    class: "p-1 border border-indigo-900 text-indigo-900 text-sm lowercase cursor-pointer hover:text-gray-200 hover:border-gray-200 rounded" %>
   </div>
 
   </div>
