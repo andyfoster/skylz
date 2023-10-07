@@ -25,7 +25,7 @@
        <a href="/">
     <% if user_signed_in? %>
     <%# make span big and distinctive %>
-      <span class="text-2xl font-semibold hover:text-gray-200 font-righteous">
+      <span class="text-2xl font-semibold hover:text-indigo-700 font-righteous">
       <%= Skillset.find(current_user.current_skillset).name if user_signed_in? %>
       </span>
     <% else %>
@@ -94,11 +94,16 @@
     <!--        </li>-->
     <!--      </ul>-->
     <!--    </div>-->
+
+<% if current_user %>
   <div>
     <%= link_to "New Skill Session",
     new_skill_session_path,
-    class: "p-1 border border-indigo-900 text-indigo-900 text-sm lowercase cursor-pointer hover:text-gray-200 hover:border-gray-200 rounded" %>
+    class: "p-1 border border-indigo-900 text-indigo-900 text-sm lowercase cursor-pointer hover:text-indigo-700 hover:border-indigo-700 rounded" %>
   </div>
+<% end %>
+
+
 
   </div>
 
