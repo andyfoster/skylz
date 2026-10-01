@@ -42,3 +42,8 @@ node_modules
 *.sql
 
 /backups/*
+
+# Local API keys and environment settings
+.env
+.env.*
+!.env.example

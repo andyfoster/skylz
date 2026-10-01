@@ -1,71 +1,39 @@
-# frozen_string_literal: true
-
 class PracticeListsController < ApplicationController
-  before_action :set_practice_list, only: %i[show edit update destroy]
+  before_action :authenticate_user!
+  before_action :require_skillset
+  before_action :set_practice_list, only: %i[show destroy]
 
-  # GET /practice_lists or /practice_lists.json
   def index
-    @practice_lists = PracticeList.all
+    @practice_lists = current_user.practice_lists.includes(:skillset, practice_items: :skill)
   end
 
-  # GET /practice_lists/1 or /practice_lists/1.json
-  def show; end
+  def show
+    @available_skills = current_user.skills.where(skillset: @practice_list.skillset)
+      .where.not(id: @practice_list.practice_items.select(:skill_id)).order(:name)
+  end
 
-  # GET /practice_lists/new
   def new
-    @practice_list = PracticeList.new
+    @practice_list = current_user.practice_lists.build(skillset: active_skillset)
   end
 
-  # GET /practice_lists/1/edit
-  def edit; end
-
-  # POST /practice_lists or /practice_lists.json
   def create
-    @practice_list = PracticeList.new(practice_list_params)
-
-    respond_to do |format|
-      if @practice_list.save
-        format.html { redirect_to practice_list_url(@practice_list), notice: 'Practice list was successfully created.' }
-        format.json { render :show, status: :created, location: @practice_list }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @practice_list.errors, status: :unprocessable_entity }
-      end
+    skillset = current_user.skillsets.find(params.dig(:practice_list, :skillsets_id) || active_skillset.id)
+    @practice_list = current_user.practice_lists.build(skillset: skillset)
+    if @practice_list.save
+      redirect_to @practice_list, notice: 'Practice list created.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /practice_lists/1 or /practice_lists/1.json
-  def update
-    respond_to do |format|
-      if @practice_list.update(practice_list_params)
-        format.html { redirect_to practice_list_url(@practice_list), notice: 'Practice list was successfully updated.' }
-        format.json { render :show, status: :ok, location: @practice_list }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @practice_list.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /practice_lists/1 or /practice_lists/1.json
   def destroy
-    @practice_list.destroy
-
-    respond_to do |format|
-      format.html { redirect_to practice_lists_url, notice: 'Practice list was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @practice_list.destroy!
+    redirect_to practice_lists_path, notice: 'Practice list deleted.'
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_practice_list
-    @practice_list = PracticeList.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def practice_list_params
-    params.fetch(:practice_list, {})
+    @practice_list = current_user.practice_lists.find(params[:id])
   end
 end

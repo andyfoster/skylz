@@ -1,18 +1,3 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @skill_session %>
-
-<div class="flex justify-between items-center">
-    <%= link_to 'Edit', edit_skill_session_path(@skill_session), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Delete this session',
-      skill_session_path(@skill_session), method: :delete,
-      class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium text-red-900" %>
-    </div>
-</div>
-  </div>
-</div>
+<%= link_to '← Session history', skill_sessions_path, class: 'back-link' %>
+<%= render @skill_session %>
+<%= button_to 'Delete session', @skill_session, method: :delete, class: 'text-danger', form: { data: { turbo_confirm: 'Delete this session and its activities?' } } %>

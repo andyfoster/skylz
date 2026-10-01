@@ -1,30 +1,23 @@
-// app/javascript/controllers/nested_form_controller.js
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
   static targets = ['fieldsContainer', 'template'];
 
-  connect() {
-    console.log('Hello, NestedForm!');
-    // this.addFields = this.addFields.bind(this);
-    // this.removeFields = this.removeFields.bind(this);
-    // this.templateTarget.addEventListener('click', this.addFields);
-    // this.fieldsContainerTarget.addEventListener('click', this.removeFields);
-  }
-
-
   addFields(event) {
     event.preventDefault();
-    const newId = new Date().getTime();
-    const templateString = this.templateTarget.innerHTML.replace(
-      /NEW_RECORD/g,
-      newId
-    );
-    this.fieldsContainerTarget.insertAdjacentHTML('beforeend', templateString);
+    const id = `${Date.now()}_${this.fieldsContainerTarget.children.length}`;
+    this.fieldsContainerTarget.insertAdjacentHTML('beforeend', this.templateTarget.innerHTML.replace(/NEW_RECORD/g, id));
   }
 
   removeFields(event) {
     event.preventDefault();
-    event.target.closest('.nested-fields').remove();
+    const fields = event.currentTarget.closest('.nested-fields');
+    if (fields.dataset.newRecord === 'true') {
+      fields.remove();
+    } else {
+      fields.querySelector('input[name$="[_destroy]"]').value = '1';
+      fields.hidden = true;
+      fields.querySelectorAll('input, select, textarea').forEach(input => input.required = false);
+    }
   }
 }

@@ -42,6 +42,7 @@ Rebuild with `docker compose up -d --build web` after changing dependencies.
 PostgreSQL is available at `127.0.0.1:5433`, user/password `skylz`/`skylz`,
 database `skylz_development`. These credentials are for local development only.
 The database lives in a Docker volume and survives container restarts.
+Local dates default to Pacific/Auckland; set `APP_TIME_ZONE` to override.
 Set `PORT` or `POSTGRES_PORT` before the Compose command to change published ports.
 
 ### Running Rails on the host instead

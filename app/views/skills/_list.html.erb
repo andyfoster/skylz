@@ -1,0 +1,16 @@
+<div class="panel skill-list">
+  <% if skills.empty? %>
+    <div class="empty-state"><h2>No skills to show</h2><p>Add your first skill or try a different search.</p><%= link_to 'Add a skill', new_skill_path, class: 'btn-primary' %></div>
+  <% end %>
+  <% skills.each do |skill| %>
+    <% last_date = skill.activities.map { |activity| activity.date || activity.created_at.to_date }.max %>
+    <div class="skill-row">
+      <%= link_to '+', new_skill_session_path(skill_id: skill.id), class: 'quick-log', aria: { label: "Log practice for #{skill.name}" } %>
+      <div class="skill-row-content">
+        <%= link_to skill.name, skill_path(skill), class: 'skill-name' %>
+        <p class="muted"><%= last_date ? "Practiced #{time_ago_in_words(last_date)} ago" : 'Not practiced yet' %></p>
+      </div>
+      <span class="rep-count"><%= skill.total_reps %> <small>reps</small></span>
+    </div>
+  <% end %>
+</div>

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class SkillsetsController < ApplicationController
-  before_action :set_skillset, only: %i[show edit update destroy]
   before_action :authenticate_user!
+  before_action :set_skillset, only: %i[show edit update destroy]
 
   # GET /skillsets or /skillsets.json
   def index
@@ -22,43 +22,12 @@ class SkillsetsController < ApplicationController
 
   # POST /skillsets or /skillsets.json
   def create
-    @skillset = Skillset.new(skillset_params)
-    c = current_user
-
-    respond_to do |format|
-      if @skillset.save
-        c.update_attribute(:current_skillset, @skillset.id)
-        # PracticeList.create(skillset_id: @skillset.id, user_id: c.id)
-
-        # Make an example skill to get started
-        Skill.create(name: "First Skill",
-                     user_id: c.id,
-                     skillset_id: @skillset.id,
-                     tags: "first, easy",
-                     notes: "This is your ==first== skill. You can **edit** or _delete_ it.",
-                     reason: "When you might do this skill, e.g. after finishing a spin",
-                     steps: "Step one\nStep two")
-        c.save!
-
-        # Make an example activity to get started
-        newSkillSession = SkillSession.create(user_id: c.id, title: "First Skill Session", date: Date.today)
-
-        a = Activity.create(user_id: c.id,
-                            description: "Each time you practice a skill, add an activity here. You can add a rating, notes, and tags to help you remember what you did.",
-                            skill_id: Skill.last.id,
-                            reps: 4,
-                            skill_session_id: newSkillSession.id,
-                            activity_type: "practice",
-                            rating: 3,
-                            date: Date.today)
-        a.save!
-
-        format.html { redirect_to root_path, notice: "Skillset was successfully created." }
-        format.json { render :show, status: :created, location: @skillset }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @skillset.errors, status: :unprocessable_entity }
-      end
+    @skillset = current_user.skillsets.build(skillset_params)
+    if @skillset.save
+      current_user.update_column(:current_skillset, @skillset.id)
+      redirect_to root_path, notice: 'Skillset created. Add your first skill.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -86,18 +55,16 @@ class SkillsetsController < ApplicationController
   end
 
   def set_current
-    c = current_user
-    c.update_attribute(:current_skillset, params[:id])
-    c.save!
-
-    redirect_to root_path
+    skillset = current_user.skillsets.find(params[:id])
+    current_user.update_column(:current_skillset, skillset.id)
+    redirect_to root_path, notice: "Switched to #{skillset.name}."
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_skillset
-    @skillset = Skillset.find(params[:id])
+    @skillset = current_user.skillsets.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

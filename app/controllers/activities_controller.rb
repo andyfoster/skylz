@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 class ActivitiesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_skillset
   before_action :get_skill, except: %i[index]
   before_action :set_activity, only: %i[show edit update destroy]
-  before_action :authenticate_user!
 
   before_action :current_skillset
 
   # GET /activities or /activities.json
 
   def index
-    @skillset = Skillset.find(current_user.current_skillset)
-    user_skill_ids = Skill.where(skillset_id: @skillset).pluck('id')
-    @activities = Activity.where(skill_id: user_skill_ids).includes ([:skill])
-    @activities = @activities.sort_by(&:date)
+    @skillset = active_skillset
+    @activities = current_user.activities.joins(:skill).where(skills: { skillset_id: @skillset.id })
+      .includes(:skill).order(date: :asc, id: :asc)
   end
 
   # GET /skills/:skill_id/activities/1 or /activities/1.json
@@ -28,7 +28,7 @@ class ActivitiesController < ApplicationController
                           else
                             @skill.activities.last.activity_type
                           end
-    @activity = @skill.activities.build
+    @activity = @skill.activities.build(date: Date.current, reps: 1, activity_type: @last_activity_type)
   end
 
   def show_all
@@ -81,7 +81,7 @@ class ActivitiesController < ApplicationController
   private
 
   def get_skill
-    @skill = Skill.find(params[:skill_id])
+    @skill = current_user.skills.find(params[:skill_id])
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -92,7 +92,7 @@ class ActivitiesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def activity_params
     params.require(:activity)
-          .permit(:description, :skill_id, :date, :tags, :rating, :activity_type,
+          .permit(:description, :date, :tags, :rating, :activity_type,
                   :reps).merge({ user_id: current_user.id })
   end
 

@@ -7,7 +7,8 @@ class User < ApplicationRecord
   has_many :skills, dependent: :destroy
   has_many :skillsets, dependent: :destroy
   has_many :practice_lists, dependent: :destroy
-  has_many :activities
+  has_many :skill_sessions, dependent: :destroy
+  has_many :activities, dependent: :destroy
 
   before_save :ensure_authentication_token
 
@@ -31,7 +32,7 @@ class User < ApplicationRecord
 
   # Should strip the 'Bearer ' part of the token
   def ensure_authentication_token
-    self.authentication_token = generate_authentication_token
+    self.authentication_token ||= generate_authentication_token
   end
 
   def create_skillset

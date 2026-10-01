@@ -7,7 +7,7 @@
     <% if current_user.current_skillset != skillset.id %>
       <%= link_to 'Switch to', set_skillset_path(skillset.id), class: "font-bold border p-2 rounded-lg b-1 border-indigo-900" %>
     <% else %>
-      <%= content_tag :span, 'Currrent Skillset: ', class: "font-bold" %>
+      <%= content_tag :span, 'Current skillset: ', class: "font-bold" %>
     <% end %>
     <%= skillset.name %>
   </p>

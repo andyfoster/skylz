@@ -1,14 +1,7 @@
-# @note: This service is used to call the OpenAI API to generate a response to a message
-# @note: The API key is stored in the credentials file
-# @param message [String] The message to generate a response for
-# @param model [String] The model to use for the response [gpt-3.5-turbo, gpt-3.5-turbo-0301]
-# @return [String] The generated response
-# @example
-#   ChatgptService.call('What is your name?', 'gpt-3.5-turbo')
-#   => "\n\nI am an AI language model created by OpenAI, so I don't have a name. You can call me OpenAI or AI assistant."
-# API Docs: https://platform.openai.com/docs/api-reference/chat/create
 class ChatgptService
   include HTTParty
+
+  class IncompleteDraft < StandardError; end
 
   attr_reader :api_url, :options, :model, :message
 
@@ -29,17 +22,37 @@ class ChatgptService
   def call
     body = {
       model:,
+      response_format: { type: 'json_object' },
+      max_tokens: 2000,
       messages: [
-          {
-      role: "system",
-      content: "You will help the user fill in their skill database for a given skill.\nThey will type in a skill name and you will return a JSON object will the following data that will be input into the form for them to use as a draft in their database. When there are left or right sides required, always the the skill with your right hand etc and have all the directions relative to that. It is a skill diary so don't put extra information in, just brief directions in the style someone might write to themselves. You will be given a \"skill set\" as well so don't include that in the tags and direct the information to someone studying that.\n\n- \"reason\" - When to use this skill\n- \"note\" (comprehensive notes on this skill and the context, extra resources etc.\n- \"steps\" [\"*set up\", \"secure your grip on opponent's left lapel with your right hand\", \"*position\", \"next steps...\"] (Step by step instructions for performing this skill. These will be printed one per line. DO NOT write 'step 1' etc. Section headers have an asterisk at the start \"*set up\"\n- \"tags\" - example grouping and categories that this skill will fit into."
-    },
-     { role: 'user', content: "skill name: " + message }]
+        {
+          role: 'system',
+          content: <<~PROMPT
+            Help the user draft an entry in their skill diary. Return only a JSON object
+            with exactly these fields:
+            - "reason": a string describing when to use the skill.
+            - "notes": a string with context and useful notes; Markdown is allowed.
+            - "steps": an array of concise instruction strings, without step numbers.
+              Prefix section headings with an asterisk. Use the right hand/side when
+              a choice is necessary, and make directions relative to the practitioner.
+            - "tags": an array of short category strings. Omit the skill set itself.
+            Write directions as brief reminders to someone studying the supplied skill set.
+            Keep the whole draft under 700 words. Escape newlines inside JSON strings.
+          PROMPT
+        },
+        { role: 'user', content: "Skill: #{message}" }
+      ]
     }
-    response = HTTParty.post(api_url, body: body.to_json, headers: options[:headers], timeout: 10)
+    response = HTTParty.post(api_url, body: body.to_json, headers: options[:headers], timeout: 30)
     raise response['error']['message'] unless response.code == 200
 
-    response['choices'][0]['message']['content']
+    choice = response['choices']&.first
+    raise IncompleteDraft unless choice && choice['finish_reason'] == 'stop'
+
+    content = choice.dig('message', 'content')
+    raise IncompleteDraft if choice.dig('message', 'refusal').present? || content.to_s.strip.empty?
+
+    content
   end
 
   class << self

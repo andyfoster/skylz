@@ -1,15 +1,14 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @practice_list %>
-
-    <%= link_to 'Edit this practice_list', edit_practice_list_path(@practice_list), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this practice_list', practice_list_path(@practice_list), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to practice_lists', practice_lists_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
-</div>
+<%= link_to '← Practice lists', practice_lists_path, class: 'back-link' %>
+<div class="page-heading"><div><p class="eyebrow">Practice list</p><h1><%= @practice_list.skillset.name %></h1></div></div>
+<% if @practice_list.practice_items.empty? %><div class="panel empty-state"><p>Add skills you want to focus on.</p></div><% end %>
+<% @practice_list.practice_items.includes(:skill).order(:id).each do |item| %>
+  <section class="panel activity-card"><div class="section-heading"><h2><%= link_to item.skill.name, item.skill %></h2><%= link_to 'Log practice', new_skill_session_path(skill_id: item.skill_id), class: 'btn-primary' %></div><%= button_to 'Remove from list', item, method: :delete, class: 'text-danger' %></section>
+<% end %>
+<% if @available_skills.any? %>
+  <%= form_with url: practice_items_path, scope: :practice_item, class: 'panel form-panel app-form' do |form| %>
+    <%= form.hidden_field :practice_list_id, value: @practice_list.id %>
+    <div class="form-field"><%= form.label :skill_id, 'Add a skill' %><%= form.collection_select :skill_id, @available_skills, :id, :name %></div>
+    <%= form.submit 'Add to list', class: 'btn-secondary' %>
+  <% end %>
+<% end %>
+<%= button_to 'Delete practice list', @practice_list, method: :delete, class: 'text-danger', form: { data: { turbo_confirm: 'Delete this list? Your skills and practice history will be kept.' } } %>

@@ -1,17 +1,6 @@
-<%= form_with(model: practice_list, class: "contents") do |form| %>
-  <% if practice_list.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(practice_list.errors.count, "error") %> prohibited this practice_list from being saved:</h2>
-
-      <ul>
-        <% practice_list.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
+<%= form_with model: practice_list, class: 'app-form panel form-panel' do |form| %>
+  <%= render 'shared/form_errors', record: practice_list %>
+  <div class="form-field"><%= form.label :skillsets_id, 'Skillset' %><%= form.collection_select :skillsets_id, current_user.skillsets.order(:name), :id, :name %></div>
+  <p class="muted">Each skillset can have one practice list.</p>
+  <div class="form-actions"><%= form.submit 'Create list', class: 'btn-primary' %><%= link_to 'Cancel', practice_lists_path %></div>
 <% end %>

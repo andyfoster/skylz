@@ -1,14 +1,3 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Practice lists</h1>
-    <%= link_to 'New practice list', new_practice_list_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-
-  <div id="practice_lists" class="min-w-full">
-    <%= render @practice_lists %>
-  </div>
-</div>
+<div class="page-heading"><div><h1>Practice lists</h1><p class="muted">Choose a few skills to focus on next.</p></div><%= link_to 'Create a list', new_practice_list_path, class: 'btn-primary' %></div>
+<% if @practice_lists.empty? %><div class="panel empty-state"><h2>No practice lists yet</h2><p>Create one for a skillset and add the skills you want to practice.</p></div><% end %>
+<% @practice_lists.each do |list| %><section class="panel detail-panel"><h2><%= link_to list.skillset.name, list %></h2><p class="muted"><%= pluralize(list.practice_items.size, 'skill') %> to practice</p></section><% end %>

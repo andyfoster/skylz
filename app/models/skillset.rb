@@ -2,6 +2,7 @@
 
 class Skillset < ApplicationRecord
   belongs_to :user
+  validates :name, presence: true
+  has_one :practice_list, foreign_key: :skillsets_id, dependent: :destroy
   has_many :skills, dependent: :destroy
-  has_one :practice_list, dependent: :destroy
 end

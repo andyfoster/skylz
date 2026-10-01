@@ -28,21 +28,25 @@ module ApplicationHelper
     }
 
     # renderer = ::Redcarpet::Render::HTML.new(options)
-    renderer = TailwindStyledRenderer.new(options)
+    renderer = TailwindStyledRenderer.new(options, skills: current_user ? current_user.skills : Skill.none)
 
     markdown = ::Redcarpet::Markdown.new(renderer, extensions)
-    markdown.render(text).html_safe
+    sanitize(markdown.render(text))
   end
 
   class TailwindStyledRenderer < Redcarpet::Render::HTML
+    def initialize(options, skills:)
+      super(options)
+      @skills = skills
+    end
 
     def postprocess(full_document)
       full_document.gsub(/@(\d+)/) do
         skill_id = $1
         # skill = @current_user.skills.find_by(id: skill_id)
-        skill = Skill.find_by(id: skill_id)
+        skill = @skills.find_by(id: skill_id)
         if skill
-          "<a href='/skills/#{skill_id}' class='text-violet-700 text-sm hover:underline bg-violet-100 p-0.5 rounded px-2'>#{skill.name}</a>"
+          "<a href='/skills/#{skill_id}' class='text-violet-700 text-sm hover:underline bg-violet-100 p-0.5 rounded px-2'>#{ERB::Util.html_escape(skill.name)}</a>"
         else
           '<span class="text-red-500">@#{skill_id}</span>'
         end

@@ -1,28 +1,30 @@
 # frozen_string_literal: true
 
 class SkillsController < ApplicationController
-  before_action :set_skill, only: %i[show edit update destroy]
   before_action :authenticate_user!
+  before_action :require_skillset
+  before_action :set_skill, only: %i[show edit update destroy]
+  before_action :prepare_skillset
 
   # GET /skills or /skills.json
   def index
-    # TODO: fix situation if a the current skillset has been deleted
-    # if Skillset.find(current_user.current_skillset).exists?
-    @skillset = Skillset.find(current_user.current_skillset)
-    # else
-    # @skillset = current_user.skillsets.first
-    # end
-    @tags = Skill.where(user_id: current_user.id, skillset_id: @skillset.id)
-                 .pluck(:tags).join(',').split(',').collect(&:strip).uniq.reject(&:blank?)
-    @skills = current_user.skills.where(skillset_id: @skillset.id).includes([:activities])
-    @skills = @skills.sort_by(&:total_reps).reverse
+    scope = current_user.skills.where(skillset: @skillset).includes(:activities)
+    @tags = scope.pluck(:tags).join(',').split(',').map(&:strip).reject(&:blank?).uniq.sort
+    scope = scope.where('skills.name ILIKE ? OR skills.notes ILIKE ?', "%#{Skill.sanitize_sql_like(params[:q].to_s.strip)}%", "%#{Skill.sanitize_sql_like(params[:q].to_s.strip)}%") if params[:q].present?
+    @skills = scope.to_a
+    @skills.select! { |skill| skill.tags.to_s.split(',').map(&:strip).include?(params[:tag]) } if params[:tag].present?
+    @skills = case params[:sort]
+              when 'name' then @skills.sort_by { |skill| skill.name.downcase }
+              when 'recent' then @skills.sort_by { |skill| skill.activities.map { |a| a.date || a.created_at.to_date }.max || Date.new(1900) }.reverse
+              else @skills.sort_by { |skill| [-skill.total_reps, skill.name.downcase] }
+              end
   end
 
   # Render  fragment in a format
   # Perform basic search on search params
   # should be case insensitive
   def skillList
-    @skillset = Skillset.find(current_user.current_skillset)
+    @skillset = active_skillset
     @skills = current_user.skills.where(skillset_id: @skillset.id).where('name ILIKE ?', "%#{params[:q]}%")
 
     render partial: 'skillList', locals: { skills: @skills }
@@ -30,46 +32,27 @@ class SkillsController < ApplicationController
 
   # Return a json object with axample data for skill name, notes, and steps
   def generate
-    # @skill = Skill.new
-    # @skill.name = Faker::Hacker.verb
-    # @skill.notes = Faker::Hacker.say_something_smart
-    # @skill.steps = Faker::Hacker.say_something_smart
-    # @skill.tags = Faker::Hacker.ingverb
-    # @skill.category = Faker::Hacker.adjective
-    # @skill.reason = Faker::Hacker.abbreviation
-    # @skill.media = Faker::Internet.url
-    # @skill.save
-    # render json: @skill
-    # Use the openAi API
-    # @response = ChatgptService.call(params[:message])
-
-    @answer = ChatgptService.call(params[:message], 'gpt-3.5-turbo')
-
-    # convert the response to a json array
-    @answer = @answer.split("\n").reject(&:blank?).to_json
-
-    # render json: @answer
-
-    render json: { data: @answer }
-
-    # render json: {
-    #   name: "Skill from API",
-    #   notes: "The bow and arrow choke is a highly effective submission in Brazilian Jiu-Jitsu. It's an aggressive move that can finish a match quickly if applied correctly. Take your time to properly get your grips and secure your positioning to successfully apply this choke. It requires a steady balance along with a tight grip. Check out online tutorials or seek guidance from a professional coach to perfect this skill. Always remember safety first.",
-    #   steps: [ "*Secure control of your opponent's collars*",
-    #   "Grip the collar of your opponent from under their arm and across their neck.",
-    #   "Transition to their back and maintain control by gripping their pants at the knee, this is your 'bow'.",
-    #   "Pull your opponent onto their side, swing your leg over their shoulder and hook their arm, this is your 'arrow'.",
-    #   "Pull back on both grips while pushing your leg against their back for the choke."],
-    #   tags: ["tag1", "tag2"],
-    #   reason: "When you want to destory the opponent",
-    # }
+    if ENV['OPENAI_API_KEY'].blank?
+      return render json: { error: 'AI drafting is not configured. You can still enter your skill manually.' }, status: :service_unavailable
+    end
+    answer = ChatgptService.call(params[:message])
+    data = JSON.parse(answer.strip.sub(/\A```(?:json)?\s*/, '').sub(/\s*```\z/, ''))
+    valid = data.is_a?(Hash) && data['reason'].is_a?(String) &&
+      (data['notes'] || data['note']).is_a?(String) &&
+      %w[steps tags].all? { |field| data[field].is_a?(Array) && data[field].all? { |item| item.is_a?(String) } }
+    raise JSON::ParserError unless valid
+    render json: { reason: data['reason'], notes: data['notes'] || data['note'], steps: data['steps'], tags: data['tags'] }
+  rescue ChatgptService::IncompleteDraft
+    render json: { error: 'The draft was incomplete. Please try again with a shorter skill description.' }, status: :bad_gateway
+  rescue JSON::ParserError
+    render json: { error: 'The draft could not be read. Please try again.' }, status: :bad_gateway
+  rescue StandardError => error
+    Rails.logger.warn("Skill drafting failed: #{error.class}")
+    render json: { error: 'Draft generation is unavailable. Please try again later.' }, status: :bad_gateway
   end
 
   def export
-    @skills = current_user.skills.where(skillset_id: current_user.current_skillset)
-    # respond_to do |format|
-    #   format.csv { send_data @skills.to_csv, filename: 'skills.csv' }
-    # end
+    @skills = current_user.skills.where(skillset: active_skillset)
   end
 
   # GET /skills/1 or /skills/1.json
@@ -80,52 +63,39 @@ class SkillsController < ApplicationController
 
   # GET /skills/new
   def new
-    @skillset = Skillset.find(current_user.current_skillset)
+    @skillset = active_skillset
     @skill = Skill.new
     # @skill = current_user.skills.build
   end
 
   # GET /skills/1/edit
-  def edit
-    @skillset = Skillset.find(current_user.current_skillset)
-    @skill = current_user.skills.find(params[:id])
-  end
+  def edit; end
 
   def new_multi
-    @skillset = Skillset.find(current_user.current_skillset)
+    @skillset = active_skillset
     @skill = Skill.new
   end
 
   def create_multi
-    # @skill = @skill = current_user.skills.build(skill_params)
-
-    skill_array = []
-    params[:skill][:name].split("\n").reject(&:blank?).each do |skill_name|
-      skill_array.push({ name: skill_name, user_id: current_user.id,
-                         skillset_id: params[:skill][:skillset_id], tags: params[:skill][:tags] })
+    @skill = current_user.skills.build(skill_params.except(:name))
+    names = params.dig(:skill, :name).to_s.lines.map(&:strip).reject(&:blank?).uniq
+    begin
+      raise ActiveRecord::RecordInvalid.new(@skill) if names.empty?
+      Skill.transaction do
+        names.each { |name| current_user.skills.create!(skill_params.merge(name: name)) }
+      end
+      redirect_to skills_path, notice: "#{names.size} skills added."
+    rescue ActiveRecord::RecordInvalid => error
+      @skill = error.record
+      @skill.errors.add(:name, 'Enter at least one skill.') if names.empty?
+      render :new_multi, status: :unprocessable_entity
     end
-
-    if Skill.insert_all(skill_array)
-      redirect_to root_url
-    else
-      render :new, status: :unprocessable_entity
-    end
-
-    # redirect_to skills_url, notice: "#{params[:skill][:name].count + 1} skills were successfully created."
-
-    # respond_to do |format|
-    #   if @skill.save
-    #     format.html redirect_to root_url
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # POST /skills or /skills.json
   def create
     # @skill = Skill.new(skill_params)
-    @skill = @skill = current_user.skills.build(skill_params)
+    @skill = current_user.skills.build(skill_params)
 
     respond_to do |format|
       if @skill.save
@@ -153,16 +123,11 @@ class SkillsController < ApplicationController
 
   # DELETE /skills/1 or /skills/1.json
   def destroy
-    if @skill.present?
-      @skill.destroy
-      redirect_to skills_url
+    if @skill.destroy
+      redirect_to skills_path, notice: 'Skill deleted.'
+    else
+      redirect_to @skill, alert: @skill.errors.full_messages.to_sentence
     end
-    # TODO: - update is_deleted to true
-
-    # respond_to do |format|
-    #   format.html { redirect_to skills_url, notice: 'Skill was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
   end
 
   # get /s/medical
@@ -172,7 +137,11 @@ class SkillsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_skill
-    @skill = Skill.find(params[:id])
+    @skill = current_user.skills.find(params[:id])
+  end
+
+  def prepare_skillset
+    @skillset = @skill&.skillset || active_skillset
   end
 
   # Only allow a list of trusted parameters through.

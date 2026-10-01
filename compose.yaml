@@ -22,6 +22,7 @@ services:
       dockerfile: Dockerfile.dev
     environment:
       RAILS_ENV: development
+      APP_TIME_ZONE: ${APP_TIME_ZONE:-Pacific/Auckland}
       APP_PORT: ${PORT:-3001}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       PGHOST: db

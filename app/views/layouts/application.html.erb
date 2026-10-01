@@ -26,9 +26,11 @@
 </head>
 
 <body class="bg-[#F2F2F6]">
-  <%= render 'layouts/navbar', cached: true %>
-  <%= render 'layouts/navdrawer', cached: true %>
-  <main class="container w-full mx-auto lg:px-28 p-4">
+  <%= render 'layouts/navbar' %>
+  <main class="app-main">
+    <% flash.each do |kind, message| %>
+      <div class="flash <%= kind == 'alert' ? 'flash-error' : '' %>" role="status"><%= message %></div>
+    <% end %>
     <%= yield %>
   </main>
 </body>

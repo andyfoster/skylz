@@ -14,7 +14,13 @@ class Skill < ApplicationRecord
   validates :skillset_id, presence: true
 
   def total_reps
-    activities.sum(:reps)
+    activities.loaded? ? activities.sum { |activity| activity.reps.to_i } : activities.sum(:reps)
+  end
+
+  validate :skillset_belongs_to_user
+
+  def skillset_belongs_to_user
+    errors.add(:skillset, 'must belong to your account') if skillset && user_id != skillset.user_id
   end
 
   private

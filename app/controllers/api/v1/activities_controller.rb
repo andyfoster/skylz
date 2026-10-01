@@ -11,18 +11,11 @@ module Api
 
       #   POST to create a new activity
       def create
-        if params[:skill_id].nil?
-          render json: { errors: "Skill ID is required" }, status: :unprocessable_entity
-          return
-        elsif Skill.find(params[:skill_id]).nil?
-          render json: { errors: "Skill ID is invalid (skill not found)" }, status: :unprocessable_entity
-          return
-        elsif Skill.find(params[:skill_id]).user_id != current_user.id
-          render json: { errors: "Skill ID is invalid (not your skill)" }, status: :unprocessable_entity
-          return
+        skill = current_user.skills.find_by(id: params[:skill_id])
+        unless skill
+          return render json: { errors: 'Choose one of your skills.' }, status: :unprocessable_entity
         end
 
-        skill = Skill.find(params[:skill_id])
         activity = skill.activities.build(activity_params)
 
         if activity.save
@@ -37,7 +30,7 @@ module Api
       # Only allow a list of trusted parameters through.
       def activity_params
         params.require(:activity)
-              .permit(:description, :skill_id, :date, :tags, :rating, :activity_type,
+              .permit(:description, :date, :tags, :rating, :activity_type,
                       :reps).merge({ user_id: current_user.id })
       end
     end

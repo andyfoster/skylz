@@ -1,39 +1,10 @@
-<div id="<%= dom_id skill_session %>" class="border border-indigo-500 mt-10 bg-white font-lg">
-
-  <p class="line-height text-xl pl-5">
-    <%= skill_session.notes %>
-  </p>
-
-  <p>
-  <%= skill_session.activities.count %> activities and
-  <%= skill_session.activities.collect(&:reps).sum %> reps
-  </p>
-
-  <ul class="p-5 mt-5">
+<article id="<%= dom_id skill_session %>" class="panel session-card">
+  <div class="section-heading"><h2><%= link_to skill_session.title.presence || "Session · #{skill_session.date&.strftime('%d %b %Y')}", skill_session_path(skill_session) %></h2><%= link_to 'Edit', edit_skill_session_path(skill_session) %></div>
+  <p class="muted"><%= skill_session.date&.strftime('%a, %d %b %Y') %> · <%= skill_session.type.presence || 'Practice' %> · <%= pluralize(skill_session.activities.size, 'activity') %> · <%= skill_session.activities.sum { |a| a.reps.to_i } %> reps</p>
+  <% if skill_session.notes.present? %><p class="session-notes"><%= simple_format(skill_session.notes) %></p><% end %>
+  <ul class="session-activities">
     <% skill_session.activities.each do |activity| %>
-      <li class="mb-5">
-        <p class="bold text-lg font-extrabold">
-          <%= link_to Skill.find(activity.skill_id).name, skill_path(activity.skill_id), class: "text-indigo-500" %>
-        </p>
-        <span><%= activity.description %></span>
-        <span><%= activity.reps %> reps | <%= activity.rating %>/10</span>
-      </li>
+      <li><div><%= link_to activity.skill.name, skill_path(activity.skill), class: 'skill-name' %><p><%= activity.description unless activity.description == 'some description' %></p></div><span><%= activity.reps %> reps<% if activity.rating %> · Rating <%= activity.rating %><% end %></span></li>
     <% end %>
   </ul>
-
-  <div class="flex justify-between">
-    <p class="text-sm text-gray-500">
-      <%= skill_session.date.strftime("%a, %e %b %Y") %> <%= skill_session.type %>
-    </p>
-
-
-  <% if action_name != "show" %>
-  <div class="float-right">
-        <p><%= link_to "Show", skill_session, class: "text-indigo-500 font-sm" %> |
-        <%= link_to 'Edit', edit_skill_session_path(skill_session), class: "font-sm" %>
-        <%# <%= link_to 'Save As Template', edit_skill_session_path(skill_session), class: "font-sm" %> %>
-
-  </div>
-  <% end %>
-    </div>
-</div>
+</article>

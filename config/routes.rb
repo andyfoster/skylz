@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :skill_sessions
-  resources :practice_items
-  resources :practice_lists
+  resources :practice_items, only: [:create, :destroy]
+  resources :practice_lists, only: [:index, :show, :new, :create, :destroy]
   resources :skillsets
 
   # Ensure only admin users can access the admin dashboard
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   get 'generate' => 'skills#generate', :as => 'generate_skills'
 
   # save skill session as PDF route
-  get '/skill_sessions/:id/save_as_pdf' => 'skill_sessions#save_as_pdf', :as => 'save_as_pdf'
+  # PDF export is not implemented yet.
 
   # refresh token and get new one and redirect to dashboard
   post '/refresh_token' => 'users#refresh_token'
