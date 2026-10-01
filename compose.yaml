@@ -1,0 +1,60 @@
+name: skylz
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: skylz
+      POSTGRES_PASSWORD: skylz
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skylz"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      RAILS_ENV: development
+      APP_PORT: ${PORT:-3001}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      PGHOST: db
+      PGPORT: 5432
+      PGUSER: skylz
+      PGPASSWORD: skylz
+      SECRET_KEY_BASE: local-development-only-secret-key-base-for-skylz
+    ports:
+      - "127.0.0.1:${PORT:-3001}:3000"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >-
+      sh -c 'rm -f tmp/pids/server.pid && bin/rails db:prepare &&
+      bin/rails tailwindcss:build && exec bin/rails server -b 0.0.0.0'
+
+  css:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      RAILS_ENV: development
+      SECRET_KEY_BASE: local-development-only-secret-key-base-for-skylz
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    command: bin/rails tailwindcss:watch
+    tty: true
+    profiles: [watch]
+
+volumes:
+  postgres_data:
+  node_modules:

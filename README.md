@@ -5,52 +5,59 @@ Potential uses in organisations for keeping staff up-to-date with their knowledg
 
 Uses Tailwind CSS with Flowbite and Stimulus for JavaScript.
 
-## Getting started
+## Local development with Docker
 
-To get started with the app, clone the repo and then install the needed gems:
+Docker with Compose is the only prerequisite. Rails runs with the project's
+locked Ruby 3.1.4 and gems; PostgreSQL 15 runs in its own container.
 
-```
-$ bundle install --without production
-```
-
-Next, migrate the database:
-
-```
-$ rails db:migrate
+```bash
+docker compose up -d --build web
 ```
 
-Finally, run the test suite to verify that everything is working correctly:
+Open http://localhost:3001. Startup prepares the database and builds Tailwind CSS.
+The initial build downloads Ruby and compiles gems, so it takes a few minutes.
+On a fresh database, sign in with `andy@andyfoster.net` / `changeme`, or register
+a new account. The sample admin is seeded only in development.
+Skill generation requires `OPENAI_API_KEY` in your shell before starting Compose.
 
-```
-$ rails test
-```
-
-If the test suite passes, you'll be ready to run the app in a local server:
-
-```
-$ rails server
-```
-
-Start the dev server to keep Tailwind settings up to date:
-
-```
-$ ./bin/dev
-```
-
-
-## Troubleshooting Postgres on Local
-
-If you get this error message:
-`psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: No such file or directory`
-you can try this:
-
- ```bash
-$ rm /usr/local/var/postgres/postmaster.pid
-
-$ brew services restart postgresql
+```bash
+# Logs
+docker compose logs -f web
+# Console
+docker compose exec web bin/rails console
+# Setup smoke test (registration, example data, skills, dashboard)
+docker compose exec -e RAILS_ENV=test web bundle exec rspec spec/requests/local_setup_spec.rb
+# Full legacy suites (currently contain stale fixtures and scaffold specs)
+docker compose exec -e RAILS_ENV=test web bin/rails db:prepare
+docker compose exec web bin/rails test
+docker compose exec -e RAILS_ENV=test web bundle exec rspec
+# Rebuild CSS automatically while editing
+docker compose --profile watch up -d css
+# Stop (database data is retained)
+docker compose down
 ```
 
-[From Stack Overflow](https://stackoverflow.com/questions/69754628/psql-error-connection-to-server-on-socket-tmp-s-pgsql-5432-failed-no-such)
+Source files are mounted into the Rails container, so edits reload normally.
+Rebuild with `docker compose up -d --build web` after changing dependencies.
+PostgreSQL is available at `127.0.0.1:5433`, user/password `skylz`/`skylz`,
+database `skylz_development`. These credentials are for local development only.
+The database lives in a Docker volume and survives container restarts.
+Set `PORT` or `POSTGRES_PORT` before the Compose command to change published ports.
+
+### Running Rails on the host instead
+
+Install Ruby 3.1.4 (the version in `.ruby-version`), Node/npm, and libpq, then:
+
+```bash
+docker compose up -d db
+bundle install
+npm ci
+bin/setup
+bin/dev
+```
+
+`config/database.yml` defaults to the Docker database. Override connections with
+`PGHOST`, `PGPORT`, `PGUSER`, and `PGPASSWORD` if needed.
 
 ## Pulling production database to local
 

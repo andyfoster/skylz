@@ -13,8 +13,8 @@ class ChatgptService
   attr_reader :api_url, :options, :model, :message
 
   def initialize(message, model = 'gpt-3.5-turbo')
-    api_key = "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"
-    # api_key = Rails.application.credentials.open_ai_key
+    api_key = ENV['OPENAI_API_KEY']
+    raise 'Set OPENAI_API_KEY to use skill generation' if api_key.to_s.strip.empty?
     @options = {
       headers: {
         'Content-Type' => 'application/json',

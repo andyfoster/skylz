@@ -1,0 +1,14 @@
+FROM ruby:3.1.4-bookworm
+
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+    build-essential libpq-dev nodejs npm \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+RUN gem install bundler -v 2.4.14 --no-document
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+EXPOSE 3000
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
