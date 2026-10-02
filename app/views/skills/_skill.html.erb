@@ -6,7 +6,26 @@
   <% if skill.reason.present? %><section class="panel detail-panel"><h2>When to use</h2><p><%= skill.reason %></p></section><% end %>
   <% if skill.notes.present? %><section class="panel detail-panel"><h2>Notes</h2><%= markdown(skill.notes) %></section><% end %>
   <% if skill.steps.present? %>
-    <section class="panel detail-panel"><h2>Steps</h2><ol class="skill-steps"><% skill.steps.lines.map(&:strip).reject(&:blank?).each do |step| %><% if step.start_with?('*') %><li class="step-heading"><%= step.sub(/^\*\s*/, '') %></li><% else %><li><button type="button" data-action="toggle#lineThrough"><%= step %></button></li><% end %><% end %></ol></section>
+    <section class="panel detail-panel">
+      <h2>Steps</h2>
+      <p class="muted step-hint">Click a step to mark it done. Click again to undo.</p>
+      <% step_number = 0 %>
+      <ul class="skill-steps">
+        <% skill.steps.lines.map(&:strip).reject(&:blank?).each do |step| %>
+          <% if step.start_with?('*') %>
+            <li class="step-heading"><%= step.sub(/^\*\s*/, '') %></li>
+          <% else %>
+            <% step_number += 1 %>
+            <li>
+              <button type="button" class="skill-step" aria-pressed="false" data-action="toggle#lineThrough">
+                <span class="step-number"><%= step_number %></span>
+                <span class="step-text"><%= step %></span>
+              </button>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </section>
   <% end %>
   <% if skill.media.present? %><section class="panel detail-panel"><h2>Resources</h2><% skill.media.lines.map(&:strip).reject(&:blank?).each do |url| %><% if url.match?(/\Ahttps?:\/\//i) %><p><%= link_to url, url, target: '_blank', rel: 'noopener noreferrer' %></p><% else %><p><%= url %></p><% end %><% end %></section><% end %>
   <div class="section-heading"><h2>Activity log</h2><%= link_to 'Log practice', new_skill_session_path(skill_id: skill.id), class: 'btn-primary' %></div>

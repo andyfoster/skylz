@@ -22,10 +22,12 @@
 .app-current-set { flex: 1; min-width: 0; overflow-wrap: anywhere; color: #656577; }
 .app-menu { position: relative; }
 .app-menu summary { cursor: pointer; font-weight: 600; padding: 8px; }
-.app-menu-panel { position: absolute; right: 0; top: 42px; z-index: 50; width: 280px; max-height: 75vh; overflow: auto; background: white; border: 1px solid #e2e4ef; border-radius: 12px; box-shadow: 0 12px 40px #25214a26; padding: 12px; }
+.app-menu-panel { position: absolute; left: 0; top: 42px; z-index: 50; width: 280px; max-width: calc(100vw - 32px); max-height: 75vh; overflow: auto; background: white; border: 1px solid #e2e4ef; border-radius: 12px; box-shadow: 0 12px 40px #25214a26; padding: 12px; }
 .app-menu-panel a, .app-menu-panel button { display: block; padding: 10px 12px; width: 100%; text-align: left; border-radius: 6px; }
 .app-menu-panel a:hover, .app-menu-panel button:hover { background: #f0effa; }
-.menu-section { padding: 16px 12px 4px; font-size: 12px; color: #656577; font-weight: 700; text-transform: uppercase; }
+.menu-group { padding: 8px 0; }
+.menu-group + .menu-group { border-top: 1px solid #ddddea; margin-top: 8px; }
+.menu-section { padding: 6px 12px; margin-bottom: 4px; font-size: 11px; letter-spacing: .08em; color: #514b79; background: #f4f3fa; border-radius: 6px; font-weight: 800; text-transform: uppercase; }
 .app-main { max-width: 1120px; margin: auto; padding: 32px 24px 72px; }
 .app-main h1 { font-family: inherit; font-size: 30px; line-height: 1.25; font-weight: 750; color: #312e81; overflow-wrap: anywhere; }
 .app-main h2 { font-size: 19px; font-weight: 650; color: #282640; }
@@ -82,10 +84,18 @@
 .detail-panel h2 { margin-bottom: 14px; }
 .tag-list { display: flex; gap: 8px; flex-wrap: wrap; }
 .tag { padding: 4px 10px; border-radius: 20px; background: #e9e7f8; font-size: 12px; }
-.skill-steps { list-style: decimal; padding-left: 24px; }
-.skill-steps li { padding: 10px 4px; }
-.skill-steps button { text-align: left; }
-.skill-steps .step-heading { list-style: none; font-weight: 700; margin-left: -24px; }
+.step-hint { margin-bottom: 16px; }
+.skill-steps { list-style: none; padding: 0; display: grid; gap: 8px; }
+.skill-step { display: flex; align-items: flex-start; gap: 14px; width: 100%; padding: 14px; text-align: left; background: #faf9ff; border: 1px solid #ddd9ef; border-radius: 10px; cursor: pointer; transition: background .15s, border-color .15s; }
+.skill-step:hover { background: #efecfb; border-color: #9c91cf; }
+.skill-step:focus-visible { outline: 3px solid #8b7bd0; outline-offset: 3px; }
+.step-number { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #e7e2f8; color: #37308c; font-size: 14px; font-weight: 750; }
+.step-text { padding-top: 4px; }
+.skill-step[aria-pressed="true"] { background: #f0f6f1; border-color: #bfd6c4; }
+.skill-step[aria-pressed="true"] .step-text { text-decoration: line-through; color: #657568; }
+.skill-step[aria-pressed="true"] .step-number { background: #d9ebdd; color: #275a3c; }
+.skill-steps .step-heading { padding: 16px 0 4px; font-weight: 750; color: #514b79; }
+.skill-steps .step-heading:first-child { padding-top: 0; }
 .back-link { display: inline-block; margin-bottom: 16px; font-size: 14px; }
 .result-count { margin: 16px 0; }
 .flash { background: #eaf6ee; color: #275a3c; border-radius: 8px; padding: 14px 18px; margin-bottom: 24px; }
@@ -107,7 +117,7 @@
   .skill-row { padding: 16px 12px; gap: 10px; }
   .section-heading { align-items: flex-start; flex-wrap: wrap; }
   .session-activities li { flex-wrap: wrap; }
-  .app-menu-panel { right: -70px; }
+  .app-menu-panel { left: 0; }
 }
 .auth-card { max-width: 480px; margin: 24px auto; }
 .auth-card h1 { margin-bottom: 12px; }

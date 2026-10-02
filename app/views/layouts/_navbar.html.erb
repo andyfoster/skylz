@@ -1,24 +1,41 @@
 <header class="app-header">
   <nav class="app-nav" aria-label="Main navigation">
-    <%= link_to 'Skylz', root_path, class: 'app-brand' %>
     <% if user_signed_in? %>
-      <span class="app-current-set"><%= active_skillset&.name || 'Choose a skillset' %></span>
       <details class="app-menu">
         <summary>Menu</summary>
         <div class="app-menu-panel">
-          <% [['Overview', root_path], ['Skills', skills_path], ['Session history', skill_sessions_path], ['Activity log', activities_path], ['Practice lists', practice_lists_path], ['Progress', dashboard_path], ['Manage skillsets', skillsets_path], ['Your account', edit_user_registration_path]].each do |label, path| %>
-            <%= link_to label, path %>
-          <% end %>
-          <% if current_user.is_admin? %><%= link_to 'Admin', rails_admin_path %><% end %>
-          <div class="menu-section">Switch skillset</div>
-          <% current_user.skillsets.order(:name).each do |skillset| %>
-            <%= link_to "#{skillset.name}#{' ✓' if active_skillset == skillset}", set_skillset_path(skillset), class: 'skillset-choice' %>
-          <% end %>
-          <%= button_to 'Sign out', destroy_user_session_path, method: :delete %>
+          <section class="menu-group" aria-label="Practice">
+            <div class="menu-section">Practice</div>
+            <% [['Overview', root_path], ['Skills', skills_path], ['Practice lists', practice_lists_path]].each do |label, path| %>
+              <%= link_to label, path %>
+            <% end %>
+          </section>
+          <section class="menu-group" aria-label="History and progress">
+            <div class="menu-section">History &amp; progress</div>
+            <% [['Session history', skill_sessions_path], ['Activity log', activities_path], ['Progress', dashboard_path]].each do |label, path| %>
+              <%= link_to label, path %>
+            <% end %>
+          </section>
+          <section class="menu-group" aria-label="Skillsets">
+            <div class="menu-section">Switch skillset</div>
+            <% current_user.skillsets.order(:name).each do |skillset| %>
+              <%= link_to "#{skillset.name}#{' ✓' if active_skillset == skillset}", set_skillset_path(skillset), class: 'skillset-choice' %>
+            <% end %>
+            <%= link_to 'Manage skillsets', skillsets_path %>
+          </section>
+          <section class="menu-group" aria-label="Account">
+            <div class="menu-section">Account</div>
+            <%= link_to 'Your account', edit_user_registration_path %>
+            <% if current_user.is_admin? %><%= link_to 'Admin', rails_admin_path %><% end %>
+            <%= button_to 'Sign out', destroy_user_session_path, method: :delete %>
+          </section>
         </div>
       </details>
+      <%= link_to 'Skylz', root_path, class: 'app-brand' %>
+      <span class="app-current-set"><%= active_skillset&.name || 'Choose a skillset' %></span>
       <%= link_to 'Log session', new_skill_session_path, class: 'btn-primary' %>
     <% else %>
+      <%= link_to 'Skylz', root_path, class: 'app-brand' %>
       <%= link_to 'Log in', new_user_session_path %>
     <% end %>
   </nav>
